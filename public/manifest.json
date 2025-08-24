@@ -1,0 +1,27 @@
+{
+  "name": "Lunexweb - Modern Web Solutions & Growth Marketing Services",
+  "short_name": "Lunexweb",
+  "description": "Professional web development and digital marketing services including React.js, Next.js, TypeScript, JavaScript, SEO optimization, social media management, and brand design",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+} 

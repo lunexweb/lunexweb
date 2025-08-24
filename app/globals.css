@@ -1,0 +1,401 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@layer base {
+  html {
+    scroll-behavior: auto; /* Disable native smooth scroll to let Lenis handle it */
+    font-size: 16px; /* Base font size for better scaling */
+  }
+  
+  body {
+    @apply bg-primary-white text-primary-black font-sans;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Ensure minimum readable font sizes */
+  p, span, div, li, a {
+    font-size: clamp(14px, 1vw, 18px);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Touch-friendly interactions */
+  @media (hover: none) and (pointer: coarse) {
+    .btn-primary,
+    .btn-secondary,
+    button,
+    a {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    
+    /* Increase touch targets */
+    .nav-link,
+    .mobile-nav-item {
+      padding: 12px 16px;
+    }
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-black to-gray-600 bg-clip-text text-transparent;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center px-4 py-3 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-primary-black text-primary-white font-semibold text-sm sm:text-base md:text-lg transition-all duration-300 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-black focus:ring-offset-2 rounded-lg;
+    min-height: 44px;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center px-4 py-3 sm:px-6 sm:py-3 md:px-8 md:py-4 border-2 border-primary-black text-primary-black font-semibold text-sm sm:text-base md:text-lg transition-all duration-300 hover:bg-primary-black hover:text-primary-white focus:outline-none focus:ring-2 focus:ring-primary-black focus:ring-offset-2 rounded-lg;
+    min-height: 44px;
+  }
+
+  .section-padding {
+    @apply py-8 sm:py-12 md:py-16 lg:py-20;
+  }
+
+  /* Enhanced Responsive Typography Classes */
+  .heading-xl {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight tracking-tight;
+    font-size: clamp(1.5rem, 5vw, 4.5rem);
+  }
+
+  .heading-lg {
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold leading-tight tracking-tight;
+    font-size: clamp(1.25rem, 4vw, 3.5rem);
+  }
+
+  .heading-md {
+    @apply text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold leading-tight tracking-tight;
+    font-size: clamp(1.125rem, 3vw, 2.5rem);
+  }
+
+  .heading-sm {
+    @apply text-base sm:text-lg md:text-xl lg:text-2xl font-semibold leading-tight tracking-tight;
+    font-size: clamp(1rem, 2.5vw, 2rem);
+  }
+
+  .text-body {
+    @apply text-sm sm:text-base md:text-lg leading-relaxed;
+    font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+  }
+
+  .text-small {
+    @apply text-xs sm:text-sm leading-relaxed;
+    font-size: clamp(0.75rem, 1vw, 0.875rem);
+  }
+
+  /* Hero Title - Main H1 heading */
+  .hero-title {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight tracking-tight;
+    font-size: clamp(2.5rem, 9vw, 8.5rem);
+  }
+
+  .hero-subtitle {
+    @apply text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl leading-relaxed;
+    font-size: clamp(0.875rem, 2vw, 1.5rem);
+    line-height: 1.6;
+  }
+
+  /* Footer Text */
+  .footer-text {
+    @apply text-xs sm:text-sm leading-relaxed;
+    font-size: clamp(0.75rem, 0.9vw, 0.875rem);
+    line-height: 1.5;
+  }
+
+  /* Mobile-first responsive utilities */
+  .text-responsive-xs {
+    font-size: clamp(0.75rem, 0.8vw, 0.875rem);
+  }
+
+  .text-responsive-sm {
+    font-size: clamp(0.875rem, 1vw, 1rem);
+  }
+
+  .text-responsive-base {
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+  }
+
+  .text-responsive-lg {
+    font-size: clamp(1.125rem, 1.5vw, 1.25rem);
+  }
+
+  .text-responsive-xl {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+  }
+
+  .text-responsive-2xl {
+    font-size: clamp(1.5rem, 2.5vw, 1.875rem);
+  }
+
+  .text-responsive-3xl {
+    font-size: clamp(1.875rem, 3vw, 2.25rem);
+  }
+
+  .text-responsive-4xl {
+    font-size: clamp(2.25rem, 4vw, 3rem);
+  }
+
+  .text-responsive-5xl {
+    font-size: clamp(3rem, 5vw, 3.75rem);
+  }
+
+  .text-responsive-6xl {
+    font-size: clamp(3.75rem, 6vw, 4.5rem);
+  }
+
+  /* Enhanced responsive spacing */
+  .space-responsive-xs {
+    @apply space-y-2 sm:space-y-3 md:space-y-4;
+  }
+
+  .space-responsive-sm {
+    @apply space-y-3 sm:space-y-4 md:space-y-6;
+  }
+
+  .space-responsive-md {
+    @apply space-y-4 sm:space-y-6 md:space-y-8;
+  }
+
+  .space-responsive-lg {
+    @apply space-y-6 sm:space-y-8 md:space-y-12;
+  }
+
+  .space-responsive-xl {
+    @apply space-y-8 sm:space-y-12 md:space-y-16;
+  }
+
+  /* Responsive padding utilities */
+  .p-responsive-sm {
+    @apply p-3 sm:p-4 md:p-6;
+  }
+
+  .p-responsive-md {
+    @apply p-4 sm:p-6 md:p-8;
+  }
+
+  .p-responsive-lg {
+    @apply p-6 sm:p-8 md:p-12;
+  }
+
+  /* Responsive margin utilities */
+  .m-responsive-sm {
+    @apply m-3 sm:m-4 md:m-6;
+  }
+
+  .m-responsive-md {
+    @apply m-4 sm:m-6 md:m-8;
+  }
+
+  .m-responsive-lg {
+    @apply m-6 sm:m-8 md:m-12;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Enhanced Mobile Bottom Navigation Styles */
+  @media (max-width: 767px) {
+    .mobile-bottom-nav {
+      position: fixed !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      z-index: 9999 !important;
+      background: white !important;
+      border-top: 2px solid #d1d5db !important;
+      box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+      height: auto !important;
+      min-height: 70px !important;
+      display: block !important;
+      width: 100% !important;
+      transform: none !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    
+    /* Ensure content doesn't get hidden behind mobile nav */
+    body {
+      padding-bottom: 90px !important;
+    }
+    
+    main {
+      padding-bottom: 90px !important;
+    }
+    
+    /* Ensure the navigation is always on top */
+    .mobile-bottom-nav * {
+      pointer-events: auto !important;
+    }
+    
+    /* Force mobile nav to be visible */
+    .mobile-bottom-nav,
+    .mobile-bottom-nav nav {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+
+    /* Improve touch targets on mobile */
+    .mobile-nav-item {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 8px 12px;
+    }
+
+    /* Better spacing for mobile cards */
+    .mobile-card {
+      @apply p-4 sm:p-6;
+      margin-bottom: 1rem;
+    }
+
+    /* Mobile-optimized grid */
+    .mobile-grid {
+      @apply grid grid-cols-1 gap-4 sm:gap-6;
+    }
+
+    /* Mobile-optimized flex */
+    .mobile-flex {
+      @apply flex flex-col sm:flex-row;
+    }
+
+    /* Mobile text sizing */
+    .mobile-text-sm {
+      font-size: clamp(0.75rem, 3.5vw, 0.875rem);
+    }
+
+    .mobile-text-base {
+      font-size: clamp(0.875rem, 4vw, 1rem);
+    }
+
+    .mobile-text-lg {
+      font-size: clamp(1rem, 4.5vw, 1.125rem);
+    }
+
+    .mobile-text-xl {
+      font-size: clamp(1.125rem, 5vw, 1.25rem);
+    }
+  }
+
+  /* Ensure minimum contrast and readability */
+  .text-readable {
+    @apply text-gray-900;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+
+  .text-readable-light {
+    @apply text-gray-100;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Optimize for different screen densities */
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .text-readable {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
+
+  /* Ensure text is readable on small screens */
+  @media (max-width: 640px) {
+    .text-readable {
+      font-weight: 500;
+    }
+  }
+
+  /* Enhanced responsive breakpoints */
+  @media (max-width: 480px) {
+    .container-custom {
+      @apply px-3;
+    }
+    
+    .section-padding {
+      @apply py-6;
+    }
+  }
+
+  @media (min-width: 481px) and (max-width: 768px) {
+    .container-custom {
+      @apply px-4;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .container-custom {
+      @apply px-6;
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .container-custom {
+      @apply px-8;
+    }
+  }
+
+  /* Landscape orientation adjustments */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .section-padding {
+      @apply py-8;
+    }
+    
+    .hero-title {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+    }
+    
+    .hero-subtitle {
+      font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+    }
+  }
+
+  /* High DPI displays */
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .text-readable,
+    .text-readable-light {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
+} 
