@@ -45,6 +45,11 @@ export const metadata: Metadata = {
     apple: '/Favicon.png',
   },
   manifest: '/manifest.json',
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -52,11 +57,20 @@ export const metadata: Metadata = {
     title: 'Lunexweb – Modern Web Solutions & Growth Marketing',
     description: 'Transform your business with cutting-edge web applications and strategic marketing solutions. We deliver modern technology and comprehensive digital services.',
     siteName: 'Lunexweb',
+    images: [
+      {
+        url: 'https://lunexweb.com/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Lunexweb - Modern Web Solutions & Growth Marketing',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Lunexweb – Modern Web Solutions & Growth Marketing',
     description: 'Transform your business with cutting-edge web applications and strategic marketing solutions. We deliver modern technology and comprehensive digital services.',
+    images: ['https://lunexweb.com/og-image.png'],
   },
   robots: {
     index: true,
@@ -81,6 +95,39 @@ export const metadata: Metadata = {
           "@type": "SearchAction",
           "target": "https://lunexweb.com/search?q={search_term_string}",
           "query-input": "required name=search_term_string"
+        },
+        "mainEntity": {
+          "@type": "ItemList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "url": "https://lunexweb.com",
+              "description": "Transform your business with modern web solutions and growth marketing"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Our Services",
+              "url": "https://lunexweb.com/services",
+              "description": "Web development, SEO optimization, digital marketing, and brand design services"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "About",
+              "url": "https://lunexweb.com/about",
+              "description": "Learn about Lunexweb's expertise in modern technology and business growth"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Contact",
+              "url": "https://lunexweb.com/contact",
+              "description": "Get in touch for your web development and digital marketing projects"
+            }
+          ]
         }
       },
       {
@@ -89,6 +136,7 @@ export const metadata: Metadata = {
         "name": "Lunexweb",
         "url": "https://lunexweb.com",
         "logo": "https://lunexweb.com/Favicon.png",
+        "image": "https://lunexweb.com/og-image.png",
         "description": "Modern web solutions and growth marketing services",
         "foundingDate": "2020",
         "address": {
@@ -137,7 +185,9 @@ export const metadata: Metadata = {
           ]
         }
       }
-    ])
+    ]),
+    'msapplication-TileColor': '#000000',
+    'theme-color': '#000000',
   }
 }
 

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, Instagram, ArrowUp } from 'lucide-react'
 import { useLenis } from './SmoothScrollProvider'
+import Image from 'next/image'
 
 const navigation = {
   main: [
@@ -63,7 +64,15 @@ export default function Footer() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <h3 className="heading-md mb-3 sm:mb-4 md:mb-6">Lunexweb</h3>
+                <div className="mb-4 sm:mb-6">
+                  <Image
+                    src="/logo1.svg"
+                    alt="Lunexweb Logo"
+                    width={140}
+                    height={56}
+                    className="filter brightness-0 invert"
+                  />
+                </div>
                 <p className="text-body-sm text-gray-300 mb-4 sm:mb-6 md:mb-8 max-w-md">
                   We create powerful online experiences and drive business growth through innovative technology. 
                   From modern applications to strategic marketing, we help businesses thrive in the digital landscape.

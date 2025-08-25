@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
+import Image from 'next/image'
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -43,24 +44,17 @@ export default function Header() {
               whileHover={{ scale: 1.05, rotate: 1 }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2, type: "spring", stiffness: 300 }}
-              className={`text-xl sm:text-2xl font-bold cursor-pointer tracking-tight relative ${
-                isScrolled ? 'text-black' : 'text-white drop-shadow-lg'
-              }`}
+              className="relative"
             >
-              <motion.span
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              Lunexweb
-              </motion.span>
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className={`absolute -bottom-1 left-0 right-0 h-0.5 ${
-                  isScrolled ? 'bg-black' : 'bg-white'
+              <Image
+                src="/logo1.svg"
+                alt="Lunexweb Logo"
+                width={120}
+                height={48}
+                className={`transition-all duration-300 ${
+                  isScrolled ? 'filter brightness-0' : 'filter brightness-0 invert'
                 }`}
+                priority
               />
             </motion.div>
           </Link>

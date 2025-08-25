@@ -10,6 +10,7 @@ import { useState, useEffect } from 'react'
 export default function Hero() {
   const lenis = useLenis()
   const [currentTime, setCurrentTime] = useState('')
+  const [isClient, setIsClient] = useState(false)
   const { scrollY } = useScroll()
   
   // Transform scroll progress to horizontal movement
@@ -17,6 +18,8 @@ export default function Hero() {
   const subtitleX = useTransform(scrollY, [0, 1000], [0, -150])
 
   useEffect(() => {
+    setIsClient(true)
+    
     const updateTime = () => {
       const now = new Date()
       const timeString = now.toLocaleTimeString('en-US', {
@@ -73,37 +76,37 @@ export default function Hero() {
       {/* Content */}
       <div className="container-custom text-center relative z-10 px-4 sm:px-6 flex flex-col justify-center h-full">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={isClient ? { opacity: 0, y: 50 } : { opacity: 1, y: 0 }}
+          animate={isClient ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="max-w-5xl mx-auto"
         >
           {/* Main Heading */}
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={isClient ? { opacity: 0, y: 30 } : { opacity: 1, y: 0 }}
+            animate={isClient ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            style={{ x: titleX }}
+            style={isClient ? { x: titleX } : {}}
             className="hero-title mb-4 sm:mb-6 md:mb-8 text-readable-light whitespace-nowrap overflow-hidden"
           >
             <motion.span
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={isClient ? { opacity: 0, x: -50 } : { opacity: 1, x: 0 }}
+              animate={isClient ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               Lunexweb–
             </motion.span>{' '}
             <motion.span
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={isClient ? { opacity: 0, x: 50 } : { opacity: 1, x: 0 }}
+              animate={isClient ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-gradient"
             >
               Modern
             </motion.span>{' '}
             <motion.span
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={isClient ? { opacity: 0, x: -30 } : { opacity: 1, x: 0 }}
+              animate={isClient ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
               Solutions & Growth Marketing
@@ -112,61 +115,43 @@ export default function Hero() {
 
           {/* Subtitle */}
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            style={{ x: subtitleX }}
+            initial={isClient ? { opacity: 0, y: 30 } : { opacity: 1, y: 0 }}
+            animate={isClient ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            style={isClient ? { x: subtitleX } : {}}
             className="hero-subtitle text-gray-200 mb-8 sm:mb-12 max-w-3xl mx-auto text-balance px-2 sm:px-0"
           >
-            We build powerful online experiences and drive business growth through cutting-edge technology. 
-            From modern applications and search optimization to social media campaigns and brand identity, 
-            we transform ideas into results that elevate your business. Based in Johannesburg, South Africa, 
-            we serve clients worldwide with local expertise and global reach, from South African businesses 
-            to international companies across Africa, Europe, North America, and beyond.
+            We build powerful online experiences and drive business growth through cutting-edge technology. From modern applications and search optimization to social media campaigns and brand identity, we transform ideas into results that elevate your business. Based in Johannesburg, South Africa, we serve clients worldwide with local expertise and global reach, from South African businesses to international companies across Africa, Europe, North America, and beyond.
           </motion.p>
-
-
 
           {/* CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            initial={isClient ? { opacity: 0, y: 30 } : { opacity: 1, y: 0 }}
+            animate={isClient ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
             className="mb-8 sm:mb-12 flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center"
           >
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
+            <div tabIndex={0}>
               <Link href="/contact" className="btn-primary group">
                 <span className="btn-text">Start Your Project</span>
-                <ArrowRight 
-                  size={20} 
-                  className="ml-2 transition-transform duration-300 group-hover:translate-x-1" 
-                />
+                <ArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
+            </div>
+            <div tabIndex={0}>
               <Link href="/services" className="btn-secondary group">
                 <span className="btn-text">View Our Services</span>
-                <ArrowRight 
-                  size={20} 
-                  className="ml-2 transition-transform duration-300 group-hover:translate-x-1" 
-                />
+                <ArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
-            </motion.div>
+            </div>
           </motion.div>
         </motion.div>
       </div>
 
-      {/* Local Time Display */}
+      {/* Location and Time */}
       <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, delay: 1.2 }}
+        initial={isClient ? { opacity: 0, x: -30 } : { opacity: 1, x: 0 }}
+        animate={isClient ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, delay: 0.8 }}
         className="absolute bottom-24 sm:bottom-8 left-4 sm:left-8 z-10"
       >
         <div className="text-white/80 text-sm font-medium">
@@ -176,20 +161,20 @@ export default function Hero() {
 
       {/* Scroll Indicator */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1 }}
+        initial={isClient ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }}
+        animate={isClient ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.9 }}
         className="absolute bottom-36 sm:bottom-20 left-1/2 transform -translate-x-1/2 cursor-pointer z-10"
         onClick={scrollToNextSection}
       >
         <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          animate={isClient ? { y: [0, 10, 0] } : {}}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           className="w-6 h-10 border-2 border-white rounded-full flex justify-center hover:border-gray-300 transition-colors"
         >
           <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
+            animate={isClient ? { y: [0, 10, 0] } : {}}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
             className="w-1 h-3 bg-white rounded-full mt-2"
           />
         </motion.div>
