@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
-import Image from 'next/image'
+import Logo from './Logo'
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -39,25 +39,11 @@ export default function Header() {
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <motion.div
-              whileHover={{ scale: 1.05, rotate: 1 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.2, type: "spring", stiffness: 300 }}
-              className="relative"
-            >
-              <Image
-                src="/logo1.svg"
-                alt="Lunexweb Logo"
-                width={120}
-                height={48}
-                className={`transition-all duration-300 ${
-                  isScrolled ? 'filter brightness-0' : 'filter brightness-0 invert'
-                }`}
-                priority
-              />
-            </motion.div>
-          </Link>
+          <Logo 
+            variant={isScrolled ? 'dark' : 'light'} 
+            size="md"
+            className="flex items-center"
+          />
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8 lg:space-x-12">

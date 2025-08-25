@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, Instagram, ArrowUp } from 'lucide-react'
 import { useLenis } from './SmoothScrollProvider'
-import Image from 'next/image'
+import Logo from './Logo'
 
 const navigation = {
   main: [
@@ -65,12 +65,10 @@ export default function Footer() {
                 transition={{ duration: 0.6 }}
               >
                 <div className="mb-4 sm:mb-6">
-                  <Image
-                    src="/logo1.svg"
-                    alt="Lunexweb Logo"
-                    width={140}
-                    height={56}
-                    className="filter brightness-0 invert"
+                  <Logo 
+                    variant="light" 
+                    size="lg"
+                    className="text-white"
                   />
                 </div>
                 <p className="text-body-sm text-gray-300 mb-4 sm:mb-6 md:mb-8 max-w-md">
