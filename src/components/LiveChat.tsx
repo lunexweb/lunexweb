@@ -12,7 +12,7 @@ export const LiveChat = () => {
     <>
       {/* WhatsApp Button */}
       <motion.div
-        className="fixed bottom-6 right-6 z-[60]"
+        className="floating-button-right"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.5, type: "spring", stiffness: 300 }}
