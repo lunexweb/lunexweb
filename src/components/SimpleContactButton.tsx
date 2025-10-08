@@ -18,7 +18,7 @@ export const SimpleContactButton = () => {
   };
 
   return (
-    <div className="fixed bottom-6 left-6 z-[9998] contact-button" style={{ position: 'fixed' }}>
+    <div className="fixed bottom-6 left-6 z-[9998]">
       <motion.div
         className="flex flex-col items-start space-y-3"
         initial={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -41,7 +41,7 @@ export const SimpleContactButton = () => {
               >
                 <button
                   onClick={handleEmailClick}
-                  className="w-12 h-12 rounded-full border-2 border-blue-300 hover:border-blue-400 text-blue-600 hover:text-blue-700 transition-all duration-200 flex items-center justify-center"
+                  className="w-12 h-12 rounded-full border-2 border-blue-300 hover:border-blue-400 text-blue-600 hover:text-blue-700 transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl backdrop-blur-sm bg-white/90"
                   title="Send Email"
                 >
                   <Mail className="w-5 h-5" />
@@ -55,7 +55,7 @@ export const SimpleContactButton = () => {
               >
                 <button
                   onClick={handlePhoneClick}
-                  className="w-12 h-12 rounded-full border-2 border-green-300 hover:border-green-400 text-green-600 hover:text-green-700 transition-all duration-200 flex items-center justify-center"
+                  className="w-12 h-12 rounded-full border-2 border-green-300 hover:border-green-400 text-green-600 hover:text-green-700 transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl backdrop-blur-sm bg-white/90"
                   title="Call Now"
                 >
                   <Phone className="w-5 h-5" />
@@ -72,7 +72,7 @@ export const SimpleContactButton = () => {
         >
           <button
             onClick={toggleExpanded}
-            className="w-12 h-12 rounded-full border-2 border-gray-300 hover:border-gray-400 text-gray-600 hover:text-gray-700 transition-all duration-200 flex items-center justify-center"
+            className="w-12 h-12 rounded-full border-2 border-gray-300 hover:border-gray-400 text-gray-600 hover:text-gray-700 transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl backdrop-blur-sm bg-white/90"
             title="Contact Options"
           >
             <Plus className="w-5 h-5" />

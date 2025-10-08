@@ -12,15 +12,14 @@ export const LiveChat = () => {
     <>
       {/* WhatsApp Button */}
       <motion.div
-        className="fixed bottom-6 right-6 z-[9999] whatsapp-button"
+        className="fixed bottom-6 right-6 z-[9999]"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.5, type: "spring", stiffness: 300 }}
-        style={{ position: 'fixed' }}
       >
         <div
           onClick={handleWhatsAppClick}
-          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-green-600 hover:bg-green-700 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer flex items-center justify-center"
+          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-green-600 hover:bg-green-700 shadow-2xl hover:shadow-2xl transition-all duration-300 cursor-pointer flex items-center justify-center backdrop-blur-sm"
           title="Chat with us on WhatsApp"
         >
           <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" viewBox="0 0 24 24" fill="currentColor">
