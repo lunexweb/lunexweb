@@ -873,14 +873,14 @@ const CEODashboard: React.FC = () => {
                              </div>
                            
                            {/* Action Buttons */}
-                           <div className="flex items-center space-x-1 sm:space-x-2">
+                           <div className="flex items-center space-x-0.5 sm:space-x-2 overflow-x-auto">
                              {/* Quick Actions */}
                              {lead.phone && (
                                <Button 
                                  size="sm" 
                                  variant="outline"
                                  onClick={() => window.open(`tel:${lead.phone}`, '_self')}
-                                 className="bg-white hover:bg-blue-50 border-slate-300 hover:border-blue-400 text-slate-700 hover:text-blue-700 p-2 sm:p-2"
+                                 className="bg-white hover:bg-blue-50 border-slate-300 hover:border-blue-400 text-slate-700 hover:text-blue-700 p-1.5 sm:p-2 flex-shrink-0"
                                  title="Call"
                                >
                                  <Phone className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -890,7 +890,7 @@ const CEODashboard: React.FC = () => {
                                size="sm" 
                                variant="outline"
                                onClick={() => window.open(`mailto:${lead.email}`, '_self')}
-                               className="bg-white hover:bg-purple-50 border-slate-300 hover:border-purple-400 text-slate-700 hover:text-purple-700 p-2 sm:p-2"
+                               className="bg-white hover:bg-purple-50 border-slate-300 hover:border-purple-400 text-slate-700 hover:text-purple-700 p-1.5 sm:p-2 flex-shrink-0"
                                title="Email"
                              >
                                <Mail className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -900,7 +900,7 @@ const CEODashboard: React.FC = () => {
                                  size="sm" 
                                  variant="outline"
                                  onClick={() => window.open(`https://wa.me/${lead.phone}?text=${encodeURIComponent(`Hi ${lead.name}, I saw your inquiry on Lunexweb. How can I help you with your ${lead.service_type} project?`)}`, '_blank')}
-                                 className="bg-white hover:bg-green-50 border-slate-300 hover:border-green-400 text-slate-700 hover:text-green-700 p-2 sm:p-2"
+                                 className="bg-white hover:bg-green-50 border-slate-300 hover:border-green-400 text-slate-700 hover:text-green-700 p-1.5 sm:p-2 flex-shrink-0"
                                  title="WhatsApp"
                                >
                                  <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -908,11 +908,11 @@ const CEODashboard: React.FC = () => {
                              )}
                              
                              {/* Management Actions */}
-                             <div className="flex items-center space-x-1">
+                             <div className="flex items-center space-x-0.5 sm:space-x-1">
                                <Button 
                                  size="sm" 
                                  onClick={() => handleViewLead(lead)}
-                                 className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg p-2 sm:p-2"
+                                 className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg p-1.5 sm:p-2 flex-shrink-0"
                                  title="View Details"
                                >
                                  <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -921,7 +921,7 @@ const CEODashboard: React.FC = () => {
                                  size="sm" 
                                  variant="outline"
                                  onClick={() => startEditingLead(lead)}
-                                 className="bg-white hover:bg-yellow-50 border-slate-300 hover:border-yellow-400 text-slate-700 hover:text-yellow-700 p-2 sm:p-2"
+                                 className="bg-white hover:bg-yellow-50 border-slate-300 hover:border-yellow-400 text-slate-700 hover:text-yellow-700 p-1.5 sm:p-2 flex-shrink-0"
                                  title="Edit"
                                >
                                  <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -930,7 +930,7 @@ const CEODashboard: React.FC = () => {
                                  size="sm" 
                                  variant="outline"
                                  onClick={() => copyLeadInfo(lead)}
-                                 className="bg-white hover:bg-indigo-50 border-slate-300 hover:border-indigo-400 text-slate-700 hover:text-indigo-700 p-2 sm:p-2"
+                                 className="bg-white hover:bg-indigo-50 border-slate-300 hover:border-indigo-400 text-slate-700 hover:text-indigo-700 p-1.5 sm:p-2 flex-shrink-0"
                                  title="Copy Info"
                                >
                                  <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -939,7 +939,7 @@ const CEODashboard: React.FC = () => {
                                  size="sm" 
                                  variant="outline"
                                  onClick={() => toggleLeadExpansion(lead.id)}
-                                 className="bg-white hover:bg-slate-50 border-slate-300 hover:border-slate-400 text-slate-700 hover:text-slate-800 p-2 sm:p-2"
+                                 className="bg-white hover:bg-slate-50 border-slate-300 hover:border-slate-400 text-slate-700 hover:text-slate-800 p-1.5 sm:p-2 flex-shrink-0"
                                  title="Expand/Collapse"
                                >
                                  {expandedLead === lead.id ? <ChevronUp className="w-3 h-3 sm:w-4 sm:h-4" /> : <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4" />}
