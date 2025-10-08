@@ -8,23 +8,15 @@ html {
   overflow-x: hidden;
 }
 
-/* Ensure floating buttons always stick */
-.floating-button {
+/* Ensure floating buttons stay fixed */
+.fixed {
   position: fixed !important;
-  z-index: 9999 !important;
 }
 
-.floating-button-left {
+/* WhatsApp and Contact buttons - always visible */
+.whatsapp-button,
+.contact-button {
   position: fixed !important;
-  bottom: 24px !important;
-  left: 24px !important;
-  z-index: 9998 !important;
-}
-
-.floating-button-right {
-  position: fixed !important;
-  bottom: 24px !important;
-  right: 24px !important;
   z-index: 9999 !important;
 }
 

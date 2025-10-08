@@ -18,7 +18,7 @@ export const SimpleContactButton = () => {
   };
 
   return (
-    <div className="floating-button-left">
+    <div className="fixed bottom-6 left-6 z-[9998] contact-button" style={{ position: 'fixed' }}>
       <motion.div
         className="flex flex-col items-start space-y-3"
         initial={{ opacity: 0, scale: 0.8, y: 20 }}
