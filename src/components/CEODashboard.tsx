@@ -839,70 +839,71 @@ const CEODashboard: React.FC = () => {
                        className="bg-gradient-to-r from-white to-slate-50/50 border border-slate-200 rounded-xl hover:shadow-lg hover:border-green-200 transition-all duration-300"
                      >
                        {/* Lead Header */}
-                       <div className="flex items-center justify-between p-5">
-                         <div className="flex items-center space-x-4">
-                           <div className="flex-shrink-0">
-                             <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
-                               {lead.name.charAt(0).toUpperCase()}
+                       <div className="p-4 sm:p-5">
+                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                           <div className="flex items-center space-x-3 sm:space-x-4">
+                             <div className="flex-shrink-0">
+                               <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-base sm:text-lg shadow-lg">
+                                 {lead.name.charAt(0).toUpperCase()}
+                               </div>
                              </div>
-                           </div>
-                           <div>
-                             <h4 className="font-bold text-slate-900 text-lg">{lead.name}</h4>
-                             <p className="text-sm text-slate-600 font-medium">{lead.company || lead.email}</p>
-                             <div className="flex items-center space-x-2 mt-2">
-                               <Badge className={utils.getStatusColor(lead.status)}>
-                                 {lead.status}
-                               </Badge>
-                               <Badge className={utils.getPriorityColor(lead.priority)}>
-                                 {lead.priority}
-                               </Badge>
-                                <span className="text-xs text-slate-700 bg-slate-100 px-2 py-1 rounded font-medium">
-                                  Score: {lead.lead_score}
-                                </span>
+                             <div className="min-w-0 flex-1">
+                               <h4 className="font-bold text-slate-900 text-base sm:text-lg truncate">{lead.name}</h4>
+                               <p className="text-xs sm:text-sm text-slate-600 font-medium truncate">{lead.company || lead.email}</p>
+                               <div className="flex flex-wrap items-center gap-1 sm:gap-2 mt-2">
+                                 <Badge className={`${utils.getStatusColor(lead.status)} text-xs`}>
+                                   {lead.status}
+                                 </Badge>
+                                 <Badge className={`${utils.getPriorityColor(lead.priority)} text-xs`}>
+                                   {lead.priority}
+                                 </Badge>
+                                 <span className="text-xs text-slate-700 bg-slate-100 px-2 py-1 rounded font-medium">
+                                   Score: {lead.lead_score}
+                                 </span>
+                               </div>
                              </div>
-                           </div>
-                         </div>
-                         
-                         <div className="flex items-center space-x-3">
-                           <div className="text-right">
-                             <p className="text-sm text-slate-700 font-medium">{lead.service_type}</p>
-                              <p className="text-xs text-slate-700 bg-slate-100 px-2 py-1 rounded font-medium">
-                                {formatTimeAgo(lead.created_at)}
-                              </p>
                            </div>
                            
+                           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                             <div className="text-left sm:text-right">
+                               <p className="text-xs sm:text-sm text-slate-700 font-medium truncate">{lead.service_type}</p>
+                               <p className="text-xs text-slate-700 bg-slate-100 px-2 py-1 rounded font-medium inline-block">
+                                 {formatTimeAgo(lead.created_at)}
+                               </p>
+                             </div>
+                           
                            {/* Action Buttons */}
-                           <div className="flex items-center space-x-2">
+                           <div className="flex items-center space-x-1 sm:space-x-2">
                              {/* Quick Actions */}
                              {lead.phone && (
                                <Button 
                                  size="sm" 
                                  variant="outline"
                                  onClick={() => window.open(`tel:${lead.phone}`, '_self')}
-                                 className="bg-white hover:bg-blue-50 border-slate-300 hover:border-blue-400 text-slate-700 hover:text-blue-700"
+                                 className="bg-white hover:bg-blue-50 border-slate-300 hover:border-blue-400 text-slate-700 hover:text-blue-700 p-2 sm:p-2"
                                  title="Call"
                                >
-                                 <Phone className="w-4 h-4" />
+                                 <Phone className="w-3 h-3 sm:w-4 sm:h-4" />
                                </Button>
                              )}
                              <Button 
                                size="sm" 
                                variant="outline"
                                onClick={() => window.open(`mailto:${lead.email}`, '_self')}
-                               className="bg-white hover:bg-purple-50 border-slate-300 hover:border-purple-400 text-slate-700 hover:text-purple-700"
+                               className="bg-white hover:bg-purple-50 border-slate-300 hover:border-purple-400 text-slate-700 hover:text-purple-700 p-2 sm:p-2"
                                title="Email"
                              >
-                               <Mail className="w-4 h-4" />
+                               <Mail className="w-3 h-3 sm:w-4 sm:h-4" />
                              </Button>
                              {lead.phone && (
                                <Button 
                                  size="sm" 
                                  variant="outline"
                                  onClick={() => window.open(`https://wa.me/${lead.phone}?text=${encodeURIComponent(`Hi ${lead.name}, I saw your inquiry on Lunexweb. How can I help you with your ${lead.service_type} project?`)}`, '_blank')}
-                                 className="bg-white hover:bg-green-50 border-slate-300 hover:border-green-400 text-slate-700 hover:text-green-700"
+                                 className="bg-white hover:bg-green-50 border-slate-300 hover:border-green-400 text-slate-700 hover:text-green-700 p-2 sm:p-2"
                                  title="WhatsApp"
                                >
-                                 <MessageCircle className="w-4 h-4" />
+                                 <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4" />
                                </Button>
                              )}
                              
@@ -911,37 +912,37 @@ const CEODashboard: React.FC = () => {
                                <Button 
                                  size="sm" 
                                  onClick={() => handleViewLead(lead)}
-                                 className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg"
+                                 className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg p-2 sm:p-2"
                                  title="View Details"
                                >
-                                 <Eye className="w-4 h-4" />
+                                 <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
                                </Button>
                                <Button 
                                  size="sm" 
                                  variant="outline"
                                  onClick={() => startEditingLead(lead)}
-                                 className="bg-white hover:bg-yellow-50 border-slate-300 hover:border-yellow-400 text-slate-700 hover:text-yellow-700"
+                                 className="bg-white hover:bg-yellow-50 border-slate-300 hover:border-yellow-400 text-slate-700 hover:text-yellow-700 p-2 sm:p-2"
                                  title="Edit"
                                >
-                                 <Edit className="w-4 h-4" />
+                                 <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
                                </Button>
                                <Button 
                                  size="sm" 
                                  variant="outline"
                                  onClick={() => copyLeadInfo(lead)}
-                                 className="bg-white hover:bg-indigo-50 border-slate-300 hover:border-indigo-400 text-slate-700 hover:text-indigo-700"
+                                 className="bg-white hover:bg-indigo-50 border-slate-300 hover:border-indigo-400 text-slate-700 hover:text-indigo-700 p-2 sm:p-2"
                                  title="Copy Info"
                                >
-                                 <Copy className="w-4 h-4" />
+                                 <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
                                </Button>
                                <Button 
                                  size="sm" 
                                  variant="outline"
                                  onClick={() => toggleLeadExpansion(lead.id)}
-                                 className="bg-white hover:bg-slate-50 border-slate-300 hover:border-slate-400 text-slate-700 hover:text-slate-800"
+                                 className="bg-white hover:bg-slate-50 border-slate-300 hover:border-slate-400 text-slate-700 hover:text-slate-800 p-2 sm:p-2"
                                  title="Expand/Collapse"
                                >
-                                 {expandedLead === lead.id ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                                 {expandedLead === lead.id ? <ChevronUp className="w-3 h-3 sm:w-4 sm:h-4" /> : <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4" />}
                                </Button>
                              </div>
                            </div>
