@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import { LiveChat } from "@/components/LiveChat";
 import { SimpleContactButton } from "@/components/SimpleContactButton";
 import { ExitIntentPopup } from "@/components/ExitIntentPopup";
 import { SmartContactPrompt } from "@/components/SmartContactPrompt";
@@ -401,7 +400,6 @@ const App = () => {
             } />
           </Routes>
         </AnimatePresence>
-          <LiveChat />
           <SimpleContactButton />
           <ExitIntentPopup />
           <SmartContactPrompt onContactClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} />
