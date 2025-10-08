@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
 export const LiveChat = () => {
