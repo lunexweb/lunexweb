@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Phone, Mail, Plus } from "lucide-react";
+import { Phone, Mail, Plus, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const FloatingContact = () => {
@@ -55,7 +55,8 @@ export const FloatingContact = () => {
                   >
                     <Button
                       size="sm"
-                      className="w-12 h-12 rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-lg"
+                      variant="ghost"
+                      className="w-12 h-12 rounded-full hover:bg-gray-100 text-gray-600 hover:text-gray-800 p-0"
                       onClick={handleEmailClick}
                       title="Send Email"
                     >
@@ -70,7 +71,8 @@ export const FloatingContact = () => {
                   >
                     <Button
                       size="sm"
-                      className="w-12 h-12 rounded-full bg-purple-600 hover:bg-purple-700 text-white shadow-lg"
+                      variant="ghost"
+                      className="w-12 h-12 rounded-full hover:bg-gray-100 text-gray-600 hover:text-gray-800 p-0"
                       onClick={handlePhoneClick}
                       title="Call Now"
                     >
@@ -88,11 +90,15 @@ export const FloatingContact = () => {
             >
               <Button
                 size="lg"
-                className="w-14 h-14 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-xl font-semibold"
+                variant="ghost"
+                className="w-14 h-14 rounded-full hover:bg-gray-100 text-gray-600 hover:text-gray-800 p-0"
                 onClick={toggleExpanded}
-                title="Contact Options"
               >
-                <Plus className="w-6 h-6" />
+                {isExpanded ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Plus className="w-6 h-6" />
+                )}
               </Button>
             </motion.div>
           </motion.div>
