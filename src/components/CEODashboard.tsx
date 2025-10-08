@@ -841,7 +841,7 @@ const CEODashboard: React.FC = () => {
                        {/* Lead Header */}
                        <div className="p-4 sm:p-5">
                          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                           <div className="flex items-center space-x-3 sm:space-x-4">
+                           <div className="flex items-center space-x-3 sm:space-x-4 min-w-0 flex-1">
                              <div className="flex-shrink-0">
                                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-base sm:text-lg shadow-lg">
                                  {lead.name.charAt(0).toUpperCase()}
