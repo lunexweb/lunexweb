@@ -493,7 +493,7 @@ const CEODashboard: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Key Metrics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <motion.div
@@ -719,47 +719,49 @@ const CEODashboard: React.FC = () => {
              </CardHeader>
              
              {/* View Mode Toggle */}
-             <div className="px-6 pb-4">
+             <div className="px-4 sm:px-6 pb-4">
                <div className="flex items-center justify-between">
-                 <div className="flex items-center bg-slate-100 rounded-lg p-1">
-                   <Button
-                     variant={viewMode === 'queue' ? 'default' : 'ghost'}
-                     size="sm"
-                     onClick={() => setViewMode('queue')}
-                     className={viewMode === 'queue' ? 'bg-white shadow-sm text-slate-900' : 'hover:bg-slate-200 text-slate-700'}
-                   >
-                     Queue
-                   </Button>
-                   <Button
-                     variant={viewMode === 'in_progress' ? 'default' : 'ghost'}
-                     size="sm"
-                     onClick={() => setViewMode('in_progress')}
-                     className={viewMode === 'in_progress' ? 'bg-white shadow-sm text-slate-900' : 'hover:bg-slate-200 text-slate-700'}
-                   >
-                     In Progress
-                   </Button>
-                   <Button
-                     variant={viewMode === 'converted' ? 'default' : 'ghost'}
-                     size="sm"
-                     onClick={() => setViewMode('converted')}
-                     className={viewMode === 'converted' ? 'bg-white shadow-sm text-slate-900' : 'hover:bg-slate-200 text-slate-700'}
-                   >
-                     Converted
-                   </Button>
-                   <Button
-                     variant={viewMode === 'all' ? 'default' : 'ghost'}
-                     size="sm"
-                     onClick={() => setViewMode('all')}
-                     className={viewMode === 'all' ? 'bg-white shadow-sm text-slate-900' : 'hover:bg-slate-200 text-slate-700'}
-                   >
-                     All Leads
-                   </Button>
+                 <div className="flex items-center bg-slate-100 rounded-lg p-1 w-full sm:w-auto overflow-x-auto">
+                   <div className="flex items-center space-x-1 min-w-max">
+                     <Button
+                       variant={viewMode === 'queue' ? 'default' : 'ghost'}
+                       size="sm"
+                       onClick={() => setViewMode('queue')}
+                       className={`${viewMode === 'queue' ? 'bg-white shadow-sm text-slate-900' : 'hover:bg-slate-200 text-slate-700'} whitespace-nowrap text-xs sm:text-sm px-2 sm:px-3`}
+                     >
+                       Queue
+                     </Button>
+                     <Button
+                       variant={viewMode === 'in_progress' ? 'default' : 'ghost'}
+                       size="sm"
+                       onClick={() => setViewMode('in_progress')}
+                       className={`${viewMode === 'in_progress' ? 'bg-white shadow-sm text-slate-900' : 'hover:bg-slate-200 text-slate-700'} whitespace-nowrap text-xs sm:text-sm px-2 sm:px-3`}
+                     >
+                       In Progress
+                     </Button>
+                     <Button
+                       variant={viewMode === 'converted' ? 'default' : 'ghost'}
+                       size="sm"
+                       onClick={() => setViewMode('converted')}
+                       className={`${viewMode === 'converted' ? 'bg-white shadow-sm text-slate-900' : 'hover:bg-slate-200 text-slate-700'} whitespace-nowrap text-xs sm:text-sm px-2 sm:px-3`}
+                     >
+                       Converted
+                     </Button>
+                     <Button
+                       variant={viewMode === 'all' ? 'default' : 'ghost'}
+                       size="sm"
+                       onClick={() => setViewMode('all')}
+                       className={`${viewMode === 'all' ? 'bg-white shadow-sm text-slate-900' : 'hover:bg-slate-200 text-slate-700'} whitespace-nowrap text-xs sm:text-sm px-2 sm:px-3`}
+                     >
+                       All Leads
+                     </Button>
+                   </div>
                  </div>
                </div>
              </div>
 
              {/* Search and Filters */}
-             <div className="px-6 pb-4">
+             <div className="px-4 sm:px-6 pb-4">
                <div className="flex flex-col lg:flex-row gap-4 items-center">
                  {/* Search */}
                  <div className="flex-1 w-full">
@@ -769,15 +771,15 @@ const CEODashboard: React.FC = () => {
                        placeholder="Search leads by name, email, company, or service..."
                        value={searchTerm}
                        onChange={(e) => setSearchTerm(e.target.value)}
-                       className="pl-10 bg-white border-slate-300 focus:border-green-500 text-slate-900 placeholder:text-slate-500"
+                       className="pl-10 bg-white border-slate-300 focus:border-green-500 text-slate-900 placeholder:text-slate-500 text-sm sm:text-base"
                      />
                    </div>
                  </div>
 
                  {/* Filters */}
-                 <div className="flex gap-3">
+                 <div className="flex gap-2 sm:gap-3 w-full lg:w-auto">
                    <Select value={filterStatus} onValueChange={setFilterStatus}>
-                     <SelectTrigger className="w-32 bg-white border-slate-300 text-slate-900">
+                     <SelectTrigger className="w-24 sm:w-32 bg-white border-slate-300 text-slate-900 text-xs sm:text-sm">
                        <SelectValue placeholder="Status" />
                      </SelectTrigger>
                      <SelectContent>
@@ -792,7 +794,7 @@ const CEODashboard: React.FC = () => {
                    </Select>
 
                    <Select value={filterPriority} onValueChange={setFilterPriority}>
-                     <SelectTrigger className="w-32 bg-white border-slate-300 text-slate-900">
+                     <SelectTrigger className="w-24 sm:w-32 bg-white border-slate-300 text-slate-900 text-xs sm:text-sm">
                        <SelectValue placeholder="Priority" />
                      </SelectTrigger>
                      <SelectContent>
@@ -837,16 +839,16 @@ const CEODashboard: React.FC = () => {
                        className="bg-gradient-to-r from-white to-slate-50/50 border border-slate-200 rounded-xl hover:shadow-lg hover:border-green-200 transition-all duration-300"
                      >
                        {/* Lead Header */}
-                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 sm:p-5 gap-4 sm:gap-0">
+                       <div className="flex items-center justify-between p-5">
                          <div className="flex items-center space-x-4">
                            <div className="flex-shrink-0">
                              <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
                                {lead.name.charAt(0).toUpperCase()}
                              </div>
                            </div>
-                           <div className="min-w-0 flex-1">
-                             <h4 className="font-bold text-slate-900 text-lg break-words">{lead.name}</h4>
-                             <p className="text-sm text-slate-600 font-medium break-words truncate">{lead.company || lead.email}</p>
+                           <div>
+                             <h4 className="font-bold text-slate-900 text-lg">{lead.name}</h4>
+                             <p className="text-sm text-slate-600 font-medium">{lead.company || lead.email}</p>
                              <div className="flex items-center space-x-2 mt-2">
                                <Badge className={utils.getStatusColor(lead.status)}>
                                  {lead.status}
@@ -861,16 +863,16 @@ const CEODashboard: React.FC = () => {
                            </div>
                          </div>
                          
-                         <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
-                           <div className="text-right min-w-0">
-                             <p className="text-sm text-slate-700 font-medium break-words">{lead.service_type}</p>
+                         <div className="flex items-center space-x-3">
+                           <div className="text-right">
+                             <p className="text-sm text-slate-700 font-medium">{lead.service_type}</p>
                               <p className="text-xs text-slate-700 bg-slate-100 px-2 py-1 rounded font-medium">
                                 {formatTimeAgo(lead.created_at)}
                               </p>
                            </div>
                            
                            {/* Action Buttons */}
-                           <div className="flex flex-wrap items-center gap-2">
+                           <div className="flex items-center space-x-2">
                              {/* Quick Actions */}
                              {lead.phone && (
                                <Button 
