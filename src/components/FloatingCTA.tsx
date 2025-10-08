@@ -55,12 +55,12 @@ export const FloatingCTA = () => {
   return (
     <AnimatePresence>
       {isVisible && (
-        <div className="fixed bottom-6 right-6 z-40">
+        <div className="fixed bottom-6 left-6 z-40">
           <motion.div
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="flex flex-col items-end space-y-3"
+            className="flex flex-col items-start space-y-3"
           >
             {/* Expanded options */}
             <AnimatePresence>
@@ -137,7 +137,7 @@ export const FloatingCTA = () => {
             >
               <Button
                 size="lg"
-                className="w-14 h-14 rounded-full bg-green-600 hover:bg-green-700 text-white shadow-xl font-semibold text-sm"
+                className="w-14 h-14 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-xl font-semibold text-sm"
                 onClick={toggleExpanded}
               >
                 <span className="hidden sm:inline">Get Quote</span>
