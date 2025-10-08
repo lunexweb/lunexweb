@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
-// WhatsApp Icon Component
+// WhatsApp Icon Component - Simple and reliable
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg
     className={className}
@@ -32,11 +32,11 @@ export const LiveChat = () => {
       >
         <Button
           onClick={handleWhatsAppClick}
-          className="w-14 h-14 rounded-full bg-green-600 hover:bg-green-700 shadow-lg hover:shadow-xl transition-all duration-300"
+          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-green-600 hover:bg-green-700 shadow-lg hover:shadow-xl transition-all duration-300"
           size="lg"
           title="Chat with us on WhatsApp"
         >
-          <WhatsAppIcon className="w-6 h-6 text-white" />
+          <WhatsAppIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
         </Button>
       </motion.div>
     </>
