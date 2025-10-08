@@ -12,7 +12,7 @@ export const LiveChat = () => {
     <>
       {/* WhatsApp Button - Always visible */}
       <motion.div
-        className="absolute bottom-6 right-6 z-50"
+        className="fixed bottom-6 right-6 z-50"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.5, type: "spring", stiffness: 300 }}

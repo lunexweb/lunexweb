@@ -18,7 +18,7 @@ export const SimpleContactButton = () => {
   };
 
   return (
-    <div className="absolute bottom-6 left-6 z-40">
+    <div className="fixed bottom-6 left-6 z-40">
       <motion.div
         className="flex flex-col items-start space-y-3"
         initial={{ opacity: 0, scale: 0.8, y: 20 }}
