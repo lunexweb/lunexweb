@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Phone, Mail, ChevronUp } from "lucide-react";
+import { Phone, Mail, ChevronUp, Plus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { trackEvent } from "@/lib/analytics";
 
@@ -141,7 +141,7 @@ export const FloatingCTA = () => {
                 onClick={toggleExpanded}
               >
                 <span className="hidden sm:inline">Get Quote</span>
-                <span className="sm:hidden">?</span>
+                <Plus className="w-5 h-5 sm:hidden" />
               </Button>
             </motion.div>
           </motion.div>
