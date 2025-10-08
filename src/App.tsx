@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
 import { LiveChat } from "@/components/LiveChat";
-import { FloatingCTA } from "@/components/FloatingCTA";
 import { ExitIntentPopup } from "@/components/ExitIntentPopup";
 import { SmartContactPrompt } from "@/components/SmartContactPrompt";
 import { useAnalytics } from "@/hooks/useAnalytics";
@@ -381,7 +380,6 @@ const App = () => (
           </Routes>
         </AnimatePresence>
         <LiveChat />
-        <FloatingCTA />
         <ExitIntentPopup />
         <SmartContactPrompt onContactClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} />
       </BrowserRouter>

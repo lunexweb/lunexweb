@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { TrendingUp, Users, Phone, Mail, MousePointer } from "lucide-react";
+import { TrendingUp, Users, Phone, Mail, MessageCircle, MousePointer } from "lucide-react";
 
 interface AnalyticsData {
   totalPageViews: number;
@@ -168,6 +168,13 @@ export const AnalyticsDashboard = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <MessageCircle className="h-4 w-4 text-green-600" />
+                  <span className="text-sm">WhatsApp</span>
+                </div>
+                <span className="font-medium">{analyticsData.contactMethods.whatsapp}</span>
+              </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <Phone className="h-4 w-4 text-blue-600" />
