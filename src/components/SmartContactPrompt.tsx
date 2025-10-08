@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { X, MessageCircle, Phone, Mail, Zap } from 'lucide-react';
+import { X, Phone, Mail, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 
@@ -156,7 +156,7 @@ export const SmartContactPrompt: React.FC<SmartContactPromptProps> = ({ onContac
                     onClick={handleContactClick}
                     className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white text-sm py-2"
                   >
-                    <MessageCircle className="w-4 h-4 mr-2" />
+                    <Zap className="w-4 h-4 mr-2" />
                     Contact Website Expert
                   </Button>
                   

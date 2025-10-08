@@ -895,17 +895,6 @@ const CEODashboard: React.FC = () => {
                              >
                                <Mail className="w-3 h-3 sm:w-4 sm:h-4" />
                              </Button>
-                             {lead.phone && (
-                               <Button 
-                                 size="sm" 
-                                 variant="outline"
-                                 onClick={() => window.open(`https://wa.me/${lead.phone}?text=${encodeURIComponent(`Hi ${lead.name}, I saw your inquiry on Lunexweb. How can I help you with your ${lead.service_type} project?`)}`, '_blank')}
-                                 className="bg-white hover:bg-green-50 border-slate-300 hover:border-green-400 text-slate-700 hover:text-green-700 p-1.5 sm:p-2 flex-shrink-0"
-                                 title="WhatsApp"
-                               >
-                                 <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4" />
-                               </Button>
-                             )}
                              
                              {/* Management Actions */}
                              <div className="flex items-center space-x-0.5 sm:space-x-1">
