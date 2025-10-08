@@ -4,7 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { LiveChat } from "@/components/LiveChat";
 import { SimpleContactButton } from "@/components/SimpleContactButton";
 import { ExitIntentPopup } from "@/components/ExitIntentPopup";
@@ -79,25 +79,6 @@ const pageTransition = {
 };
 
 const App = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    // Prevent initial bounce by ensuring everything is loaded
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 50);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (!isLoaded) {
-    return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-green-400 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
-  }
-
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>

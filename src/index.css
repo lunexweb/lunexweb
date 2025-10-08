@@ -15,11 +15,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   /* Prevent bounce on iOS */
   overscroll-behavior: none;
-  /* Prevent any movement during transitions */
-  position: relative;
-  /* Ensure stable rendering */
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 }
 
 /* Prevent layout shifts */
@@ -30,12 +25,6 @@ body {
 /* Smooth transitions for all elements */
 * {
   transition: opacity 0.15s ease-out;
-}
-
-/* Prevent any unwanted animations during page load */
-body.loading * {
-  transition: none !important;
-  animation: none !important;
 }
 
 /* Service sections styling */
