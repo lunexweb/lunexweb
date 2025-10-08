@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, Plus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { trackEvent } from "@/lib/analytics";
 
 export const FloatingContact = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -19,27 +18,15 @@ export const FloatingContact = () => {
   }, []);
 
   const handlePhoneClick = () => {
-    trackEvent('floating_phone_click', {
-      page: window.location.pathname,
-      scroll_position: window.pageYOffset
-    });
     window.open('tel:+27789992503');
   };
 
   const handleEmailClick = () => {
-    trackEvent('floating_email_click', {
-      page: window.location.pathname,
-      scroll_position: window.pageYOffset
-    });
     window.open('mailto:info@lunexweb.com');
   };
 
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded);
-    trackEvent('floating_contact_toggle', {
-      expanded: !isExpanded,
-      page: window.location.pathname
-    });
   };
 
   return (
@@ -94,15 +81,16 @@ export const FloatingContact = () => {
               )}
             </AnimatePresence>
 
-            {/* Main Plus Button */}
+            {/* Main + Button */}
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <Button
                 size="lg"
-                className="w-14 h-14 rounded-full bg-white hover:bg-gray-50 text-gray-800 shadow-xl border border-gray-200"
+                className="w-14 h-14 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-xl font-semibold"
                 onClick={toggleExpanded}
+                title="Contact Options"
               >
                 <Plus className="w-6 h-6" />
               </Button>
