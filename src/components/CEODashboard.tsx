@@ -493,7 +493,7 @@ const CEODashboard: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-x-hidden">
         {/* Key Metrics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <motion.div
@@ -837,16 +837,16 @@ const CEODashboard: React.FC = () => {
                        className="bg-gradient-to-r from-white to-slate-50/50 border border-slate-200 rounded-xl hover:shadow-lg hover:border-green-200 transition-all duration-300"
                      >
                        {/* Lead Header */}
-                       <div className="flex items-center justify-between p-5">
+                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 sm:p-5 gap-4 sm:gap-0">
                          <div className="flex items-center space-x-4">
                            <div className="flex-shrink-0">
                              <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
                                {lead.name.charAt(0).toUpperCase()}
                              </div>
                            </div>
-                           <div>
-                             <h4 className="font-bold text-slate-900 text-lg">{lead.name}</h4>
-                             <p className="text-sm text-slate-600 font-medium">{lead.company || lead.email}</p>
+                           <div className="min-w-0 flex-1">
+                             <h4 className="font-bold text-slate-900 text-lg break-words">{lead.name}</h4>
+                             <p className="text-sm text-slate-600 font-medium break-words truncate">{lead.company || lead.email}</p>
                              <div className="flex items-center space-x-2 mt-2">
                                <Badge className={utils.getStatusColor(lead.status)}>
                                  {lead.status}
@@ -861,16 +861,16 @@ const CEODashboard: React.FC = () => {
                            </div>
                          </div>
                          
-                         <div className="flex items-center space-x-3">
-                           <div className="text-right">
-                             <p className="text-sm text-slate-700 font-medium">{lead.service_type}</p>
+                         <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
+                           <div className="text-right min-w-0">
+                             <p className="text-sm text-slate-700 font-medium break-words">{lead.service_type}</p>
                               <p className="text-xs text-slate-700 bg-slate-100 px-2 py-1 rounded font-medium">
                                 {formatTimeAgo(lead.created_at)}
                               </p>
                            </div>
                            
                            {/* Action Buttons */}
-                           <div className="flex items-center space-x-2">
+                           <div className="flex flex-wrap items-center gap-2">
                              {/* Quick Actions */}
                              {lead.phone && (
                                <Button 

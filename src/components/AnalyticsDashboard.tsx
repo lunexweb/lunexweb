@@ -80,9 +80,9 @@ export const AnalyticsDashboard = () => {
   }, []);
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Analytics Dashboard</h1>
+    <div className="p-6 space-y-6 overflow-x-hidden">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <h1 className="text-2xl sm:text-3xl font-bold">Analytics Dashboard</h1>
         <div className="text-sm text-muted-foreground">
           Last updated: {new Date().toLocaleString()}
         </div>
