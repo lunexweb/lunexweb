@@ -4,7 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { LiveChat } from "@/components/LiveChat";
 import { SimpleContactButton } from "@/components/SimpleContactButton";
 import { ExitIntentPopup } from "@/components/ExitIntentPopup";
@@ -47,7 +47,14 @@ const ScrollToTop = () => {
   useAnalytics(); // Initialize analytics tracking
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // Use requestAnimationFrame for smoother scroll
+    requestAnimationFrame(() => {
+      window.scrollTo({ 
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth' 
+      });
+    });
   }, [pathname]);
 
   return null;
@@ -55,36 +62,50 @@ const ScrollToTop = () => {
 
 const pageVariants = {
   initial: {
-    opacity: 0,
-    y: 20,
-    scale: 0.98
+    opacity: 0
   },
   in: {
-    opacity: 1,
-    y: 0,
-    scale: 1
+    opacity: 1
   },
   out: {
-    opacity: 0,
-    y: -20,
-    scale: 0.98
+    opacity: 0
   }
 };
 
 const pageTransition = {
   type: "tween",
-  ease: [0.25, 0.25, 0, 1],
-  duration: 0.4
+  ease: [0.25, 0.46, 0.45, 0.94],
+  duration: 0.2
 };
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <AnimatePresence mode="wait">
+const App = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    // Prevent initial bounce by ensuring everything is loaded
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 50);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-green-400 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <ScrollToTop />
+          <AnimatePresence mode="wait" initial={false}>
           <Routes>
             <Route path="/" element={
               <motion.div
@@ -380,13 +401,14 @@ const App = () => (
             } />
           </Routes>
         </AnimatePresence>
-        <LiveChat />
-        <SimpleContactButton />
-        <ExitIntentPopup />
-        <SmartContactPrompt onContactClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} />
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+          <LiveChat />
+          <SimpleContactButton />
+          <ExitIntentPopup />
+          <SmartContactPrompt onContactClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} />
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;

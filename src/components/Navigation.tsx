@@ -36,7 +36,7 @@ export const Navigation = () => {
   return (
     <>
       {/* Main Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
         isScrolled 
           ? "bg-black/80 backdrop-blur-md shadow-lg border-b border-white/20" 
           : "bg-black/60 backdrop-blur-sm"
