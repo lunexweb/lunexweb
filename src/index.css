@@ -20,6 +20,9 @@ body {
   /* Ensure stable rendering */
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
+  /* Ensure floating buttons don't cause layout shifts */
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 /* Prevent layout shifts */
@@ -46,7 +49,7 @@ body.loading * {
   box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.05);
 }
 
-/* Modern Floating Buttons - Enhanced Positioning */
+/* Modern Floating Buttons - Always Visible Positioning */
 .floating-button-container {
   position: fixed !important;
   z-index: 9999 !important;
@@ -56,21 +59,30 @@ body.loading * {
   transform: translateZ(0) !important;
   -webkit-transform: translateZ(0) !important;
   pointer-events: auto !important;
+  /* Prevent any layout shifts */
+  contain: layout style paint !important;
 }
 
-/* Ensure buttons stay above all content */
+/* WhatsApp Button - Always Bottom Right */
 .floating-whatsapp {
   position: fixed !important;
-  bottom: 24px !important;
-  right: 24px !important;
+  bottom: clamp(16px, 4vw, 24px) !important;
+  right: clamp(16px, 4vw, 24px) !important;
   z-index: 9999 !important;
+  /* Ensure it never causes overflow */
+  max-width: calc(100vw - 32px) !important;
+  max-height: calc(100vh - 32px) !important;
 }
 
+/* Contact Button - Always Bottom Left */
 .floating-contact {
   position: fixed !important;
-  bottom: 24px !important;
-  left: 24px !important;
+  bottom: clamp(16px, 4vw, 24px) !important;
+  left: clamp(16px, 4vw, 24px) !important;
   z-index: 9998 !important;
+  /* Ensure it never causes overflow */
+  max-width: calc(100vw - 32px) !important;
+  max-height: calc(100vh - 32px) !important;
 }
 
 /* Enhanced button shadows and effects */
@@ -124,6 +136,56 @@ body.loading * {
   100% {
     transform: scale(1.4);
     opacity: 0;
+  }
+}
+
+/* Prevent floating buttons from causing scroll issues */
+body {
+  /* Prevent horizontal scroll caused by floating elements */
+  overflow-x: hidden !important;
+  /* Ensure buttons don't affect page layout */
+  position: relative !important;
+}
+
+/* Ensure floating buttons never interfere with page content */
+.floating-whatsapp,
+.floating-contact {
+  /* Remove from document flow completely */
+  position: fixed !important;
+  /* Ensure they don't affect layout calculations */
+  isolation: isolate !important;
+  /* Prevent any margin/padding issues */
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Mobile-specific optimizations for floating buttons */
+@media (max-width: 768px) {
+  .floating-whatsapp {
+    bottom: 16px !important;
+    right: 16px !important;
+    /* Ensure button doesn't interfere with mobile UI */
+    max-width: calc(100vw - 32px) !important;
+  }
+  
+  .floating-contact {
+    bottom: 16px !important;
+    left: 16px !important;
+    /* Ensure expanded buttons don't cause overflow */
+    max-width: calc(100vw - 32px) !important;
+  }
+}
+
+/* Ultra-small screens */
+@media (max-width: 480px) {
+  .floating-whatsapp {
+    bottom: 12px !important;
+    right: 12px !important;
+  }
+  
+  .floating-contact {
+    bottom: 12px !important;
+    left: 12px !important;
   }
 }
 

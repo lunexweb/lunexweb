@@ -52,7 +52,12 @@ export const SimpleContactButton = () => {
         backfaceVisibility: 'hidden',
         WebkitBackfaceVisibility: 'hidden',
         transform: 'translateZ(0)',
-        WebkitTransform: 'translateZ(0)'
+        WebkitTransform: 'translateZ(0)',
+        // Ensure it never causes overflow
+        maxWidth: 'calc(100vw - 32px)',
+        maxHeight: 'calc(100vh - 32px)',
+        // Remove from document flow
+        isolation: 'isolate'
       }}
     >
       <motion.div className="flex flex-col items-start space-y-3">
