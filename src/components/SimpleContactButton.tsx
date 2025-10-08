@@ -1,129 +1,139 @@
 import { useState, useEffect } from "react";
-import { Phone, Mail, Plus, X } from "lucide-react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { Phone, Mail, Plus } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const SimpleContactButton = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const [showNotification, setShowNotification] = useState(false);
-  const { scrollY } = useScroll();
-  
-  // Hide button when at top of page, show when scrolled
-  const opacity = useTransform(scrollY, [0, 100], [0, 1]);
-  const scale = useTransform(scrollY, [0, 100], [0.8, 1]);
-
-  useEffect(() => {
-    // Show notification after 5 seconds
-    const timer = setTimeout(() => {
-      setShowNotification(true);
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, []);
+  const [isVisible, setIsVisible] = useState(false);
 
   const handlePhoneClick = () => {
     window.open('tel:+27789992503');
-    setIsExpanded(false);
+    setIsExpanded(false); // Close after action
   };
 
   const handleEmailClick = () => {
     window.open('mailto:info@lunexweb.com');
-    setIsExpanded(false);
+    setIsExpanded(false); // Close after action
   };
 
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded);
-    setShowNotification(false); // Hide notification when opened
   };
 
-  return (
-    <div className="fixed bottom-6 left-6 z-40">
-      <motion.div
-        className="flex flex-col items-start space-y-3"
-        style={{ opacity, scale }}
-        initial={{ opacity: 0, scale: 0.8, x: -50 }}
-        animate={{ opacity: 1, scale: 1, x: 0 }}
-        transition={{ delay: 1, type: "spring", stiffness: 300, damping: 20 }}
-        onHoverStart={() => setIsHovered(true)}
-        onHoverEnd={() => setIsHovered(false)}
-      >
-        {/* Notification Badge */}
-        {showNotification && !isExpanded && (
-          <motion.div
-            className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold"
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ type: "spring", stiffness: 500 }}
-          >
-            !
-          </motion.div>
-        )}
+  // Enhanced visibility control
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, []);
 
+  return (
+    <motion.div 
+      className="floating-contact floating-button-container"
+      initial={{ scale: 0, opacity: 0, x: -100 }}
+      animate={{ 
+        scale: isVisible ? 1 : 0, 
+        opacity: isVisible ? 1 : 0, 
+        x: isVisible ? 0 : -100 
+      }}
+      transition={{ 
+        delay: 1.2, 
+        type: "spring", 
+        stiffness: 400,
+        damping: 25
+      }}
+      style={{
+        position: 'fixed',
+        bottom: '24px',
+        left: '24px',
+        zIndex: 9998,
+        willChange: 'transform',
+        backfaceVisibility: 'hidden',
+        WebkitBackfaceVisibility: 'hidden',
+        transform: 'translateZ(0)',
+        WebkitTransform: 'translateZ(0)'
+      }}
+    >
+      <motion.div className="flex flex-col items-start space-y-3">
         {/* Expanded options */}
         <AnimatePresence>
           {isExpanded && (
             <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.8, x: -20 }}
+              initial={{ opacity: 0, y: 20, scale: 0.8, x: -20 }}
               animate={{ opacity: 1, y: 0, scale: 1, x: 0 }}
-              exit={{ opacity: 0, y: 10, scale: 0.8, x: -20 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
+              exit={{ opacity: 0, y: 20, scale: 0.8, x: -20 }}
+              transition={{ 
+                type: "spring", 
+                stiffness: 300,
+                damping: 20
+              }}
               className="flex flex-col space-y-3"
             >
-              {/* Email */}
+              {/* Email Button */}
               <motion.div
-                whileHover={{ scale: 1.1, x: 5 }}
+                whileHover={{ 
+                  scale: 1.1,
+                  rotate: [0, -5, 5, 0],
+                  transition: { duration: 0.3 }
+                }}
                 whileTap={{ scale: 0.9 }}
-                className="relative"
               >
-                <motion.button
+                <button
                   onClick={handleEmailClick}
-                  className="w-12 h-12 rounded-full bg-blue-500 hover:bg-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group"
-                  aria-label="Send Email"
-                  whileHover={{
-                    boxShadow: "0 10px 25px rgba(59, 130, 246, 0.4)"
+                  className="relative w-14 h-14 rounded-full border-2 border-blue-300 hover:border-blue-400 text-blue-600 hover:text-blue-700 transition-all duration-300 flex items-center justify-center group shadow-lg hover:shadow-blue-500/25"
+                  style={{
+                    background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+                    boxShadow: '0 4px 16px rgba(59, 130, 246, 0.2)'
                   }}
+                  title="Send us an Email"
                 >
-                  <Mail className="w-5 h-5" />
+                  <Mail className="w-6 h-6" />
                   
-                  {/* Tooltip */}
+                  {/* Hover Tooltip */}
                   <motion.div
-                    className="absolute left-full ml-3 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-sm px-3 py-2 rounded-lg whitespace-nowrap"
+                    className="absolute left-full ml-3 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg whitespace-nowrap opacity-0 pointer-events-none"
                     initial={{ opacity: 0, x: -10 }}
                     whileHover={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.2 }}
                   >
                     Send Email
-                    <div className="absolute right-full top-1/2 transform -translate-y-1/2 border-r-4 border-r-gray-900 border-t-4 border-t-transparent border-b-4 border-b-transparent"></div>
+                    <div className="absolute right-full top-1/2 transform -translate-y-1/2 border-4 border-transparent border-r-gray-900"></div>
                   </motion.div>
-                </motion.button>
+                </button>
               </motion.div>
 
-              {/* Phone */}
+              {/* Phone Button */}
               <motion.div
-                whileHover={{ scale: 1.1, x: 5 }}
+                whileHover={{ 
+                  scale: 1.1,
+                  rotate: [0, 5, -5, 0],
+                  transition: { duration: 0.3 }
+                }}
                 whileTap={{ scale: 0.9 }}
-                className="relative"
               >
-                <motion.button
+                <button
                   onClick={handlePhoneClick}
-                  className="w-12 h-12 rounded-full bg-green-500 hover:bg-green-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group"
-                  aria-label="Call Now"
-                  whileHover={{
-                    boxShadow: "0 10px 25px rgba(34, 197, 94, 0.4)"
+                  className="relative w-14 h-14 rounded-full border-2 border-green-300 hover:border-green-400 text-green-600 hover:text-green-700 transition-all duration-300 flex items-center justify-center group shadow-lg hover:shadow-green-500/25"
+                  style={{
+                    background: 'linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%)',
+                    boxShadow: '0 4px 16px rgba(34, 197, 94, 0.2)'
                   }}
+                  title="Call us Now"
                 >
-                  <Phone className="w-5 h-5" />
+                  <Phone className="w-6 h-6" />
                   
-                  {/* Tooltip */}
+                  {/* Hover Tooltip */}
                   <motion.div
-                    className="absolute left-full ml-3 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-sm px-3 py-2 rounded-lg whitespace-nowrap"
+                    className="absolute left-full ml-3 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg whitespace-nowrap opacity-0 pointer-events-none"
                     initial={{ opacity: 0, x: -10 }}
                     whileHover={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.2 }}
                   >
                     Call Now
-                    <div className="absolute right-full top-1/2 transform -translate-y-1/2 border-r-4 border-r-gray-900 border-t-4 border-t-transparent border-b-4 border-b-transparent"></div>
+                    <div className="absolute right-full top-1/2 transform -translate-y-1/2 border-4 border-transparent border-r-gray-900"></div>
                   </motion.div>
-                </motion.button>
+                </button>
               </motion.div>
             </motion.div>
           )}
@@ -131,58 +141,42 @@ export const SimpleContactButton = () => {
 
         {/* Main Plus Button */}
         <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="relative"
+          whileHover={{ 
+            scale: 1.1,
+            rotate: 45,
+            transition: { duration: 0.3 }
+          }}
+          whileTap={{ scale: 0.9 }}
         >
-          <motion.button
+          <button
             onClick={toggleExpanded}
-            className="w-12 h-12 rounded-full bg-white border-2 border-gray-300 hover:border-gray-400 text-gray-600 hover:text-gray-700 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group"
-            aria-label={isExpanded ? "Close Contact Options" : "Open Contact Options"}
-            whileHover={{
-              boxShadow: "0 10px 25px rgba(0, 0, 0, 0.15)"
+            className="relative w-14 h-14 rounded-full border-2 border-gray-300 hover:border-gray-400 text-gray-600 hover:text-gray-700 transition-all duration-300 flex items-center justify-center group floating-button-shadow"
+            style={{
+              background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.05)'
             }}
+            title="Contact Options"
           >
             <motion.div
               animate={{ rotate: isExpanded ? 45 : 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+              transition={{ duration: 0.3 }}
             >
-              {isExpanded ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Plus className="w-5 h-5" />
-              )}
+              <Plus className="w-6 h-6" />
             </motion.div>
             
-            {/* Tooltip */}
+            {/* Hover Tooltip */}
             <motion.div
-              className="absolute left-full ml-3 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white text-sm px-3 py-2 rounded-lg whitespace-nowrap"
+              className="absolute left-full ml-3 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg whitespace-nowrap opacity-0 pointer-events-none"
               initial={{ opacity: 0, x: -10 }}
               whileHover={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.2 }}
             >
-              {isExpanded ? "Close Contact Options" : "Contact Options"}
-              <div className="absolute right-full top-1/2 transform -translate-y-1/2 border-r-4 border-r-gray-900 border-t-4 border-t-transparent border-b-4 border-b-transparent"></div>
+              Contact Options
+              <div className="absolute right-full top-1/2 transform -translate-y-1/2 border-4 border-transparent border-r-gray-900"></div>
             </motion.div>
-          </motion.button>
-
-          {/* Pulse animation when notification is active */}
-          {showNotification && !isExpanded && (
-            <motion.div
-              className="absolute inset-0 rounded-full border-2 border-blue-400"
-              animate={{
-                scale: [1, 1.3, 1],
-                opacity: [0.7, 0, 0.7],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-          )}
+          </button>
         </motion.div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 };

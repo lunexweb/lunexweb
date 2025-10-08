@@ -8,18 +8,6 @@ html {
   overflow-x: hidden;
 }
 
-/* Ensure floating buttons stay fixed */
-.fixed {
-  position: fixed !important;
-}
-
-/* WhatsApp and Contact buttons - always visible */
-.whatsapp-button,
-.contact-button {
-  position: fixed !important;
-  z-index: 9999 !important;
-}
-
 body {
   overflow-x: hidden;
   /* Smooth font rendering */
@@ -56,6 +44,87 @@ body.loading * {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-bottom: 1px solid rgba(148, 163, 184, 0.1);
   box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Modern Floating Buttons - Enhanced Positioning */
+.floating-button-container {
+  position: fixed !important;
+  z-index: 9999 !important;
+  will-change: transform !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+  transform: translateZ(0) !important;
+  -webkit-transform: translateZ(0) !important;
+  pointer-events: auto !important;
+}
+
+/* Ensure buttons stay above all content */
+.floating-whatsapp {
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  z-index: 9999 !important;
+}
+
+.floating-contact {
+  position: fixed !important;
+  bottom: 24px !important;
+  left: 24px !important;
+  z-index: 9998 !important;
+}
+
+/* Enhanced button shadows and effects */
+.floating-button-shadow {
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    0 4px 16px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+.floating-button-shadow:hover {
+  box-shadow: 
+    0 12px 48px rgba(0, 0, 0, 0.16),
+    0 6px 24px rgba(0, 0, 0, 0.12),
+    0 3px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Smooth entrance animations */
+@keyframes floatInRight {
+  0% {
+    transform: translateX(100px) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes floatInLeft {
+  0% {
+    transform: translateX(-100px) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Pulse animation for attention */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
 }
 
 /* Mobile optimizations */
