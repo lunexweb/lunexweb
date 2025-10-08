@@ -30,7 +30,7 @@ export const Hero = () => {
           background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' 
         }}
       >
-        <source src="https://res.cloudinary.com/dnnwvmh3n/video/upload/v1759913947/7989671-hd_1920_1080_25fps_knpnsd.mp4" type="video/mp4" />
+        <source src="https://res.cloudinary.com/dnnwvmh3n/video/upload/v1759957675/7552614-hd_1920_1080_25fps_ebuder.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       
