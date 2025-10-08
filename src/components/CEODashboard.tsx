@@ -960,7 +960,7 @@ const CEODashboard: React.FC = () => {
                              transition={{ duration: 0.3 }}
                              className="border-t border-slate-200 bg-slate-50/50"
                            >
-                             <div className="p-5">
+                             <div className="p-4 sm:p-5">
                                {/* Contact Information */}
                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                  <div>
@@ -969,26 +969,32 @@ const CEODashboard: React.FC = () => {
                                      Contact Information
                                    </h5>
                                    <div className="space-y-2">
-                                     <div className="flex items-center space-x-3">
-                                       <Mail className="w-4 h-4 text-slate-400" />
-                                       <span className="text-sm text-slate-700">{lead.email}</span>
-                                       <Button size="sm" variant="ghost" onClick={() => navigator.clipboard.writeText(lead.email)}>
+                                     <div className="flex items-start space-x-3">
+                                       <Mail className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
+                                       <div className="min-w-0 flex-1">
+                                         <span className="text-sm text-slate-700 break-all">{lead.email}</span>
+                                       </div>
+                                       <Button size="sm" variant="ghost" onClick={() => navigator.clipboard.writeText(lead.email)} className="flex-shrink-0">
                                          <Copy className="w-3 h-3" />
                                        </Button>
                                      </div>
                                      {lead.phone && (
-                                       <div className="flex items-center space-x-3">
-                                         <Phone className="w-4 h-4 text-slate-400" />
-                                         <span className="text-sm text-slate-700">{lead.phone}</span>
-                                         <Button size="sm" variant="ghost" onClick={() => navigator.clipboard.writeText(lead.phone || '')}>
+                                       <div className="flex items-start space-x-3">
+                                         <Phone className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
+                                         <div className="min-w-0 flex-1">
+                                           <span className="text-sm text-slate-700 break-all">{lead.phone}</span>
+                                         </div>
+                                         <Button size="sm" variant="ghost" onClick={() => navigator.clipboard.writeText(lead.phone || '')} className="flex-shrink-0">
                                            <Copy className="w-3 h-3" />
                                          </Button>
                                        </div>
                                      )}
                                      {lead.company && (
-                                       <div className="flex items-center space-x-3">
-                                         <Building className="w-4 h-4 text-slate-400" />
-                                         <span className="text-sm text-slate-700">{lead.company}</span>
+                                       <div className="flex items-start space-x-3">
+                                         <Building className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
+                                         <div className="min-w-0 flex-1">
+                                           <span className="text-sm text-slate-700 break-all">{lead.company}</span>
+                                         </div>
                                        </div>
                                      )}
                                    </div>
@@ -1000,45 +1006,55 @@ const CEODashboard: React.FC = () => {
                                      Project Details
                                    </h5>
                                    <div className="space-y-2">
-                                     <div className="flex items-center space-x-3">
-                                       <FileText className="w-4 h-4 text-slate-400" />
-                                       <span className="text-sm text-slate-700">{lead.service_type}</span>
+                                     <div className="flex items-start space-x-3">
+                                       <FileText className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
+                                       <div className="min-w-0 flex-1">
+                                         <span className="text-sm text-slate-700 break-words">{lead.service_type}</span>
+                                       </div>
                                      </div>
                                      {lead.budget_range && (
-                                       <div className="flex items-center space-x-3">
-                                         <DollarSign className="w-4 h-4 text-slate-400" />
-                                         <span className="text-sm text-slate-700 font-medium">
-                                           {lead.budget_range === 'under-10k' ? 'Under R10,000' :
-                                            lead.budget_range === '10k-25k' ? 'R10,000 - R25,000' :
-                                            lead.budget_range === '25k-50k' ? 'R25,000 - R50,000' :
-                                            lead.budget_range === '50k-100k' ? 'R50,000 - R100,000' :
-                                            lead.budget_range === 'over-100k' ? 'Over R100,000' :
-                                            lead.budget_range}
-                                         </span>
+                                       <div className="flex items-start space-x-3">
+                                         <DollarSign className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
+                                         <div className="min-w-0 flex-1">
+                                           <span className="text-sm text-slate-700 font-medium break-words">
+                                             {lead.budget_range === 'under-10k' ? 'Under R10,000' :
+                                              lead.budget_range === '10k-25k' ? 'R10,000 - R25,000' :
+                                              lead.budget_range === '25k-50k' ? 'R25,000 - R50,000' :
+                                              lead.budget_range === '50k-100k' ? 'R50,000 - R100,000' :
+                                              lead.budget_range === 'over-100k' ? 'Over R100,000' :
+                                              lead.budget_range}
+                                           </span>
+                                         </div>
                                        </div>
                                      )}
                                      {lead.timeline && (
-                                       <div className="flex items-center space-x-3">
-                                         <Clock className="w-4 h-4 text-slate-400" />
-                                         <span className="text-sm text-slate-700">{lead.timeline}</span>
+                                       <div className="flex items-start space-x-3">
+                                         <Clock className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
+                                         <div className="min-w-0 flex-1">
+                                           <span className="text-sm text-slate-700 break-words">{lead.timeline}</span>
+                                         </div>
                                        </div>
                                      )}
                                      {lead.remote_work && (
-                                       <div className="flex items-center space-x-3">
-                                         <Globe className="w-4 h-4 text-slate-400" />
-                                         <span className="text-sm text-slate-700">
-                                           Remote: {lead.remote_work === 'yes' ? 'Yes' :
-                                                   lead.remote_work === 'prefer-local' ? 'Prefer Local' :
-                                                   lead.remote_work === 'hybrid' ? 'Hybrid' :
-                                                   lead.remote_work === 'no' ? 'In-Person Only' :
-                                                   lead.remote_work}
-                                         </span>
+                                       <div className="flex items-start space-x-3">
+                                         <Globe className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
+                                         <div className="min-w-0 flex-1">
+                                           <span className="text-sm text-slate-700 break-words">
+                                             Remote: {lead.remote_work === 'yes' ? 'Yes' :
+                                                     lead.remote_work === 'prefer-local' ? 'Prefer Local' :
+                                                     lead.remote_work === 'hybrid' ? 'Hybrid' :
+                                                     lead.remote_work === 'no' ? 'In-Person Only' :
+                                                     lead.remote_work}
+                                           </span>
+                                         </div>
                                        </div>
                                      )}
                                      {lead.other_service && (
-                                       <div className="flex items-center space-x-3">
-                                         <FileText className="w-4 h-4 text-slate-400" />
-                                         <span className="text-sm text-slate-700">Custom: {lead.other_service}</span>
+                                       <div className="flex items-start space-x-3">
+                                         <FileText className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
+                                         <div className="min-w-0 flex-1">
+                                           <span className="text-sm text-slate-700 break-words">Custom: {lead.other_service}</span>
+                                         </div>
                                        </div>
                                      )}
                                    </div>
