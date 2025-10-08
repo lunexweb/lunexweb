@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { MessageCircle, Zap } from "lucide-react";
+import { MessageCircle, Zap, Headphones } from "lucide-react";
 
 export const ContactSection = () => {
   const { toast } = useToast();
@@ -32,6 +32,13 @@ export const ContactSection = () => {
     const message = "Hello! I'm interested in your web development services. I'm ready to get started - your team is waiting to help me!";
     const whatsappUrl = `https://wa.me/27789992503?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
+  };
+
+  const handleLiveChatClick = () => {
+    toast({
+      title: "💬 Live Chat Available",
+      description: "Our support team is online and ready to help you right now! Click the WhatsApp button below to start chatting.",
+    });
   };
 
   const services = [
@@ -174,16 +181,29 @@ export const ContactSection = () => {
                     <span className="text-muted-foreground text-sm font-medium">Or</span>
                   </div>
                   
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="lg"
-                    className="w-full text-lg py-6 border-green-500 text-green-600 hover:bg-green-50"
-                    onClick={handleWhatsAppClick}
-                  >
-                    <MessageCircle className="w-5 h-5 mr-2" />
-                    Chat on WhatsApp
-                  </Button>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="lg"
+                      className="text-lg py-6 border-green-500 text-green-600 hover:bg-green-50"
+                      onClick={handleWhatsAppClick}
+                    >
+                      <MessageCircle className="w-5 h-5 mr-2" />
+                      Chat on WhatsApp
+                    </Button>
+                    
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="lg"
+                      className="text-lg py-6 border-blue-500 text-blue-600 hover:bg-blue-50"
+                      onClick={handleLiveChatClick}
+                    >
+                      <Headphones className="w-5 h-5 mr-2" />
+                      Live Chat Support
+                    </Button>
+                  </div>
                 </div>
               </form>
             </CardContent>
