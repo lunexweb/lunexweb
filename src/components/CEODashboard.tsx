@@ -947,6 +947,7 @@ const CEODashboard: React.FC = () => {
                              </div>
                            </div>
                          </div>
+                         </div>
                        </div>
 
                        {/* Expanded Lead Details */}
