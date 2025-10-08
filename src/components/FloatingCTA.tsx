@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Phone, MessageCircle, Mail, ChevronUp } from "lucide-react";
+import { Phone, Mail, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { trackEvent } from "@/lib/analytics";
 
@@ -28,15 +28,6 @@ export const FloatingCTA = () => {
     window.open('tel:+27789992503');
   };
 
-  const handleWhatsAppClick = () => {
-    trackEvent('floating_whatsapp_click', {
-      page: window.location.pathname,
-      scroll_position: window.pageYOffset
-    });
-    const message = `Hi! I'm interested in premium web development services. Can you help me create a professional website?`;
-    const whatsappUrl = `https://wa.me/27789992503?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-  };
 
   const handleEmailClick = () => {
     trackEvent('floating_email_click', {
@@ -80,20 +71,6 @@ export const FloatingCTA = () => {
                   exit={{ opacity: 0, y: 10, scale: 0.8 }}
                   className="flex flex-col space-y-2"
                 >
-                  {/* WhatsApp */}
-                  <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <Button
-                      size="sm"
-                      className="w-12 h-12 rounded-full bg-green-600 hover:bg-green-700 text-white shadow-lg"
-                      onClick={handleWhatsAppClick}
-                      title="Chat on WhatsApp"
-                    >
-                      <MessageCircle className="w-5 h-5" />
-                    </Button>
-                  </motion.div>
 
                   {/* Email */}
                   <motion.div
