@@ -220,7 +220,7 @@ export const PortfolioManager = () => {
       // Prepare data for submission
       const projectData = {
         title: formData.title,
-        slug: formData.slug || generateSlug(formData.title), // Ensure slug is always present
+        slug: formData.slug || generateSlug(formData.title),
         subtitle: formData.subtitle || null,
         description: formData.description || null,
         client_name: formData.client_name || null,
@@ -263,7 +263,7 @@ export const PortfolioManager = () => {
       // Reload data to update stats
       await loadData()
       
-      alert('Project created successfully! It will now appear on your Portfolio page.')
+      alert('Portfolio project created successfully! It will now appear on your Portfolio page.')
     } catch (error: any) {
       console.error('Error creating project:', error)
       alert('Error creating project: ' + (error.message || 'Unknown error'))
@@ -362,12 +362,12 @@ export const PortfolioManager = () => {
           <DialogTrigger asChild>
             <Button className="bg-green-600 hover:bg-green-700">
               <Plus className="w-4 h-4 mr-2" />
-              Add Project
+              Add Portfolio
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Create New Project</DialogTitle>
+              <DialogTitle>Create New Portfolio Project</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -598,7 +598,7 @@ export const PortfolioManager = () => {
                   ) : (
                     <>
                       <Save className="w-4 h-4 mr-2" />
-                      Create Project
+                      Create Portfolio Project
                     </>
                   )}
                 </Button>
