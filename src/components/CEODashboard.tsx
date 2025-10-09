@@ -870,18 +870,6 @@ const CEODashboard = () => {
         </Tabs>
       </div>
 
-      {/* Floating Action Buttons */}
-      <div className="fixed bottom-6 left-6">
-        <Button size="lg" className="w-14 h-14 rounded-full bg-white border-2 border-gray-200 hover:bg-gray-50">
-          <Plus className="w-6 h-6 text-gray-600" />
-        </Button>
-      </div>
-      
-      <div className="fixed bottom-6 right-6">
-        <Button size="lg" className="w-14 h-14 rounded-full bg-green-600 hover:bg-green-700">
-          <MessageSquare className="w-6 h-6 text-white" />
-        </Button>
-      </div>
     </div>
   )
 }
