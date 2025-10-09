@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { db, type Lead, type DashboardStats } from '@/lib/supabase'
+import { type Lead, type DashboardStats } from '@/lib/supabase'
 import { supabase } from '@/lib/supabaseClient'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -53,7 +53,7 @@ const CEODashboard = () => {
 
       // Load leads and stats in parallel
       const [leadsData, statsData] = await Promise.all([
-        db.getLeads({ limit: 50 }),
+        loadLeads({ limit: 50 }),
         loadDashboardStats()
       ])
 
@@ -79,10 +79,30 @@ const CEODashboard = () => {
     }
   }
 
+  const loadLeads = async (filters?: { limit?: number }) => {
+    try {
+      let query = supabase
+        .from('leads')
+        .select('*')
+        .order('created_at', { ascending: false })
+
+      if (filters?.limit) {
+        query = query.limit(filters.limit)
+      }
+
+      const { data, error } = await query
+      if (error) throw error
+      return data as Lead[]
+    } catch (err) {
+      console.error('Error loading leads:', err)
+      return []
+    }
+  }
+
   const loadDashboardStats = async (): Promise<DashboardStats> => {
     try {
       // Calculate stats from leads data
-      const allLeads = await db.getLeads()
+      const allLeads = await loadLeads()
       const totalLeads = allLeads?.length || 0
       const convertedLeads = allLeads?.filter(lead => 
         lead.status === 'closed_won'
