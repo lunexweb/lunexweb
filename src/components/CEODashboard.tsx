@@ -3,7 +3,6 @@ import { type Lead, type DashboardStats } from '@/lib/supabase'
 import { supabase } from '@/lib/supabaseClient'
 import BlogManager from './BlogManager'
 import { PortfolioManager } from './PortfolioManager'
-import { PortfolioTest } from './PortfolioTest'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -815,19 +814,6 @@ const CEODashboard = () => {
                    </CardContent>
                  </Card>
                </div>
-
-               {/* Database Test */}
-               <Card>
-                 <CardHeader>
-                   <CardTitle className="flex items-center gap-3">
-                     <Briefcase className="w-5 h-5 text-blue-600" />
-                     Database Test
-                   </CardTitle>
-                 </CardHeader>
-                 <CardContent>
-                   <PortfolioTest />
-                 </CardContent>
-               </Card>
 
                {/* Portfolio Management */}
                <Card>

@@ -6,7 +6,8 @@ import { Navigation } from '@/components/Navigation'
 import { PortfolioHero } from '@/components/PortfolioHero'
 import { PortfolioCard } from '@/components/PortfolioCard'
 import { PortfolioSidebar } from '@/components/PortfolioSidebar'
-import { PortfolioProjectWithDetails, PortfolioCategory, db } from '@/lib/supabase'
+import { PortfolioProjectWithDetails, PortfolioCategory } from '@/lib/supabase'
+import { supabase } from '@/lib/supabaseClient'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
@@ -36,10 +37,34 @@ export default function Portfolio() {
   const loadInitialData = async () => {
     try {
       setLoading(true)
-      const [categoriesData, featuredData] = await Promise.all([
-        db.getPortfolioCategories(),
-        db.getFeaturedPortfolioProjects(1)
-      ])
+      
+      // Load categories
+      const { data: categoriesData, error: categoriesError } = await supabase
+        .from('portfolio_categories')
+        .select('*')
+        .order('name')
+      
+      // Load featured projects
+      const { data: featuredData, error: featuredError } = await supabase
+        .from('portfolio_projects')
+        .select(`
+          *,
+          portfolio_categories (
+            id,
+            name,
+            slug,
+            color,
+            icon
+          )
+        `)
+        .eq('is_featured', true)
+        .eq('is_published', true)
+        .order('created_at', { ascending: false })
+        .limit(6)
+      
+      if (categoriesError) console.error('Categories error:', categoriesError)
+      if (featuredError) console.error('Featured projects error:', featuredError)
+      
       setCategories(categoriesData || [])
       setFeaturedProjects(featuredData || [])
     } catch (error) {
@@ -55,12 +80,40 @@ export default function Portfolio() {
   const loadProjects = async () => {
     try {
       const offset = (currentPage - 1) * projectsPerPage
-      const projectsData = await db.getPortfolioProjects({
-        category_id: selectedCategory ? 
-          categories.find(cat => cat.slug === selectedCategory)?.id : undefined,
-        limit: projectsPerPage,
-        offset
-      })
+      
+      let query = supabase
+        .from('portfolio_projects')
+        .select(`
+          *,
+          portfolio_categories (
+            id,
+            name,
+            slug,
+            color,
+            icon
+          )
+        `)
+        .eq('is_published', true)
+        .order('created_at', { ascending: false })
+        .range(offset, offset + projectsPerPage - 1)
+      
+      if (selectedCategory) {
+        const categoryId = categories.find(cat => cat.slug === selectedCategory)?.id
+        if (categoryId) {
+          query = query.eq('category_id', categoryId)
+        }
+      }
+      
+      const { data: projectsData, error } = await query
+      
+      if (error) {
+        console.error('Projects loading error:', error)
+        if (currentPage === 1) {
+          setProjects([])
+        }
+        setHasMore(false)
+        return
+      }
       
       if (currentPage === 1) {
         setProjects(projectsData || [])
