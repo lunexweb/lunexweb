@@ -1,4 +1,4 @@
-import { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
+import { useState, useEffect } from 'react'
 import { Plus, Edit, Trash2, Eye, EyeOff, ExternalLink, Search, Filter, Save, X } from 'lucide-react'
 import { PortfolioProject, PortfolioCategory, PortfolioStats } from '@/lib/supabase'
 import { supabase } from '@/lib/supabaseClient'
@@ -12,11 +12,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 
-export interface PortfolioManagerRef {
-  openAddProjectDialog: () => void;
-}
-
-export const PortfolioManager = forwardRef<PortfolioManagerRef>((props, ref) => {
+export const PortfolioManager = () => {
   const [projects, setProjects] = useState<PortfolioProject[]>([])
   const [categories, setCategories] = useState<PortfolioCategory[]>([])
   const [stats, setStats] = useState<PortfolioStats | null>(null)
@@ -52,12 +48,6 @@ export const PortfolioManager = forwardRef<PortfolioManagerRef>((props, ref) => 
   useEffect(() => {
     loadData()
   }, [])
-
-  useImperativeHandle(ref, () => ({
-    openAddProjectDialog: () => {
-      setIsCreateDialogOpen(true)
-    }
-  }))
 
   const loadData = async () => {
     try {
@@ -845,6 +835,4 @@ export const PortfolioManager = forwardRef<PortfolioManagerRef>((props, ref) => 
       )}
     </div>
   )
-})
-
-PortfolioManager.displayName = 'PortfolioManager'
+}
