@@ -52,51 +52,97 @@ export const PortfolioManager = () => {
     try {
       setLoading(true)
       
-      // Load projects
+      // Test connection first
+      console.log('Testing Supabase connection...')
+      
+      // Load projects with error handling
       const { data: projectsData, error: projectsError } = await supabase
         .from('portfolio_projects')
         .select('*')
         .order('created_at', { ascending: false })
         .limit(50)
       
-      // Load categories
+      if (projectsError) {
+        console.error('Projects error:', projectsError)
+        // Continue with empty array if table doesn't exist
+      }
+      
+      // Load categories with error handling
       const { data: categoriesData, error: categoriesError } = await supabase
         .from('portfolio_categories')
         .select('*')
         .order('name')
       
-      // Load stats
-      const { data: publishedCount } = await supabase
-        .from('portfolio_projects')
-        .select('id', { count: 'exact' })
-        .eq('is_published', true)
+      if (categoriesError) {
+        console.error('Categories error:', categoriesError)
+        // Continue with empty array if table doesn't exist
+      }
       
-      const { data: featuredCount } = await supabase
-        .from('portfolio_projects')
-        .select('id', { count: 'exact' })
-        .eq('is_featured', true)
+      // Load stats with error handling
+      let publishedCount = 0
+      let featuredCount = 0
+      let totalCount = 0
+      let totalViews = 0
       
-      const { data: totalCount } = await supabase
-        .from('portfolio_projects')
-        .select('id', { count: 'exact' })
+      try {
+        const { data: publishedData } = await supabase
+          .from('portfolio_projects')
+          .select('id', { count: 'exact' })
+          .eq('is_published', true)
+        publishedCount = publishedData?.[0]?.count || 0
+      } catch (err) {
+        console.log('Published count error:', err)
+      }
       
-      const { data: viewsData } = await supabase
-        .from('portfolio_views')
-        .select('id', { count: 'exact' })
+      try {
+        const { data: featuredData } = await supabase
+          .from('portfolio_projects')
+          .select('id', { count: 'exact' })
+          .eq('is_featured', true)
+        featuredCount = featuredData?.[0]?.count || 0
+      } catch (err) {
+        console.log('Featured count error:', err)
+      }
       
-      if (projectsError) throw projectsError
-      if (categoriesError) throw categoriesError
+      try {
+        const { data: totalData } = await supabase
+          .from('portfolio_projects')
+          .select('id', { count: 'exact' })
+        totalCount = totalData?.[0]?.count || 0
+      } catch (err) {
+        console.log('Total count error:', err)
+      }
+      
+      try {
+        const { data: viewsData } = await supabase
+          .from('portfolio_views')
+          .select('id', { count: 'exact' })
+        totalViews = viewsData?.[0]?.count || 0
+      } catch (err) {
+        console.log('Views count error:', err)
+      }
       
       setProjects(projectsData || [])
       setCategories(categoriesData || [])
       setStats({
-        total_projects: totalCount?.[0]?.count || 0,
-        published_projects: publishedCount?.[0]?.count || 0,
-        featured_projects: featuredCount?.[0]?.count || 0,
-        total_views: viewsData?.[0]?.count || 0
+        total_projects: totalCount,
+        published_projects: publishedCount,
+        featured_projects: featuredCount,
+        total_views: totalViews
       })
+      
+      console.log('Portfolio data loaded successfully')
     } catch (error) {
       console.error('Error loading portfolio data:', error)
+      // Set empty defaults on error
+      setProjects([])
+      setCategories([])
+      setStats({
+        total_projects: 0,
+        published_projects: 0,
+        featured_projects: 0,
+        total_views: 0
+      })
     } finally {
       setLoading(false)
     }
@@ -151,15 +197,29 @@ export const PortfolioManager = () => {
     setSubmitting(true)
     
     try {
+      console.log('Submitting project data:', formData)
+      
       // Prepare data for submission
       const projectData = {
-        ...formData,
-        technologies: formData.technologies.split(',').map(tech => tech.trim()).filter(Boolean),
-        tags: formData.tags.split(',').map(tag => tag.trim()).filter(Boolean),
-        estimated_value: formData.estimated_value ? parseFloat(formData.estimated_value) : null,
+        title: formData.title,
+        subtitle: formData.subtitle || null,
+        description: formData.description || null,
+        client_name: formData.client_name || null,
+        project_type: formData.project_type,
+        technologies: formData.technologies ? formData.technologies.split(',').map(tech => tech.trim()).filter(Boolean) : [],
+        featured_image_url: formData.featured_image_url || null,
+        project_url: formData.project_url || null,
+        github_url: formData.github_url || null,
+        case_study_url: formData.case_study_url || null,
+        category_id: formData.category_id || null,
+        is_published: formData.is_published,
+        is_featured: formData.is_featured,
         completion_date: formData.completion_date || null,
-        category_id: formData.category_id || null
+        estimated_value: formData.estimated_value ? parseFloat(formData.estimated_value) : null,
+        tags: formData.tags ? formData.tags.split(',').map(tag => tag.trim()).filter(Boolean) : []
       }
+
+      console.log('Processed project data:', projectData)
 
       const { data, error } = await supabase
         .from('portfolio_projects')
@@ -167,7 +227,12 @@ export const PortfolioManager = () => {
         .select()
         .single()
 
-      if (error) throw error
+      if (error) {
+        console.error('Supabase error:', error)
+        throw error
+      }
+
+      console.log('Project created successfully:', data)
 
       // Add the new project to the list
       setProjects(prev => [data, ...prev])
@@ -182,7 +247,7 @@ export const PortfolioManager = () => {
       alert('Project created successfully!')
     } catch (error: any) {
       console.error('Error creating project:', error)
-      alert('Error creating project: ' + error.message)
+      alert('Error creating project: ' + (error.message || 'Unknown error'))
     } finally {
       setSubmitting(false)
     }
