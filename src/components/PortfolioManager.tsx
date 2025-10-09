@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Plus, Edit, Trash2, Eye, EyeOff, ExternalLink, Search, Filter } from 'lucide-react'
+import { Plus, Edit, Trash2, Eye, EyeOff, ExternalLink, Search, Filter, Save, X } from 'lucide-react'
 import { PortfolioProject, PortfolioCategory, PortfolioStats, db } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -7,6 +7,9 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Textarea } from '@/components/ui/textarea'
+import { Label } from '@/components/ui/label'
+import { Checkbox } from '@/components/ui/checkbox'
 
 export const PortfolioManager = () => {
   const [projects, setProjects] = useState<PortfolioProject[]>([])
@@ -18,6 +21,33 @@ export const PortfolioManager = () => {
   const [categoryFilter, setCategoryFilter] = useState<string>('all')
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
   const [editingProject, setEditingProject] = useState<PortfolioProject | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  
+  // Form state for creating new projects
+  const [formData, setFormData] = useState({
+    title: '',
+    subtitle: '',
+    description: '',
+    project_type: 'website',
+    client_name: '',
+    client_website: '',
+    project_url: '',
+    github_url: '',
+    featured_image_url: '',
+    technologies: '',
+    category_id: '',
+    is_published: false,
+    is_featured: false,
+    start_date: '',
+    end_date: '',
+    budget_range: '',
+    team_size: '',
+    challenges: '',
+    solutions: '',
+    results: '',
+    testimonials: '',
+    gallery_images: ''
+  })
 
   useEffect(() => {
     loadData()
@@ -39,6 +69,76 @@ export const PortfolioManager = () => {
     } finally {
       setLoading(false)
     }
+  }
+
+  const resetForm = () => {
+    setFormData({
+      title: '',
+      subtitle: '',
+      description: '',
+      project_type: 'website',
+      client_name: '',
+      client_website: '',
+      project_url: '',
+      github_url: '',
+      featured_image_url: '',
+      technologies: '',
+      category_id: '',
+      is_published: false,
+      is_featured: false,
+      start_date: '',
+      end_date: '',
+      budget_range: '',
+      team_size: '',
+      challenges: '',
+      solutions: '',
+      results: '',
+      testimonials: '',
+      gallery_images: ''
+    })
+  }
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    try {
+      // Prepare data for submission
+      const projectData = {
+        ...formData,
+        technologies: formData.technologies.split(',').map(tech => tech.trim()).filter(tech => tech),
+        gallery_images: formData.gallery_images.split(',').map(img => img.trim()).filter(img => img),
+        start_date: formData.start_date || null,
+        end_date: formData.end_date || null,
+        category_id: formData.category_id || null
+      }
+
+      // Create the project
+      const newProject = await db.createPortfolioProject(projectData)
+      
+      // Update local state
+      setProjects([newProject, ...projects])
+      
+      // Reset form and close dialog
+      resetForm()
+      setIsCreateDialogOpen(false)
+      
+      // Reload data to get updated stats
+      await loadData()
+      
+    } catch (error) {
+      console.error('Error creating project:', error)
+      alert('Failed to create project. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleInputChange = (field: string, value: any) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }))
   }
 
   const filteredProjects = projects.filter(project => {
@@ -131,13 +231,301 @@ export const PortfolioManager = () => {
               Add Project
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl">
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Create New Project</DialogTitle>
             </DialogHeader>
-            <div className="text-center py-8">
-              <p className="text-gray-500">Project creation form will be implemented here</p>
+            <form onSubmit={handleFormSubmit} className="space-y-6">
+              {/* Basic Information */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="title">Project Title *</Label>
+                  <Input
+                    id="title"
+                    value={formData.title}
+                    onChange={(e) => handleInputChange('title', e.target.value)}
+                    placeholder="Enter project title"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="subtitle">Subtitle</Label>
+                  <Input
+                    id="subtitle"
+                    value={formData.subtitle}
+                    onChange={(e) => handleInputChange('subtitle', e.target.value)}
+                    placeholder="Brief project subtitle"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="description">Description *</Label>
+                <Textarea
+                  id="description"
+                  value={formData.description}
+                  onChange={(e) => handleInputChange('description', e.target.value)}
+                  placeholder="Describe the project in detail"
+                  rows={4}
+                  required
+                />
+              </div>
+
+              {/* Project Details */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="project_type">Project Type</Label>
+                  <Select value={formData.project_type} onValueChange={(value) => handleInputChange('project_type', value)}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="website">Website</SelectItem>
+                      <SelectItem value="web-app">Web Application</SelectItem>
+                      <SelectItem value="mobile">Mobile App</SelectItem>
+                      <SelectItem value="ecommerce">E-commerce</SelectItem>
+                      <SelectItem value="branding">Branding</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="category_id">Category</Label>
+                  <Select value={formData.category_id} onValueChange={(value) => handleInputChange('category_id', value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="">No Category</SelectItem>
+                      {categories.map((category) => (
+                        <SelectItem key={category.id} value={category.id}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="budget_range">Budget Range</Label>
+                  <Select value={formData.budget_range} onValueChange={(value) => handleInputChange('budget_range', value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select budget range" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="">Not specified</SelectItem>
+                      <SelectItem value="under-5k">Under $5,000</SelectItem>
+                      <SelectItem value="5k-10k">$5,000 - $10,000</SelectItem>
+                      <SelectItem value="10k-25k">$10,000 - $25,000</SelectItem>
+                      <SelectItem value="25k-50k">$25,000 - $50,000</SelectItem>
+                      <SelectItem value="over-50k">Over $50,000</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Client Information */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="client_name">Client Name</Label>
+                  <Input
+                    id="client_name"
+                    value={formData.client_name}
+                    onChange={(e) => handleInputChange('client_name', e.target.value)}
+                    placeholder="Client or company name"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="client_website">Client Website</Label>
+                  <Input
+                    id="client_website"
+                    value={formData.client_website}
+                    onChange={(e) => handleInputChange('client_website', e.target.value)}
+                    placeholder="https://client-website.com"
+                  />
+                </div>
+              </div>
+
+              {/* Project URLs */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="project_url">Project URL</Label>
+                  <Input
+                    id="project_url"
+                    value={formData.project_url}
+                    onChange={(e) => handleInputChange('project_url', e.target.value)}
+                    placeholder="https://project-demo.com"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="github_url">GitHub URL</Label>
+                  <Input
+                    id="github_url"
+                    value={formData.github_url}
+                    onChange={(e) => handleInputChange('github_url', e.target.value)}
+                    placeholder="https://github.com/user/project"
+                  />
+                </div>
+              </div>
+
+              {/* Technologies */}
+              <div className="space-y-2">
+                <Label htmlFor="technologies">Technologies Used</Label>
+                <Input
+                  id="technologies"
+                  value={formData.technologies}
+                  onChange={(e) => handleInputChange('technologies', e.target.value)}
+                  placeholder="React, Node.js, MongoDB (comma separated)"
+                />
+              </div>
+
+              {/* Images */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="featured_image_url">Featured Image URL</Label>
+                  <Input
+                    id="featured_image_url"
+                    value={formData.featured_image_url}
+                    onChange={(e) => handleInputChange('featured_image_url', e.target.value)}
+                    placeholder="https://example.com/project-image.jpg"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="gallery_images">Gallery Images</Label>
+                  <Input
+                    id="gallery_images"
+                    value={formData.gallery_images}
+                    onChange={(e) => handleInputChange('gallery_images', e.target.value)}
+                    placeholder="https://example.com/img1.jpg, https://example.com/img2.jpg"
+                  />
+                </div>
+              </div>
+
+              {/* Project Timeline */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="start_date">Start Date</Label>
+                  <Input
+                    id="start_date"
+                    type="date"
+                    value={formData.start_date}
+                    onChange={(e) => handleInputChange('start_date', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="end_date">End Date</Label>
+                  <Input
+                    id="end_date"
+                    type="date"
+                    value={formData.end_date}
+                    onChange={(e) => handleInputChange('end_date', e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="team_size">Team Size</Label>
+                  <Input
+                    id="team_size"
+                    value={formData.team_size}
+                    onChange={(e) => handleInputChange('team_size', e.target.value)}
+                    placeholder="e.g., 3 developers, 1 designer"
+                  />
+                </div>
+              </div>
+
+              {/* Project Details */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="challenges">Challenges</Label>
+                  <Textarea
+                    id="challenges"
+                    value={formData.challenges}
+                    onChange={(e) => handleInputChange('challenges', e.target.value)}
+                    placeholder="Key challenges faced during the project"
+                    rows={3}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="solutions">Solutions</Label>
+                  <Textarea
+                    id="solutions"
+                    value={formData.solutions}
+                    onChange={(e) => handleInputChange('solutions', e.target.value)}
+                    placeholder="How challenges were solved"
+                    rows={3}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="results">Results</Label>
+                  <Textarea
+                    id="results"
+                    value={formData.results}
+                    onChange={(e) => handleInputChange('results', e.target.value)}
+                    placeholder="Project outcomes and achievements"
+                    rows={3}
+                  />
+                </div>
+              </div>
+
+              {/* Testimonials */}
+              <div className="space-y-2">
+                <Label htmlFor="testimonials">Client Testimonials</Label>
+                <Textarea
+                  id="testimonials"
+                  value={formData.testimonials}
+                  onChange={(e) => handleInputChange('testimonials', e.target.value)}
+                  placeholder="Client feedback and testimonials"
+                  rows={3}
+                />
+              </div>
+
+              {/* Project Settings */}
+              <div className="flex items-center space-x-6">
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="is_published"
+                    checked={formData.is_published}
+                    onCheckedChange={(checked) => handleInputChange('is_published', checked)}
+                  />
+                  <Label htmlFor="is_published">Publish immediately</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="is_featured"
+                    checked={formData.is_featured}
+                    onCheckedChange={(checked) => handleInputChange('is_featured', checked)}
+                  />
+                  <Label htmlFor="is_featured">Feature this project</Label>
+                </div>
+              </div>
+
+              {/* Form Actions */}
+              <div className="flex justify-end space-x-3 pt-4 border-t">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    resetForm()
+                    setIsCreateDialogOpen(false)
+                  }}
+                  disabled={isSubmitting}
+                >
+                  <X className="w-4 h-4 mr-2" />
+                  Cancel
+                </Button>
+                <Button type="submit" disabled={isSubmitting} className="bg-green-600 hover:bg-green-700">
+                  {isSubmitting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Creating...
+                    </>
+                  ) : (
+                    <>
+                      <Save className="w-4 h-4 mr-2" />
+                      Create Project
+                    </>
+                  )}
+                </Button>
             </div>
+            </form>
           </DialogContent>
         </Dialog>
       </div>
