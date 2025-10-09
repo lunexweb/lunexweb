@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { supabase, db, type Lead, type DashboardStats } from '@/lib/supabase'
+import { db, type Lead, type DashboardStats } from '@/lib/supabase'
+import { supabase } from '@/lib/supabaseClient'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -44,6 +45,11 @@ const CEODashboard = () => {
     try {
       setLoading(true)
       setError(null)
+
+      // Check if supabase is available
+      if (!supabase) {
+        throw new Error('Supabase client not initialized')
+      }
 
       // Load leads and stats in parallel
       const [leadsData, statsData] = await Promise.all([
