@@ -758,149 +758,149 @@ const CEODashboard = () => {
             </Card>
           </TabsContent>
 
-          {/* Portfolio Tab */}
-          <TabsContent value="portfolio">
-            <div className="space-y-6">
-              {/* Portfolio Stats */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card className="bg-blue-50 border-blue-200">
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-between">
-                      <div className="bg-blue-100 p-3 rounded-lg">
-                        <Briefcase className="w-6 h-6 text-blue-600" />
-                      </div>
-                      <div className="text-right">
-                        <div className="text-3xl font-bold text-blue-600">{dashboardData.totalProjects}</div>
-                        <div className="text-sm text-blue-600">Total Projects</div>
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <h3 className="font-semibold text-gray-900">Published Projects</h3>
-                    </div>
-                  </CardContent>
-                </Card>
+           {/* Portfolio Tab */}
+           <TabsContent value="portfolio">
+             <div className="space-y-6">
+               {/* Portfolio Stats */}
+               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                 <Card className="bg-blue-50 border-blue-200">
+                   <CardContent className="p-6">
+                     <div className="flex items-center justify-between">
+                       <div className="bg-blue-100 p-3 rounded-lg">
+                         <Briefcase className="w-6 h-6 text-blue-600" />
+                       </div>
+                       <div className="text-right">
+                         <div className="text-3xl font-bold text-blue-600">{dashboardData.totalProjects}</div>
+                         <div className="text-sm text-blue-600">Total Projects</div>
+                       </div>
+                     </div>
+                     <div className="mt-4">
+                       <h3 className="font-semibold text-gray-900">Published Projects</h3>
+                     </div>
+                   </CardContent>
+                 </Card>
 
-                <Card className="bg-green-50 border-green-200">
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-between">
-                      <div className="bg-green-100 p-3 rounded-lg">
-                        <Eye className="w-6 h-6 text-green-600" />
-                      </div>
-                      <div className="text-right">
-                        <div className="text-3xl font-bold text-green-600">{dashboardData.portfolioViews}</div>
-                        <div className="text-sm text-green-600">Total Views</div>
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <h3 className="font-semibold text-gray-900">Portfolio Views</h3>
-                    </div>
-                  </CardContent>
-                </Card>
+                 <Card className="bg-green-50 border-green-200">
+                   <CardContent className="p-6">
+                     <div className="flex items-center justify-between">
+                       <div className="bg-green-100 p-3 rounded-lg">
+                         <Eye className="w-6 h-6 text-green-600" />
+                       </div>
+                       <div className="text-right">
+                         <div className="text-3xl font-bold text-green-600">{dashboardData.portfolioViews}</div>
+                         <div className="text-sm text-green-600">Total Views</div>
+                       </div>
+                     </div>
+                     <div className="mt-4">
+                       <h3 className="font-semibold text-gray-900">Portfolio Views</h3>
+                     </div>
+                   </CardContent>
+                 </Card>
 
-                <Card className="bg-purple-50 border-purple-200">
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-between">
-                      <div className="bg-purple-100 p-3 rounded-lg">
-                        <Star className="w-6 h-6 text-purple-600" />
-                      </div>
-                      <div className="text-right">
-                        <div className="text-3xl font-bold text-purple-600">{dashboardData.featuredProjects}</div>
-                        <div className="text-sm text-purple-600">Featured</div>
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <h3 className="font-semibold text-gray-900">Featured Projects</h3>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+                 <Card className="bg-purple-50 border-purple-200">
+                   <CardContent className="p-6">
+                     <div className="flex items-center justify-between">
+                       <div className="bg-purple-100 p-3 rounded-lg">
+                         <Star className="w-6 h-6 text-purple-600" />
+                       </div>
+                       <div className="text-right">
+                         <div className="text-3xl font-bold text-purple-600">{dashboardData.featuredProjects}</div>
+                         <div className="text-sm text-purple-600">Featured</div>
+                       </div>
+                     </div>
+                     <div className="mt-4">
+                       <h3 className="font-semibold text-gray-900">Featured Projects</h3>
+                     </div>
+                   </CardContent>
+                 </Card>
+               </div>
 
-              {/* Portfolio Management */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-3">
-                    <Briefcase className="w-5 h-5 text-green-600" />
-                    Portfolio Management
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <PortfolioManager />
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
+               {/* Portfolio Management */}
+               <Card>
+                 <CardHeader>
+                   <CardTitle className="flex items-center gap-3">
+                     <Briefcase className="w-5 h-5 text-green-600" />
+                     Portfolio Management
+                   </CardTitle>
+                 </CardHeader>
+                 <CardContent>
+                   <PortfolioManager />
+                 </CardContent>
+               </Card>
+             </div>
+           </TabsContent>
 
-          {/* Blog Tab */}
-          <TabsContent value="blog">
-            <div className="space-y-6">
-              {/* Blog Stats */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card className="bg-blue-50 border-blue-200">
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-between">
-                      <div className="bg-blue-100 p-3 rounded-lg">
-                        <FileText className="w-6 h-6 text-blue-600" />
-                      </div>
-                      <div className="text-right">
-                        <div className="text-3xl font-bold text-blue-600">{dashboardData.totalPosts}</div>
-                        <div className="text-sm text-blue-600">Total Posts</div>
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <h3 className="font-semibold text-gray-900">All Blog Posts</h3>
-                    </div>
-                  </CardContent>
-                </Card>
+           {/* Blog Tab */}
+           <TabsContent value="blog">
+             <div className="space-y-6">
+               {/* Blog Stats */}
+               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                 <Card className="bg-blue-50 border-blue-200">
+                   <CardContent className="p-6">
+                     <div className="flex items-center justify-between">
+                       <div className="bg-blue-100 p-3 rounded-lg">
+                         <FileText className="w-6 h-6 text-blue-600" />
+                       </div>
+                       <div className="text-right">
+                         <div className="text-3xl font-bold text-blue-600">{dashboardData.totalPosts}</div>
+                         <div className="text-sm text-blue-600">Total Posts</div>
+                       </div>
+                     </div>
+                     <div className="mt-4">
+                       <h3 className="font-semibold text-gray-900">All Blog Posts</h3>
+                     </div>
+                   </CardContent>
+                 </Card>
 
-                <Card className="bg-green-50 border-green-200">
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-between">
-                      <div className="bg-green-100 p-3 rounded-lg">
-                        <Eye className="w-6 h-6 text-green-600" />
-                      </div>
-                      <div className="text-right">
-                        <div className="text-3xl font-bold text-green-600">{dashboardData.blogViews}</div>
-                        <div className="text-sm text-green-600">Total Views</div>
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <h3 className="font-semibold text-gray-900">Blog Views</h3>
-                    </div>
-                  </CardContent>
-                </Card>
+                 <Card className="bg-green-50 border-green-200">
+                   <CardContent className="p-6">
+                     <div className="flex items-center justify-between">
+                       <div className="bg-green-100 p-3 rounded-lg">
+                         <Eye className="w-6 h-6 text-green-600" />
+                       </div>
+                       <div className="text-right">
+                         <div className="text-3xl font-bold text-green-600">{dashboardData.blogViews}</div>
+                         <div className="text-sm text-green-600">Total Views</div>
+                       </div>
+                     </div>
+                     <div className="mt-4">
+                       <h3 className="font-semibold text-gray-900">Blog Views</h3>
+                     </div>
+                   </CardContent>
+                 </Card>
 
-                <Card className="bg-purple-50 border-purple-200">
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-between">
-                      <div className="bg-purple-100 p-3 rounded-lg">
-                        <CheckCircle className="w-6 h-6 text-purple-600" />
-                      </div>
-                      <div className="text-right">
-                        <div className="text-3xl font-bold text-purple-600">{dashboardData.publishedPosts}</div>
-                        <div className="text-sm text-purple-600">Published</div>
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <h3 className="font-semibold text-gray-900">Published Posts</h3>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+                 <Card className="bg-purple-50 border-purple-200">
+                   <CardContent className="p-6">
+                     <div className="flex items-center justify-between">
+                       <div className="bg-purple-100 p-3 rounded-lg">
+                         <CheckCircle className="w-6 h-6 text-purple-600" />
+                       </div>
+                       <div className="text-right">
+                         <div className="text-3xl font-bold text-purple-600">{dashboardData.publishedPosts}</div>
+                         <div className="text-sm text-purple-600">Published</div>
+                       </div>
+                     </div>
+                     <div className="mt-4">
+                       <h3 className="font-semibold text-gray-900">Published Posts</h3>
+                     </div>
+                   </CardContent>
+                 </Card>
+               </div>
 
-              {/* Blog Management */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-3">
-                    <FileText className="w-5 h-5 text-green-600" />
-                    Blog Management
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <BlogManager />
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
+               {/* Blog Management */}
+               <Card>
+                 <CardHeader>
+                   <CardTitle className="flex items-center gap-3">
+                     <FileText className="w-5 h-5 text-green-600" />
+                     Blog Management
+                   </CardTitle>
+                 </CardHeader>
+                 <CardContent>
+                   <BlogManager />
+                 </CardContent>
+               </Card>
+             </div>
+           </TabsContent>
         </Tabs>
       </div>
 
