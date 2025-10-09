@@ -398,9 +398,8 @@ export const PortfolioManager = () => {
     )
   }
 
-  try {
-    return (
-      <div className="space-y-6">
+  return (
+    <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
@@ -885,21 +884,4 @@ export const PortfolioManager = () => {
       )}
     </div>
   )
-  } catch (err: any) {
-    console.error('Error in PortfolioManager render:', err)
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-center">
-          <div className="text-red-500 mb-2">Error rendering portfolio manager</div>
-          <div className="text-gray-600 text-sm mb-4">{err.message || 'Unknown error occurred'}</div>
-          <button 
-            onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            Reload Page
-          </button>
-        </div>
-      </div>
-    )
-  }
 }
