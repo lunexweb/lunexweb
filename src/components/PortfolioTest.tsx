@@ -34,6 +34,7 @@ export const PortfolioTest = () => {
       // Test 3: Try to insert a test record
       const testProject = {
         title: 'Test Project',
+        slug: 'test-project-' + Date.now(), // Add required slug field
         project_type: 'website',
         is_published: false,
         is_featured: false

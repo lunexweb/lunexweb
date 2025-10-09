@@ -27,6 +27,7 @@ export const PortfolioManager = () => {
   // Form state
   const [formData, setFormData] = useState({
     title: '',
+    slug: '',
     subtitle: '',
     description: '',
     client_name: '',
@@ -164,16 +165,33 @@ export const PortfolioManager = () => {
     return matchesSearch && matchesStatus && matchesCategory
   })
 
+  const generateSlug = (title: string) => {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '')
+  }
+
   const handleInputChange = (field: string, value: any) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }))
+    setFormData(prev => {
+      const newData = {
+        ...prev,
+        [field]: value
+      }
+      
+      // Auto-generate slug when title changes
+      if (field === 'title' && value) {
+        newData.slug = generateSlug(value)
+      }
+      
+      return newData
+    })
   }
 
   const resetForm = () => {
     setFormData({
       title: '',
+      slug: '',
       subtitle: '',
       description: '',
       client_name: '',
@@ -202,6 +220,7 @@ export const PortfolioManager = () => {
       // Prepare data for submission
       const projectData = {
         title: formData.title,
+        slug: formData.slug || generateSlug(formData.title), // Ensure slug is always present
         subtitle: formData.subtitle || null,
         description: formData.description || null,
         client_name: formData.client_name || null,
@@ -362,6 +381,20 @@ export const PortfolioManager = () => {
                       placeholder="Enter project title"
                       required
                     />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="slug">URL Slug *</Label>
+                    <Input
+                      id="slug"
+                      value={formData.slug}
+                      onChange={(e) => handleInputChange('slug', e.target.value)}
+                      placeholder="project-url-slug"
+                      required
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                      Auto-generated from title. Used for project URLs.
+                    </p>
                   </div>
                   
                   <div>
