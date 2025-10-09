@@ -30,7 +30,7 @@ export const Hero = () => {
           background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' 
         }}
       >
-        <source src="https://res.cloudinary.com/dnnwvmh3n/video/upload/v1759957675/7552614-hd_1920_1080_25fps_ebuder.mp4" type="video/mp4" />
+        <source src="https://res.cloudinary.com/dnnwvmh3n/video/upload/v1760022358/270415_small_falzoi.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       
@@ -47,13 +47,13 @@ export const Hero = () => {
               <span className="text-xs sm:text-sm text-green-100 font-medium">Premium Web Development Agency</span>
             </div>
 
-            <h1 className="text-[clamp(2.5rem,8vw,8rem)] font-light tracking-tight leading-[1.1] text-white">
+            <h1 className="text-[clamp(2.5rem,6vw,6rem)] font-light tracking-tight leading-[1.1] text-white">
               Premium Web Development
               <br />
               <span className="text-green-400">That Converts</span>
             </h1>
             
-            <p className="text-[clamp(1.125rem,4vw,2rem)] text-white/90 max-w-5xl mx-auto leading-relaxed font-light px-4">
+            <p className="text-[clamp(1.125rem,2.5vw,1.5rem)] text-white/90 max-w-4xl mx-auto leading-relaxed font-light px-4">
               Professional websites that convert visitors into paying clients. 
               Premium web development for law firms, consulting agencies & luxury brands across South Africa.
             </p>
@@ -116,7 +116,7 @@ export const Hero = () => {
         className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.5 }}
+        transition={{ delay: 0.5, duration: 0.3 }}
       >
         <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-white/50 rounded-full flex justify-center">
           <div className="w-1 h-2 sm:h-3 bg-white rounded-full mt-2" />

@@ -10,13 +10,20 @@ import { SimpleContactButton } from "@/components/SimpleContactButton";
 import { ExitIntentPopup } from "@/components/ExitIntentPopup";
 import { SmartContactPrompt } from "@/components/SmartContactPrompt";
 import { useAnalytics } from "@/hooks/useAnalytics";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
 import Services from "./pages/Services";
+import Portfolio from "./pages/Portfolio";
+import PortfolioProject from "./pages/PortfolioProject";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import Packages from "./pages/Packages";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import FAQ from "./pages/FAQ";
+import TestSupabase from "./pages/TestSupabase";
+import SimpleTest from "./pages/SimpleTest";
 import NotFound from "./pages/NotFound";
 
 // Location pages
@@ -47,13 +54,11 @@ const ScrollToTop = () => {
   useAnalytics(); // Initialize analytics tracking
 
   useEffect(() => {
-    // Use requestAnimationFrame for smoother scroll
-    requestAnimationFrame(() => {
-      window.scrollTo({ 
-        top: 0, 
-        left: 0, 
-        behavior: 'smooth' 
-      });
+    // Instant scroll to top for premium feel
+    window.scrollTo({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'auto' 
     });
   }, [pathname]);
 
@@ -75,18 +80,19 @@ const pageVariants = {
 const pageTransition = {
   type: "tween",
   ease: [0.25, 0.46, 0.45, 0.94],
-  duration: 0.2
+  duration: 0.1
 };
 
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ScrollToTop />
-          <AnimatePresence mode="wait" initial={false}>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <ScrollToTop />
+            <AnimatePresence mode="wait" initial={false}>
           <Routes>
             <Route path="/" element={
               <motion.div
@@ -108,6 +114,50 @@ const App = () => {
                 transition={pageTransition}
               >
                 <Services />
+              </motion.div>
+            } />
+            <Route path="/portfolio" element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <Portfolio />
+              </motion.div>
+            } />
+            <Route path="/portfolio/:slug" element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <PortfolioProject />
+              </motion.div>
+            } />
+            <Route path="/blog" element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <Blog />
+              </motion.div>
+            } />
+            <Route path="/blog/:slug" element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <BlogPost />
               </motion.div>
             } />
             <Route path="/dashboard" element={
@@ -163,6 +213,28 @@ const App = () => {
                 transition={pageTransition}
               >
                 <FAQ />
+              </motion.div>
+            } />
+            <Route path="/test-supabase" element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <TestSupabase />
+              </motion.div>
+            } />
+            <Route path="/simple-test" element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <SimpleTest />
               </motion.div>
             } />
             
@@ -381,15 +453,16 @@ const App = () => {
               </motion.div>
             } />
           </Routes>
-        </AnimatePresence>
-          <LiveChat />
-          <SimpleContactButton />
-          <ExitIntentPopup />
-          <SmartContactPrompt onContactClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} />
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  );
-};
+            </AnimatePresence>
+              <LiveChat />
+              <SimpleContactButton />
+              <ExitIntentPopup />
+              <SmartContactPrompt onContactClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} />
+            </BrowserRouter>
+          </TooltipProvider>
+        </QueryClientProvider>
+      </ErrorBoundary>
+    );
+  };
 
 export default App;

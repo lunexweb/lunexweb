@@ -21,7 +21,7 @@ const ExpandableItem = ({ title, content, isExpanded, onToggle }: {
         </span>
         <motion.div
           animate={{ rotate: isExpanded ? 45 : 0 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.15 }}
           className="text-slate-500 group-hover:text-slate-700 flex-shrink-0 ml-2"
         >
           <Plus className="w-3 h-3" />
@@ -33,7 +33,7 @@ const ExpandableItem = ({ title, content, isExpanded, onToggle }: {
             initial={{ opacity: 0, height: 0, marginTop: 0 }}
             animate={{ opacity: 1, height: "auto", marginTop: 4 }}
             exit={{ opacity: 0, height: 0, marginTop: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
             className="overflow-hidden"
           >
             <p className="text-xs text-slate-600 leading-tight pb-1">
