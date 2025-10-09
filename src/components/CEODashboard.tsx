@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { type Lead, type DashboardStats } from '@/lib/supabase'
 import { supabase } from '@/lib/supabaseClient'
 import BlogManager from './BlogManager'
-import { PortfolioManager } from './PortfolioManager'
+import { PortfolioManager, PortfolioManagerRef } from './PortfolioManager'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -71,6 +71,7 @@ interface DashboardData {
 }
 
 const CEODashboard = () => {
+  const portfolioManagerRef = useRef<PortfolioManagerRef>(null)
   const [leads, setLeads] = useState<Lead[]>([])
   const [dashboardData, setDashboardData] = useState<DashboardData>({
     newLeadsToday: 0,
@@ -818,13 +819,24 @@ const CEODashboard = () => {
                {/* Portfolio Management */}
                <Card>
                  <CardHeader>
-                   <CardTitle className="flex items-center gap-3">
-                     <Briefcase className="w-5 h-5 text-green-600" />
-                     Portfolio Management
-                   </CardTitle>
+                   <div className="flex justify-between items-center">
+                     <CardTitle className="flex items-center gap-3">
+                       <Briefcase className="w-5 h-5 text-green-600" />
+                       Portfolio Management
+                     </CardTitle>
+                     <Button 
+                       className="bg-green-600 hover:bg-green-700"
+                       onClick={() => {
+                         portfolioManagerRef.current?.openAddProjectDialog()
+                       }}
+                     >
+                       <Plus className="w-4 h-4 mr-2" />
+                       Add Project
+                     </Button>
+                   </div>
                  </CardHeader>
                  <CardContent>
-                   <PortfolioManager />
+                   <PortfolioManager ref={portfolioManagerRef} />
                  </CardContent>
                </Card>
              </div>

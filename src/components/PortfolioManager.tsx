@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { Plus, Edit, Trash2, Eye, EyeOff, ExternalLink, Search, Filter, Save, X } from 'lucide-react'
 import { PortfolioProject, PortfolioCategory, PortfolioStats } from '@/lib/supabase'
 import { supabase } from '@/lib/supabaseClient'
@@ -12,11 +12,11 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 
-interface PortfolioManagerProps {
-  onProjectCreated?: () => void;
+export interface PortfolioManagerRef {
+  openAddProjectDialog: () => void;
 }
 
-export const PortfolioManager = ({ onProjectCreated }: PortfolioManagerProps = {}) => {
+export const PortfolioManager = forwardRef<PortfolioManagerRef>((props, ref) => {
   const [projects, setProjects] = useState<PortfolioProject[]>([])
   const [categories, setCategories] = useState<PortfolioCategory[]>([])
   const [stats, setStats] = useState<PortfolioStats | null>(null)
@@ -52,6 +52,12 @@ export const PortfolioManager = ({ onProjectCreated }: PortfolioManagerProps = {
   useEffect(() => {
     loadData()
   }, [])
+
+  useImperativeHandle(ref, () => ({
+    openAddProjectDialog: () => {
+      setIsCreateDialogOpen(true)
+    }
+  }))
 
   const loadData = async () => {
     try {
@@ -266,11 +272,6 @@ export const PortfolioManager = ({ onProjectCreated }: PortfolioManagerProps = {
       
       // Reload data to update stats
       await loadData()
-      
-      // Call the callback if provided (for Portfolio page)
-      if (onProjectCreated) {
-        onProjectCreated()
-      }
       
       alert('Project created successfully!')
     } catch (error: any) {
@@ -844,4 +845,6 @@ export const PortfolioManager = ({ onProjectCreated }: PortfolioManagerProps = {
       )}
     </div>
   )
-}
+})
+
+PortfolioManager.displayName = 'PortfolioManager'
