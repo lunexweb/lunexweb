@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Loader2, Filter, Grid, List } from 'lucide-react'
+import { Loader2, Filter, Grid, List, Plus } from 'lucide-react'
 import { Navigation } from '@/components/Navigation'
 import { PortfolioHero } from '@/components/PortfolioHero'
 import { PortfolioCard } from '@/components/PortfolioCard'
 import { PortfolioSidebar } from '@/components/PortfolioSidebar'
+import { PortfolioManager } from '@/components/PortfolioManager'
 import { PortfolioProjectWithDetails, PortfolioCategory } from '@/lib/supabase'
 import { supabase } from '@/lib/supabaseClient'
 import { Button } from '@/components/ui/button'
@@ -23,6 +24,7 @@ export default function Portfolio() {
   const [hasMore, setHasMore] = useState(true)
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [showFilters, setShowFilters] = useState(false)
+  const [showAddForm, setShowAddForm] = useState(false)
 
   const projectsPerPage = 12
 
@@ -153,6 +155,14 @@ export default function Portfolio() {
     setCurrentPage(prev => prev + 1)
   }
 
+  const handleProjectCreated = () => {
+    // Refresh the projects list when a new project is created
+    setCurrentPage(1)
+    loadInitialData()
+    loadProjects()
+    setShowAddForm(false)
+  }
+
   const filteredProjects = projects.filter(project => {
     if (!searchQuery) return true
     const query = searchQuery.toLowerCase()
@@ -222,6 +232,14 @@ export default function Portfolio() {
 
                 {/* View Controls */}
                 <div className="flex items-center gap-3">
+                  <Button
+                    onClick={() => setShowAddForm(true)}
+                    className="bg-green-600 hover:bg-green-700 text-white"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Add Project
+                  </Button>
+                  
                   <Button
                     variant="outline"
                     size="sm"
@@ -304,6 +322,30 @@ export default function Portfolio() {
                     )}
                   </div>
                 </div>
+              )}
+
+              {/* Add Project Form */}
+              {showAddForm && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="mb-8 p-6 bg-gray-50 rounded-lg border"
+                >
+                  <div className="flex justify-between items-center mb-6">
+                    <h3 className="text-xl font-semibold text-gray-900">Add New Project</h3>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowAddForm(false)}
+                    >
+                      Close
+                    </Button>
+                  </div>
+                  <div className="max-w-none">
+                    <PortfolioManager onProjectCreated={handleProjectCreated} />
+                  </div>
+                </motion.div>
               )}
 
               {/* Projects Grid */}

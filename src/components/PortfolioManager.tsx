@@ -12,7 +12,11 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 
-export const PortfolioManager = () => {
+interface PortfolioManagerProps {
+  onProjectCreated?: () => void;
+}
+
+export const PortfolioManager = ({ onProjectCreated }: PortfolioManagerProps = {}) => {
   const [projects, setProjects] = useState<PortfolioProject[]>([])
   const [categories, setCategories] = useState<PortfolioCategory[]>([])
   const [stats, setStats] = useState<PortfolioStats | null>(null)
@@ -23,7 +27,6 @@ export const PortfolioManager = () => {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
   const [editingProject, setEditingProject] = useState<PortfolioProject | null>(null)
   const [submitting, setSubmitting] = useState(false)
-  const [error, setError] = useState<string | null>(null)
   
   // Form state
   const [formData, setFormData] = useState({
@@ -47,13 +50,7 @@ export const PortfolioManager = () => {
   })
 
   useEffect(() => {
-    try {
     loadData()
-    } catch (err: any) {
-      console.error('Error in PortfolioManager useEffect:', err)
-      setError(err.message || 'Failed to load portfolio data')
-      setLoading(false)
-    }
   }, [])
 
   const loadData = async () => {
@@ -219,32 +216,24 @@ export const PortfolioManager = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
-    // Basic validation
-    if (!formData.title.trim()) {
-      alert('Please enter a project title')
-      return
-    }
-    
     setSubmitting(true)
     
     try {
-      console.log('Starting form submission...')
-      console.log('Form data:', formData)
+      console.log('Submitting project data:', formData)
       
       // Prepare data for submission
       const projectData = {
-        title: formData.title.trim(),
-        slug: (formData.slug || generateSlug(formData.title)).trim(),
-        subtitle: formData.subtitle?.trim() || null,
-        description: formData.description?.trim() || null,
-        client_name: formData.client_name?.trim() || null,
+        title: formData.title,
+        slug: formData.slug || generateSlug(formData.title), // Ensure slug is always present
+        subtitle: formData.subtitle || null,
+        description: formData.description || null,
+        client_name: formData.client_name || null,
         project_type: formData.project_type,
         technologies: formData.technologies ? formData.technologies.split(',').map(tech => tech.trim()).filter(Boolean) : [],
-        featured_image_url: formData.featured_image_url?.trim() || null,
-        project_url: formData.project_url?.trim() || null,
-        github_url: formData.github_url?.trim() || null,
-        case_study_url: formData.case_study_url?.trim() || null,
+        featured_image_url: formData.featured_image_url || null,
+        project_url: formData.project_url || null,
+        github_url: formData.github_url || null,
+        case_study_url: formData.case_study_url || null,
         category_id: formData.category_id || null,
         is_published: formData.is_published,
         is_featured: formData.is_featured,
@@ -254,20 +243,6 @@ export const PortfolioManager = () => {
       }
 
       console.log('Processed project data:', projectData)
-      console.log('Testing Supabase connection...')
-
-      // Test connection first
-      const { data: testData, error: testError } = await supabase
-        .from('portfolio_projects')
-        .select('id')
-        .limit(1)
-      
-      if (testError) {
-        console.error('Supabase connection test failed:', testError)
-        throw new Error('Database connection failed: ' + testError.message)
-      }
-      
-      console.log('Supabase connection test passed')
 
       const { data, error } = await supabase
         .from('portfolio_projects')
@@ -276,8 +251,8 @@ export const PortfolioManager = () => {
         .single()
 
       if (error) {
-        console.error('Supabase insert error:', error)
-        throw new Error('Failed to create project: ' + error.message)
+        console.error('Supabase error:', error)
+        throw error
       }
 
       console.log('Project created successfully:', data)
@@ -292,10 +267,15 @@ export const PortfolioManager = () => {
       // Reload data to update stats
       await loadData()
       
+      // Call the callback if provided (for Portfolio page)
+      if (onProjectCreated) {
+        onProjectCreated()
+      }
+      
       alert('Project created successfully!')
     } catch (error: any) {
       console.error('Error creating project:', error)
-      alert('Error creating project: ' + (error.message || 'Unknown error occurred'))
+      alert('Error creating project: ' + (error.message || 'Unknown error'))
     } finally {
       setSubmitting(false)
     }
@@ -374,26 +354,6 @@ export const PortfolioManager = () => {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-gray-500">Loading portfolio data...</div>
-      </div>
-    )
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-center">
-          <div className="text-red-500 mb-2">Error loading portfolio</div>
-          <div className="text-gray-600 text-sm mb-4">{error}</div>
-          <button 
-            onClick={() => {
-              setError(null)
-              loadData()
-            }}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            Try Again
-          </button>
-        </div>
       </div>
     )
   }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { type Lead, type DashboardStats } from '@/lib/supabase'
 import { supabase } from '@/lib/supabaseClient'
 import BlogManager from './BlogManager'
-import { PortfolioManagerSimple } from './PortfolioManagerSimple'
+import { PortfolioManager } from './PortfolioManager'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -824,7 +824,7 @@ const CEODashboard = () => {
                    </CardTitle>
                  </CardHeader>
                  <CardContent>
-                   <PortfolioManagerSimple />
+                   <PortfolioManager />
                  </CardContent>
                </Card>
              </div>
