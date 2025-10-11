@@ -37,7 +37,7 @@ const Contact = () => {
             Contact Lunexweb
           </h1>
           <p className="text-xs sm:text-sm md:text-base text-white/90 max-w-2xl mx-auto leading-relaxed px-4">
-            Ready to transform your digital presence? Our experienced developers are here 
+            Ready to transform your digital presence? Our professional team is here 
             to create a premium website that reflects your brand's excellence. 
             Contact us today for a consultation.
           </p>

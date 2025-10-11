@@ -50,7 +50,7 @@ const faqData: FAQItem[] = [
   {
     id: 'law-2',
     question: 'How can a website help my law practice attract more clients?',
-    answer: 'A professional website increases your online visibility, allows potential clients to research your expertise 24/7, builds trust before the first consultation, enables easy contact and appointment booking, and helps establish you as an authority in your practice areas.',
+    answer: 'A professional website increases your online visibility, allows potential clients to research your expertise anytime, builds trust before the first consultation, enables easy contact and appointment booking, and helps establish you as an authority in your practice areas.',
     category: 'Law Firms',
     tags: ['clients', 'visibility', 'authority']
   },

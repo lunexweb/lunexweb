@@ -39,7 +39,7 @@ export const Hero = () => {
   }, []);
 
   const stats = [
-    { icon: Clock, value: "5+", label: "Years of Strategic Excellence" },
+    { icon: Clock, value: "98%", label: "Project Success Rate" },
     { icon: Users, value: "150+", label: "Premium Brands Served" },
     { icon: Award, value: `${Math.round(businessStats?.projectCompletionRate || 98)}%`, label: "Client Growth Achieved" },
     { icon: Shield, value: "Premium", label: "Digital Strategy Focus" }

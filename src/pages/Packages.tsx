@@ -173,7 +173,7 @@ const Packages = () => {
                 <ul className="space-y-4 mt-8 flex-grow">
                   <li className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                    <span className="text-muted-foreground">Perfect for established enterprises</span>
+                    <span className="text-muted-foreground">Perfect for premium enterprises</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <Check className="w-5 h-5 text-green-600 flex-shrink-0" />

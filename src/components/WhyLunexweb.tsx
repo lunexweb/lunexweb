@@ -5,7 +5,7 @@ export const WhyLunexweb = () => {
   const benefits = [
     {
       title: "Expert Web Development Team",
-      description: "Our experienced developers provide the highest quality web development services with extensive expertise in modern technologies, responsive design, and cutting-edge frameworks to deliver exceptional digital solutions."
+      description: "Our professional developers provide the highest quality web development services with extensive expertise in modern technologies, responsive design, and cutting-edge frameworks to deliver exceptional digital solutions."
     },
     {
       title: "Strategic Digital Approach",

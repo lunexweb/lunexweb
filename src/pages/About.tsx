@@ -151,7 +151,7 @@ const About = () => {
                   <h3 className="text-xl font-semibold text-foreground">Modern Technology</h3>
                   <p className="text-muted-foreground">
                     We use the latest web technologies to ensure your website is fast, secure, 
-                    and ready for the future. Your investment today will serve you for years to come.
+                    and ready for the future. Your investment today will provide lasting value and growth.
                   </p>
                 </div>
                 <div className="space-y-3">

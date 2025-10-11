@@ -16,8 +16,8 @@ export const TrustSignals = () => {
     },
     {
       icon: <Clock className="w-6 h-6 text-orange-600" />,
-      title: "24/7 Support",
-      description: "Round-the-clock technical support and maintenance"
+      title: "Fast Response",
+      description: "Quick turnaround times and efficient project delivery"
     },
     {
       icon: <Zap className="w-6 h-6 text-blue-600" />,

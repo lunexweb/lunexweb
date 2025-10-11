@@ -40,7 +40,7 @@ const Services = () => {
       color: "from-slate-900 to-slate-800",
       accentColor: "bg-slate-100",
       textColor: "text-slate-900",
-      why: "In today's digital-first world, potential clients research attorneys online before making contact. Your website is often the first impression that determines whether a client chooses your firm or your competitor. As experienced web developers, we understand the unique needs of legal professionals.",
+      why: "In today's digital-first world, potential clients research attorneys online before making contact. Your website is often the first impression that determines whether a client chooses your firm or your competitor. As professional web developers, we understand the unique needs of legal professionals.",
       what: "Professional attorney profiles, secure client portals, case study showcases, advanced SEO optimization, mobile-responsive design, and integration with legal case management systems. We specialize in criminal defense websites, personal injury lawyer sites, corporate law firm websites, family law attorney sites, and estate planning lawyer websites across Johannesburg, Cape Town, Durban, and Pretoria.",
       how: "We begin by conducting comprehensive research into your practice areas and target clients. Our web development team creates sophisticated, professional layouts that reflect the gravitas of your legal practice while maintaining modern usability standards and cutting-edge technology."
     },
@@ -54,7 +54,7 @@ const Services = () => {
       textColor: "text-slate-900",
       why: "Consulting agencies live and die by their reputation for expertise and results. Your website is the primary platform where potential clients evaluate your capabilities and decide whether to engage your services. Our web development agency specializes in creating powerful digital platforms for consulting professionals.",
       what: "Thought leadership content platforms, client showcase systems, advanced lead generation, professional team profiles, interactive tools, and CRM integration for seamless lead management. We create business consulting websites, management consulting sites, IT consulting websites, marketing consulting platforms, and strategy consulting websites for agencies in Sandton, Rosebank, Fourways, and Midrand.",
-      how: "We analyze your consulting expertise and target market to create a website strategy that positions your agency as the premium choice. Our web developers create sophisticated layouts that reflect the quality of your consulting services with advanced functionality and seamless user experience."
+      how: "We analyze your consulting expertise and target market to create a website strategy that positions your agency as the premium choice. Our professional team creates sophisticated layouts that reflect the quality of your consulting services with advanced functionality and seamless user experience."
     },
     {
       id: "service-3",
@@ -90,7 +90,7 @@ const Services = () => {
       textColor: "text-slate-900",
       why: "Luxury websites operate in a world where every detail matters. Your website must reflect the same level of sophistication, quality, and attention to detail that your products or services represent. Our web development agency creates exclusive digital experiences for premium brands.",
       what: "Sophisticated brand storytelling platforms, exclusive member portals with VIP access, high-end e-commerce platforms, immersive product showcases, personalization features, and luxury CRM integration. We develop luxury e-commerce websites, Shopify websites, Wix websites, WooCommerce stores, Magento platforms, and custom online stores for premium brands in Hyde Park, Sandton City, Melrose Arch, and Umhlanga.",
-      how: "We conduct comprehensive brand analysis to understand your luxury positioning and target clients. Our web developers create sophisticated, visually stunning layouts that reflect the quality and exclusivity of your brand with premium e-commerce functionality and personalized user experiences."
+      how: "We conduct comprehensive brand analysis to understand your luxury positioning and target clients. Our professional team creates sophisticated, visually stunning layouts that reflect the quality and exclusivity of your brand with premium e-commerce functionality and personalized user experiences."
     },
     {
       id: "service-6",
