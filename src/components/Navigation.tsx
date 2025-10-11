@@ -236,8 +236,8 @@ export const Navigation = () => {
           </div>
         </div>
 
-          {/* Mobile Menu */}
-          {isOpen && (
+        {/* Mobile Menu */}
+        {isOpen && (
             <div className="lg:hidden bg-black/90 backdrop-blur-md border-t border-white/20 shadow-lg max-h-96 overflow-y-auto">
               <div className="container mx-auto px-4 sm:px-6 py-6">
                 <div className="flex flex-col space-y-6">
@@ -246,10 +246,10 @@ export const Navigation = () => {
                     <h3 className="text-white/60 text-sm font-semibold uppercase tracking-wide px-2">Main Pages</h3>
                     <div className="space-y-1">
                       {mainNavItems.map((item) => (
-                        <Link
-                          key={item.label}
-                          to={item.href}
-                          onClick={() => setIsOpen(false)}
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    onClick={() => setIsOpen(false)}
                           className="text-white/90 hover:text-white font-medium py-3 px-3 rounded-lg transition-all duration-300 flex items-center gap-3 hover:bg-white/10"
                           title={`${item.label} - Professional Web Development Services`}
                           aria-label={`Navigate to ${item.label} page`}
@@ -323,20 +323,20 @@ export const Navigation = () => {
                         >
                           <Building className="h-4 w-4" />
                           <span className="text-base">{page.label}</span>
-                        </Link>
-                      ))}
+                  </Link>
+                ))}
                     </div>
                   </div>
                   {/* CTA Button */}
                   <div className="pt-4 border-t border-white/20">
-                    <Button 
+                  <Button 
                       className="w-full text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg"
-                      style={{ backgroundColor: '#22C55E' }}
-                      onMouseEnter={(e) => e.target.style.backgroundColor = '#16A34A'}
-                      onMouseLeave={(e) => e.target.style.backgroundColor = '#22C55E'}
-                      onClick={() => setIsOpen(false)}
-                      asChild
-                    >
+                    style={{ backgroundColor: '#22C55E' }}
+                    onMouseEnter={(e) => e.target.style.backgroundColor = '#16A34A'}
+                    onMouseLeave={(e) => e.target.style.backgroundColor = '#22C55E'}
+                    onClick={() => setIsOpen(false)}
+                    asChild
+                  >
                       <Link 
                         to="/contact"
                         title="Get Started with Professional Web Development Services"
@@ -344,12 +344,12 @@ export const Navigation = () => {
                       >
                         Get Started
                       </Link>
-                    </Button>
+                  </Button>
                   </div>
-                </div>
               </div>
             </div>
-          )}
+          </div>
+        )}
       </nav>
     </>
   );

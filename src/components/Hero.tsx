@@ -38,15 +38,10 @@ export const Hero = () => {
     loadStats();
   }, []);
 
-  const stats = businessStats ? [
-    { icon: Clock, value: `${businessStats.yearsInBusiness}+`, label: "Years of Strategic Excellence" },
-    { icon: Users, value: `${businessStats.totalClients}+`, label: "Premium Brands Served" },
-    { icon: Award, value: `${businessStats.clientGrowthRate}%`, label: "Client Growth Achieved" },
-    { icon: Shield, value: businessStats.focusArea, label: "Digital Strategy Focus" }
-  ] : [
+  const stats = [
     { icon: Clock, value: "5+", label: "Years of Strategic Excellence" },
     { icon: Users, value: "150+", label: "Premium Brands Served" },
-    { icon: Award, value: "100%", label: "Client Growth Achieved" },
+    { icon: Award, value: `${Math.round(businessStats?.projectCompletionRate || 98)}%`, label: "Client Growth Achieved" },
     { icon: Shield, value: "Premium", label: "Digital Strategy Focus" }
   ];
 
