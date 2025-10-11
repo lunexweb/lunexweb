@@ -187,7 +187,7 @@ export default function Blog() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 scroll-smooth">
+    <div className="min-h-screen bg-gray-50 scroll-smooth overflow-x-hidden">
       <Navigation />
       
       {/* Hero Section */}
@@ -202,8 +202,8 @@ export default function Blog() {
       >
         {/* Overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-slate-800/80 to-slate-900/80"></div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full overflow-hidden">
+          <div className="max-w-4xl mx-auto text-center w-full">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

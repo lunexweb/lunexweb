@@ -213,7 +213,7 @@ export default function FAQ() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-green-50 scroll-smooth">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-green-50 scroll-smooth overflow-x-hidden">
       {/* Navigation */}
       <Navigation />
       
@@ -228,9 +228,9 @@ export default function FAQ() {
         }}
       >
         <div className="absolute inset-0 bg-black/60"></div>
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10 w-full overflow-hidden">
           <AnimatedSection>
-            <div className="text-center max-w-5xl mx-auto px-4">
+            <div className="text-center max-w-5xl mx-auto px-4 w-full">
               <div className="flex items-center justify-center mb-6">
                 <div className="p-3 bg-green-500/20 backdrop-blur-sm rounded-2xl mr-4">
                   <HelpCircle className="w-8 h-8 text-green-400" />

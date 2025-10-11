@@ -12,7 +12,7 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground scroll-smooth">
+    <div className="min-h-screen bg-background text-foreground scroll-smooth overflow-x-hidden">
       <Navigation />
       
       {/* Page Header */}
@@ -29,7 +29,7 @@ const About = () => {
         <div className="absolute inset-0 bg-black/60 z-10" />
         
         {/* Content */}
-        <div className="relative z-20 container mx-auto px-6 space-y-3 sm:space-y-4 pt-20 sm:pt-24">
+        <div className="relative z-20 container mx-auto px-4 sm:px-6 space-y-3 sm:space-y-4 pt-20 sm:pt-24 w-full overflow-hidden">
           <Link 
             to="/" 
             className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors mb-4 fixed top-20 left-4 z-30 bg-black/50 backdrop-blur-sm px-3 py-2 rounded-lg sm:relative sm:top-auto sm:left-auto sm:bg-transparent sm:backdrop-blur-none sm:px-0 sm:py-0 sm:rounded-none"

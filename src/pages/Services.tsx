@@ -119,8 +119,8 @@ const Services = () => {
             backgroundImage: "url('https://res.cloudinary.com/dnnwvmh3n/image/upload/v1759895652/mick-haupt-m0iXio5FF7M-unsplash_dda9xm.jpg')"
           }}
         />
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10 w-full overflow-hidden">
+          <div className="max-w-4xl mx-auto text-center space-y-6 sm:space-y-8 w-full">
           <Link 
             to="/" 
               className="inline-flex items-center gap-2 text-slate-300 hover:text-white transition-colors mb-8"
@@ -136,11 +136,11 @@ const Services = () => {
               className="space-y-6"
             >
               <div className="text-sm text-slate-300 tracking-widest uppercase">Our Services</div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-white leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white leading-tight break-words">
                 Professional Web Development Services
                 <span className="block text-slate-300 font-extralight">for Premium Businesses</span>
           </h1>
-              <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed break-words">
                 Discover our comprehensive web development services that transform businesses across 
                 law firms, consulting agencies, financial services, real estate, and luxury websites. 
                 We are professional web developers specializing in custom solutions.

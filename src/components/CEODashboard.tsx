@@ -389,7 +389,7 @@ const CEODashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center overflow-x-hidden">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading dashboard...</p>
@@ -400,7 +400,7 @@ const CEODashboard = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center overflow-x-hidden">
         <div className="text-center max-w-md mx-auto">
           <AlertTriangle className="h-12 w-12 text-red-500 mx-auto mb-4" />
           <h2 className="text-xl font-semibold text-gray-900 mb-2">Error Loading Dashboard</h2>
@@ -414,18 +414,18 @@ const CEODashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 py-4 sm:py-6">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
                 <BarChart3 className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">CEO Dashboard</h1>
-                <p className="text-gray-600">Last updated: {new Date().toLocaleDateString('en-GB', { 
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 break-words">CEO Dashboard</h1>
+                <p className="text-sm sm:text-base text-gray-600 break-words">Last updated: {new Date().toLocaleDateString('en-GB', { 
                   day: '2-digit', 
                   month: 'short', 
                   year: 'numeric',
@@ -434,11 +434,11 @@ const CEODashboard = () => {
                 })}</p>
               </div>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               {/* Navigation Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="min-w-[120px]">
+                  <Button variant="outline" size="sm" className="min-w-[100px] sm:min-w-[120px] text-xs sm:text-sm">
                     <Globe className="w-4 h-4 mr-2" />
                     Navigate
                     <ChevronDown className="w-4 h-4 ml-2" />
@@ -607,23 +607,23 @@ const CEODashboard = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full overflow-hidden">
         {/* Navigation Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">
-          <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="leads">Leads</TabsTrigger>
-            <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
-            <TabsTrigger value="blog">Blog</TabsTrigger>
-            <TabsTrigger value="projects">Projects</TabsTrigger>
+          <TabsList className="flex w-full overflow-x-auto gap-1 p-1">
+            <TabsTrigger value="overview" className="flex-shrink-0 min-w-0">Overview</TabsTrigger>
+            <TabsTrigger value="leads" className="flex-shrink-0 min-w-0">Leads</TabsTrigger>
+            <TabsTrigger value="portfolio" className="flex-shrink-0 min-w-0">Portfolio</TabsTrigger>
+            <TabsTrigger value="blog" className="flex-shrink-0 min-w-0">Blog</TabsTrigger>
+            <TabsTrigger value="projects" className="flex-shrink-0 min-w-0">Projects</TabsTrigger>
           </TabsList>
 
           {/* Overview Tab */}
           <TabsContent value="overview" className="space-y-8">
             {/* Top Row - Key Performance Indicators */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card className="bg-blue-50 border-blue-200">
-                <CardContent className="p-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full">
+              <Card className="bg-blue-50 border-blue-200 w-full min-w-0">
+                <CardContent className="p-4 sm:p-6 w-full min-w-0">
                   <div className="flex items-center justify-between">
                     <div className="bg-blue-100 p-3 rounded-lg">
                       <Users className="w-6 h-6 text-blue-600" />
@@ -703,9 +703,9 @@ const CEODashboard = () => {
             </div>
 
             {/* Second Row - Lead Status Breakdown */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="bg-blue-50 border-blue-200">
-                <CardContent className="p-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
+              <Card className="bg-blue-50 border-blue-200 w-full min-w-0">
+                <CardContent className="p-4 sm:p-6 w-full min-w-0">
                   <div className="flex items-center justify-between">
                     <div className="bg-blue-100 p-3 rounded-full">
                       <AlertTriangle className="w-6 h-6 text-blue-600" />
@@ -774,7 +774,7 @@ const CEODashboard = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
                   <div className="flex items-center gap-4">
                     <div className="bg-blue-100 p-3 rounded-lg">
                       <MessageSquare className="w-6 h-6 text-blue-600" />
@@ -879,11 +879,11 @@ const CEODashboard = () => {
                 ) : (
                   <div className="space-y-4">
                     {filteredLeads.map((lead) => (
-                      <div key={lead.id} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors w-full">
+                      <div key={lead.id} className="border rounded-lg p-3 sm:p-4 hover:bg-gray-50 transition-colors w-full min-w-0 overflow-hidden">
                         {/* Header with name, badges, and date */}
                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
                           <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-                            <h3 className="font-semibold text-gray-900 text-lg">{lead.name}</h3>
+                            <h3 className="font-semibold text-gray-900 text-base sm:text-lg break-words">{lead.name}</h3>
                             <div className="flex flex-wrap gap-2">
                               <Badge className={getStatusColor(lead.status)}>
                                 {lead.status.replace('_', ' ')}
@@ -900,7 +900,7 @@ const CEODashboard = () => {
                         </div>
 
                         {/* Contact Information */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4 w-full">
                           <div className="flex items-center gap-2 text-sm">
                             <Mail className="h-4 w-4 text-gray-400" />
                             <span className="text-gray-600 break-words">{lead.email}</span>
@@ -912,7 +912,7 @@ const CEODashboard = () => {
                         </div>
 
                         {/* Lead Details */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm mb-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm mb-4 w-full">
                           <div>
                             <span className="font-medium text-gray-700">Company:</span>
                             <p className="text-gray-600 break-words">{lead.company || 'Not specified'}</p>
@@ -963,9 +963,9 @@ const CEODashboard = () => {
                                 View Details
                               </Button>
                             </DialogTrigger>
-                              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto w-full max-w-[95vw] mx-auto">
+                              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto w-full max-w-[95vw] mx-auto p-4 sm:p-6">
                                 <DialogHeader>
-                                  <DialogTitle className="flex items-center gap-2">
+                                  <DialogTitle className="flex items-center gap-2 text-lg sm:text-xl break-words">
                                     <User className="h-5 w-5" />
                                     Lead Details
                                   </DialogTitle>
@@ -975,7 +975,7 @@ const CEODashboard = () => {
                                     {/* Header */}
                                     <div className="flex items-start justify-between w-full">
                                       <div className="w-full min-w-0">
-                                        <h2 className="text-2xl font-bold text-gray-900 break-words">{selectedLead.name}</h2>
+                                        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 break-words">{selectedLead.name}</h2>
                                         <div className="flex flex-wrap items-center gap-2 mt-2 w-full">
                                           <Badge className={getStatusColor(selectedLead.status)}>
                                             {selectedLead.status.replace('_', ' ')}
@@ -991,7 +991,7 @@ const CEODashboard = () => {
                                     </div>
 
                                     {/* Contact Information */}
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full">
                                       <div className="space-y-3">
                                         <div className="flex items-center gap-3">
                                           <Mail className="h-4 w-4 text-gray-400" />
@@ -1313,7 +1313,7 @@ const CEODashboard = () => {
            <TabsContent value="portfolio">
              <div className="space-y-6">
                {/* Portfolio Stats */}
-               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
                  <Card className="bg-blue-50 border-blue-200">
                    <CardContent className="p-6">
                      <div className="flex items-center justify-between">
@@ -1385,7 +1385,7 @@ const CEODashboard = () => {
            <TabsContent value="blog">
              <div className="space-y-6">
                {/* Blog Stats */}
-               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
                  <Card className="bg-blue-50 border-blue-200">
                    <CardContent className="p-6">
                      <div className="flex items-center justify-between">

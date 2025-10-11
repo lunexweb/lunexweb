@@ -25,6 +25,7 @@ import Dashboard from "./pages/Dashboard";
 import FAQ from "./pages/FAQ";
 import TestSupabase from "./pages/TestSupabase";
 import SimpleTest from "./pages/SimpleTest";
+import AllPages from "./pages/AllPages";
 import NotFound from "./pages/NotFound";
 
 // Location pages
@@ -248,6 +249,17 @@ const App = () => {
                 transition={pageTransition}
               >
                 <SimpleTest />
+              </motion.div>
+            } />
+            <Route path="/all-pages" element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <AllPages />
               </motion.div>
             } />
             

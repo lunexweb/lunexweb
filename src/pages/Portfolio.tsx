@@ -190,15 +190,15 @@ export default function Portfolio() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 scroll-smooth">
+    <div className="min-h-screen bg-gray-50 scroll-smooth overflow-x-hidden">
       <Navigation />
       {/* Hero Section */}
       <PortfolioHero featuredProject={featuredProjects[0]} />
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row gap-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full overflow-hidden">
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 w-full">
             {/* Sidebar */}
             <div className="lg:order-2">
               <PortfolioSidebar

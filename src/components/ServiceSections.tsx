@@ -191,7 +191,7 @@ export const ServiceSections = () => {
         <section
           key={service.id}
           id={service.id}
-          className="service-section bg-white"
+          className="service-section bg-white overflow-x-hidden"
           style={{ 
             paddingTop: '80px'
           }}

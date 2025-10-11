@@ -475,8 +475,8 @@ export const LocationPage = ({
         <div className="absolute inset-0 bg-black/60 z-10"></div>
         
         {/* Content */}
-        <div className="container mx-auto px-6 relative z-20 pt-24">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
+        <div className="container mx-auto px-4 sm:px-6 relative z-20 pt-24 w-full overflow-hidden">
+          <div className="max-w-4xl mx-auto text-center space-y-6 sm:space-y-8 w-full">
             <Link 
               to="/" 
               className="inline-flex items-center gap-2 text-slate-300 hover:text-white transition-colors mb-6 sm:mb-8"
@@ -540,8 +540,8 @@ export const LocationPage = ({
 
       {/* Stats Section */}
       <section className="py-16 bg-slate-50">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
+        <div className="container mx-auto px-4 sm:px-6 w-full overflow-hidden">
+          <div className="max-w-6xl mx-auto w-full">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-light text-slate-900 mb-4">Why {city} Businesses Choose Lunexweb for Web Development</h2>
               <p className="text-lg text-slate-600">Local expertise meets global standards in {city}, {province}</p>
@@ -596,8 +596,8 @@ export const LocationPage = ({
 
       {/* Industries Section */}
       <section className="py-20">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
+        <div className="container mx-auto px-4 sm:px-6 w-full overflow-hidden">
+          <div className="max-w-6xl mx-auto w-full">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-light text-slate-900 mb-4">Web Development Services for {city} Industries</h2>
               <p className="text-lg text-slate-600">Specialized website development for {city}'s key business sectors in {province}</p>
@@ -632,8 +632,8 @@ export const LocationPage = ({
 
       {/* Testimonials Section */}
       <section className="py-20 bg-slate-50">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
+        <div className="container mx-auto px-4 sm:px-6 w-full overflow-hidden">
+          <div className="max-w-6xl mx-auto w-full">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-light text-slate-900 mb-4">Web Development Testimonials from {city} Clients</h2>
               <p className="text-lg text-slate-600">Real results from real businesses in {city}, {province}</p>
@@ -671,8 +671,8 @@ export const LocationPage = ({
 
       {/* Contact Form Section */}
       <section className="py-20">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto">
+        <div className="container mx-auto px-4 sm:px-6 w-full overflow-hidden">
+          <div className="max-w-4xl mx-auto w-full">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-light text-slate-900 mb-4">Get Your Free Web Development Strategy Session in {city}</h2>
               <p className="text-lg text-slate-600">
@@ -963,7 +963,7 @@ export const LocationPage = ({
       </section>
 
       <footer className="py-12 border-t border-slate-200 bg-white">
-        <div className="container mx-auto px-6 text-center text-slate-600 space-y-2">
+        <div className="container mx-auto px-4 sm:px-6 text-center text-slate-600 space-y-2 w-full overflow-hidden">
           <div className="flex items-center justify-center space-x-4 mb-2">
             <p>© {new Date().getFullYear()} Lunexweb. All rights reserved.</p>
             <span className="text-slate-400">•</span>
