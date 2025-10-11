@@ -45,7 +45,7 @@ export const PortfolioCard = ({ project, index, onViewProject }: PortfolioCardPr
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
-      className="group relative bg-white rounded-xl border border-gray-200 hover:border-green-300 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden h-64 md:h-72 flex flex-col md:flex-row"
+      className="group relative bg-white rounded-xl border border-gray-200 hover:border-green-300 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden h-64 md:h-72 flex flex-col md:flex-row w-full max-w-full"
     >
       {/* Image Section - Left Side */}
       <div className="relative w-full md:w-80 h-48 md:h-full flex-shrink-0">
@@ -106,27 +106,27 @@ export const PortfolioCard = ({ project, index, onViewProject }: PortfolioCardPr
       </div>
 
       {/* Content Section - Right Side */}
-      <div className="flex-1 p-4 md:p-6 flex flex-col justify-between">
+      <div className="flex-1 p-4 md:p-6 flex flex-col justify-between w-full min-w-0">
         {/* Top Section */}
-        <div>
+        <div className="w-full min-w-0">
           {/* Header with Icon and Category */}
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center text-white shadow-md">
+          <div className="flex items-center gap-3 mb-4 w-full min-w-0">
+            <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center text-white shadow-md flex-shrink-0">
               {getProjectIcon(project.project_type)}
             </div>
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               {project.category_name && (
                 <Badge 
                   variant="outline" 
-                  className="text-xs mb-1"
+                  className="text-xs mb-1 break-words"
                   style={{ borderColor: project.category_color, color: project.category_color }}
                 >
                   {project.category_name}
                 </Badge>
               )}
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-500 capitalize">{project.project_type || 'website'}</span>
-                <div className="flex items-center gap-1">
+              <div className="flex items-center gap-2 w-full min-w-0">
+                <span className="text-xs text-gray-500 capitalize break-words">{project.project_type || 'website'}</span>
+                <div className="flex items-center gap-1 flex-shrink-0">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   <span className="text-xs text-green-600 font-medium">Live</span>
                 </div>
@@ -135,8 +135,8 @@ export const PortfolioCard = ({ project, index, onViewProject }: PortfolioCardPr
           </div>
 
           {/* Title & Client */}
-          <div className="mb-3">
-            <h3 className="text-xl font-bold text-gray-900 group-hover:text-green-600 transition-colors duration-200 mb-2">
+          <div className="mb-3 w-full min-w-0">
+            <h3 className="text-xl font-bold text-gray-900 group-hover:text-green-600 transition-colors duration-200 mb-2 break-words">
               {project.title}
             </h3>
             {project.client_name && (

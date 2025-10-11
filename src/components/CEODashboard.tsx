@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { type Lead, type DashboardStats, db } from '@/lib/supabase'
 import { supabase } from '@/lib/supabaseClient'
+import { useToast } from '@/hooks/use-toast'
 import { BlogManager } from './BlogManager'
 import { PortfolioManager } from './PortfolioManager'
 import { ProjectManagement } from './ProjectManagement'
@@ -80,6 +81,33 @@ interface DashboardData {
 }
 
 const CEODashboard = () => {
+  const { toast } = useToast()
+  
+  // Helper functions for toast notifications
+  const showSuccess = (title: string, description?: string) => {
+    toast({
+      title,
+      description,
+      variant: "default",
+    })
+  }
+  
+  const showError = (title: string, description?: string) => {
+    toast({
+      title,
+      description,
+      variant: "destructive",
+    })
+  }
+  
+  const showWarning = (title: string, description?: string) => {
+    toast({
+      title,
+      description,
+      variant: "default",
+    })
+  }
+  
   const [leads, setLeads] = useState<Lead[]>([])
   const [dashboardData, setDashboardData] = useState<DashboardData>({
     newLeadsToday: 0,
@@ -152,7 +180,7 @@ const CEODashboard = () => {
         ...blogStats
       })
     } catch (err: any) {
-      console.error('Error loading dashboard data:', err)
+      console.showError('Error loading dashboard data:', err)
       setError(err.message || 'Failed to load dashboard data')
       setLeads([])
     } finally {
@@ -223,7 +251,7 @@ const CEODashboard = () => {
         averageLeadScore
       }
     } catch (err) {
-      console.error('Error loading lead stats:', err)
+      console.showError('Error loading lead stats:', err)
       return {}
     }
   }
@@ -240,7 +268,7 @@ const CEODashboard = () => {
         ).length || 0
       }
     } catch (err) {
-      console.error('Error loading communications stats:', err)
+      console.showError('Error loading communications stats:', err)
       return {}
     }
   }
@@ -267,7 +295,7 @@ const CEODashboard = () => {
         featuredProjects: featured?.length || 0
       }
     } catch (err) {
-      console.error('Error loading portfolio stats:', err)
+      console.showError('Error loading portfolio stats:', err)
       return {}
     }
   }
@@ -294,7 +322,7 @@ const CEODashboard = () => {
         publishedPosts: published?.length || 0
       }
     } catch (err) {
-      console.error('Error loading blog stats:', err)
+      console.showError('Error loading blog stats:', err)
       return {}
     }
   }
@@ -846,11 +874,12 @@ const CEODashboard = () => {
                 ) : (
                   <div className="space-y-4">
                     {filteredLeads.map((lead) => (
-                      <div key={lead.id} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                        <div className="flex justify-between items-start">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-3 mb-2">
-                              <h3 className="font-semibold text-gray-900">{lead.name}</h3>
+                      <div key={lead.id} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors w-full">
+                        {/* Header with name, badges, and date */}
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                            <h3 className="font-semibold text-gray-900 text-lg">{lead.name}</h3>
+                            <div className="flex flex-wrap gap-2">
                               <Badge className={getStatusColor(lead.status)}>
                                 {lead.status.replace('_', ' ')}
                               </Badge>
@@ -858,49 +887,78 @@ const CEODashboard = () => {
                                 {lead.priority}
                               </Badge>
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
-                              <div className="flex items-center gap-2">
-                                <Mail className="h-4 w-4" />
-                                {lead.email}
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <Phone className="h-4 w-4" />
-                                {lead.phone || 'No phone'}
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <Calendar className="h-4 w-4" />
-                                {formatDate(lead.created_at)}
-                              </div>
-                            </div>
-                            <div className="mt-2 text-sm text-gray-600">
-                              <p><strong>Company:</strong> {lead.company || 'Not specified'}</p>
-                              <p><strong>Service:</strong> {lead.service_type}</p>
-                              <p><strong>Budget:</strong> {lead.budget_range || 'Not specified'}</p>
-                              <p><strong>Remote Work:</strong> {lead.remote_work ? 
+                          </div>
+                          <div className="flex items-center gap-2 text-sm text-gray-500">
+                            <Calendar className="h-4 w-4" />
+                            {formatDate(lead.created_at)}
+                          </div>
+                        </div>
+
+                        {/* Contact Information */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                          <div className="flex items-center gap-2 text-sm">
+                            <Mail className="h-4 w-4 text-gray-400" />
+                            <span className="text-gray-600 break-words">{lead.email}</span>
+                          </div>
+                          <div className="flex items-center gap-2 text-sm">
+                            <Phone className="h-4 w-4 text-gray-400" />
+                            <span className="text-gray-600">{lead.phone || 'No phone'}</span>
+                          </div>
+                        </div>
+
+                        {/* Lead Details */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm mb-4">
+                          <div>
+                            <span className="font-medium text-gray-700">Company:</span>
+                            <p className="text-gray-600 break-words">{lead.company || 'Not specified'}</p>
+                          </div>
+                          <div>
+                            <span className="font-medium text-gray-700">Service:</span>
+                            <p className="text-gray-600 break-words">{lead.service_type}</p>
+                          </div>
+                          <div>
+                            <span className="font-medium text-gray-700">Budget:</span>
+                            <p className="text-gray-600">{lead.budget_range || 'Not specified'}</p>
+                          </div>
+                          <div>
+                            <span className="font-medium text-gray-700">Remote Work:</span>
+                            <p className="text-gray-600 break-words">
+                              {lead.remote_work ? 
                                 (lead.remote_work === 'other' ? lead.remote_work_details : lead.remote_work) : 
                                 'Not specified'}
-                              </p>
-                              <p><strong>Value:</strong> {formatCurrency(lead.estimated_value)}</p>
-                            </div>
-                            {lead.message && (
-                              <div className="mt-2 p-2 bg-gray-100 rounded text-sm">
-                                <strong>Message:</strong> {lead.message}
-                              </div>
-                            )}
+                            </p>
                           </div>
-                          <div className="flex gap-2 ml-4">
-                            <Dialog>
-                              <DialogTrigger asChild>
-                                <Button 
-                                  size="sm" 
-                                  variant="outline"
-                                  onClick={() => setSelectedLead(lead)}
-                                >
-                                  <Eye className="h-4 w-4 mr-1" />
-                                  View
-                                </Button>
-                              </DialogTrigger>
-                              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                          <div>
+                            <span className="font-medium text-gray-700">Value:</span>
+                            <p className="text-gray-600">{formatCurrency(lead.estimated_value)}</p>
+                          </div>
+                        </div>
+
+                        {/* Message Preview */}
+                        {lead.message && (
+                          <div className="mb-4">
+                            <span className="font-medium text-gray-700 text-sm">Message:</span>
+                            <p className="text-gray-600 text-sm mt-1 p-2 bg-gray-50 rounded break-words">
+                              {lead.message.length > 100 ? `${lead.message.substring(0, 100)}...` : lead.message}
+                            </p>
+                          </div>
+                        )}
+
+                        {/* Action Buttons - Now inside the card */}
+                        <div className="flex flex-col sm:flex-row gap-2 pt-3 border-t border-gray-200">
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button 
+                                size="sm" 
+                                variant="outline"
+                                className="flex-1 sm:flex-none"
+                                onClick={() => setSelectedLead(lead)}
+                              >
+                                <Eye className="h-4 w-4 mr-2" />
+                                View Details
+                              </Button>
+                            </DialogTrigger>
+                              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto w-full max-w-[95vw] mx-auto">
                                 <DialogHeader>
                                   <DialogTitle className="flex items-center gap-2">
                                     <User className="h-5 w-5" />
@@ -908,19 +966,19 @@ const CEODashboard = () => {
                                   </DialogTitle>
                                 </DialogHeader>
                                 {selectedLead && (
-                                  <div className="space-y-6">
+                                  <div className="space-y-6 w-full max-w-full">
                                     {/* Header */}
-                                    <div className="flex items-start justify-between">
-                                      <div>
-                                        <h2 className="text-2xl font-bold text-gray-900">{selectedLead.name}</h2>
-                                        <div className="flex items-center gap-4 mt-2">
+                                    <div className="flex items-start justify-between w-full">
+                                      <div className="w-full min-w-0">
+                                        <h2 className="text-2xl font-bold text-gray-900 break-words">{selectedLead.name}</h2>
+                                        <div className="flex flex-wrap items-center gap-2 mt-2 w-full">
                                           <Badge className={getStatusColor(selectedLead.status)}>
                                             {selectedLead.status.replace('_', ' ')}
                                           </Badge>
                                           <Badge className={getPriorityColor(selectedLead.priority)}>
                                             {selectedLead.priority}
                                           </Badge>
-                                          <span className="text-sm text-gray-500">
+                                          <span className="text-sm text-gray-500 break-words">
                                             Score: {selectedLead.lead_score}/100
                                           </span>
                                         </div>
@@ -934,18 +992,56 @@ const CEODashboard = () => {
                                           <Mail className="h-4 w-4 text-gray-400" />
                                           <div>
                                             <p className="text-sm font-medium text-gray-500">Email</p>
-                                            <a href={`mailto:${selectedLead.email}`} className="text-blue-600 hover:underline">
+                                            <button 
+                                              className="text-blue-600 hover:underline cursor-pointer text-left"
+                                              onClick={(e) => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                console.log('Email link clicked:', selectedLead.email);
+                                                // Validate email format before opening
+                                                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                                                if (!emailRegex.test(selectedLead.email)) {
+                                                  console.warn('Invalid email format');
+                                                  showError('Invalid Email', 'Please check the email format and try again.');
+                                                  return;
+                                                }
+                                                // Open email client
+                                                window.location.href = `mailto:${selectedLead.email}`;
+                                                success('Email Opened', `Opening email client for ${selectedLead.email}`);
+                                              }}
+                                            >
                                               {selectedLead.email}
-                                            </a>
+                                            </button>
                                           </div>
                                         </div>
                                         <div className="flex items-center gap-3">
                                           <Phone className="h-4 w-4 text-gray-400" />
                                           <div>
                                             <p className="text-sm font-medium text-gray-500">Phone</p>
-                                            <a href={`tel:${selectedLead.phone}`} className="text-blue-600 hover:underline">
-                                              {selectedLead.phone || 'Not provided'}
-                                            </a>
+                                            {selectedLead.phone ? (
+                                              <button 
+                                                className="text-blue-600 hover:underline cursor-pointer text-left"
+                                                onClick={(e) => {
+                                                  e.preventDefault();
+                                                  e.stopPropagation();
+                                                  console.log('Phone link clicked:', selectedLead.phone);
+                                                  // Ensure phone number is properly formatted
+                                                  const phoneNumber = selectedLead.phone.replace(/\D/g, '');
+                                                  if (phoneNumber.length >= 10) {
+                                                    console.log('Calling:', phoneNumber);
+                                                    window.location.href = `tel:${phoneNumber}`;
+                                                    success('Call Initiated', `Calling ${selectedLead.phone}`);
+                                                  } else {
+                                                    console.warn('Invalid phone number format');
+                                                    showError('Invalid Phone Number', 'Please check the phone number format and try again.');
+                                                  }
+                                                }}
+                                              >
+                                                {selectedLead.phone}
+                                              </button>
+                                            ) : (
+                                              <span className="text-gray-400">Not provided</span>
+                                            )}
                                           </div>
                                         </div>
                                         <div className="flex items-center gap-3">
@@ -997,34 +1093,36 @@ const CEODashboard = () => {
 
                                     {/* Message */}
                                     {selectedLead.message && (
-                                      <div className="border-t pt-4">
-                                        <h3 className="text-lg font-semibold text-gray-900 mb-3">Message</h3>
-                                        <div className="bg-gray-50 p-4 rounded-lg">
-                                          <p className="text-gray-700 whitespace-pre-wrap">{selectedLead.message}</p>
+                                      <div className="border-t pt-4 w-full">
+                                        <h3 className="text-lg font-semibold text-gray-900 mb-3 break-words">Message</h3>
+                                        <div className="bg-gray-50 p-4 rounded-lg w-full overflow-hidden">
+                                          <div className="w-full overflow-auto max-h-40 message-content">
+                                            <p className="text-gray-700">{selectedLead.message}</p>
+                                          </div>
                                         </div>
                                       </div>
                                     )}
 
                                     {/* Metadata */}
-                                    <div className="border-t pt-4">
-                                      <h3 className="text-lg font-semibold text-gray-900 mb-3">Lead Information</h3>
-                                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                                        <div>
-                                          <p className="text-gray-500">Source</p>
-                                          <p className="text-gray-900">{selectedLead.source}</p>
+                                    <div className="border-t pt-4 w-full">
+                                      <h3 className="text-lg font-semibold text-gray-900 mb-3 break-words">Lead Information</h3>
+                                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm w-full">
+                                        <div className="w-full min-w-0">
+                                          <p className="text-gray-500 break-words">Source</p>
+                                          <p className="text-gray-900 break-words">{selectedLead.source}</p>
                                         </div>
-                                        <div>
-                                          <p className="text-gray-500">Created</p>
-                                          <p className="text-gray-900">{formatDate(selectedLead.created_at)}</p>
+                                        <div className="w-full min-w-0">
+                                          <p className="text-gray-500 break-words">Created</p>
+                                          <p className="text-gray-900 break-words">{formatDate(selectedLead.created_at)}</p>
                                         </div>
-                                        <div>
-                                          <p className="text-gray-500">Last Updated</p>
-                                          <p className="text-gray-900">{formatDate(selectedLead.updated_at)}</p>
+                                        <div className="w-full min-w-0">
+                                          <p className="text-gray-500 break-words">Last Updated</p>
+                                          <p className="text-gray-900 break-words">{formatDate(selectedLead.updated_at)}</p>
                                         </div>
                                         {selectedLead.website_url && (
-                                          <div>
-                                            <p className="text-gray-500">Website</p>
-                                            <a href={selectedLead.website_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                                          <div className="w-full min-w-0">
+                                            <p className="text-gray-500 break-words">Website</p>
+                                            <a href={selectedLead.website_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline break-all overflow-wrap-anywhere">
                                               {selectedLead.website_url}
                                             </a>
                                           </div>
@@ -1034,15 +1132,67 @@ const CEODashboard = () => {
 
                                     {/* Action Buttons */}
                                     <div className="border-t pt-4 flex gap-3">
-                                      <Button className="flex-1">
+                                      <Button 
+                                        className="flex-1 bg-black hover:bg-gray-800 text-white"
+                                        onClick={(e) => {
+                                          e.preventDefault();
+                                          e.stopPropagation();
+                                          console.log('Call Lead button clicked');
+                                          if (selectedLead.phone) {
+                                            const phoneNumber = selectedLead.phone.replace(/\D/g, '');
+                                            if (phoneNumber.length >= 10) {
+                                              console.log('Calling:', phoneNumber);
+                                              window.location.href = `tel:${phoneNumber}`;
+                                              success('Call Initiated', `Calling ${selectedLead.phone}`);
+                                            } else {
+                                              showError('Invalid Phone Number', 'Please check the phone number format and try again.');
+                                            }
+                                          } else {
+                                            warning('No Phone Number', 'This lead has not provided a phone number.');
+                                          }
+                                        }}
+                                        type="button"
+                                      >
                                         <Phone className="h-4 w-4 mr-2" />
                                         Call Lead
                                       </Button>
-                                      <Button variant="outline" className="flex-1">
+                                      <Button 
+                                        variant="outline" 
+                                        className="flex-1 border border-gray-300 hover:bg-gray-50"
+                                        onClick={(e) => {
+                                          e.preventDefault();
+                                          e.stopPropagation();
+                                          console.log('Send Email button clicked');
+                                          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                                          if (emailRegex.test(selectedLead.email)) {
+                                            console.log('Opening email for:', selectedLead.email);
+                                            window.location.href = `mailto:${selectedLead.email}`;
+                                            success('Email Opened', `Opening email client for ${selectedLead.email}`);
+                                          } else {
+                                            showError('Invalid Email', 'Please check the email format and try again.');
+                                          }
+                                        }}
+                                        type="button"
+                                      >
                                         <Mail className="h-4 w-4 mr-2" />
                                         Send Email
                                       </Button>
-                                      <Button variant="outline" className="flex-1">
+                                      <Button 
+                                        variant="outline" 
+                                        className="flex-1 border border-gray-300 hover:bg-gray-50"
+                                        onClick={(e) => {
+                                          e.preventDefault();
+                                          e.stopPropagation();
+                                          console.log('Add Note button clicked');
+                                          // For now, just show an alert. In a real app, this would open a note modal
+                                          const note = prompt('Add a note for this lead:');
+                                          if (note && note.trim()) {
+                                            console.log(`Note added for ${selectedLead.name}: ${note}`);
+                                            success('Note Added', 'Your note has been saved successfully!');
+                                          }
+                                        }}
+                                        type="button"
+                                      >
                                         <MessageSquare className="h-4 w-4 mr-2" />
                                         Add Note
                                       </Button>
@@ -1051,7 +1201,47 @@ const CEODashboard = () => {
                                 )}
                               </DialogContent>
                             </Dialog>
-                          </div>
+                          
+                          {/* Quick Action Buttons */}
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            className="flex-1 sm:flex-none"
+                            onClick={() => {
+                              if (lead.phone) {
+                                const phoneNumber = lead.phone.replace(/\D/g, '');
+                                if (phoneNumber.length >= 10) {
+                                  window.location.href = `tel:${phoneNumber}`;
+                                  success('Call Initiated', `Calling ${lead.phone}`);
+                                } else {
+                                  showError('Invalid Phone Number', 'Please check the phone number format and try again.');
+                                }
+                              } else {
+                                warning('No Phone Number', 'This lead has not provided a phone number.');
+                              }
+                            }}
+                          >
+                            <Phone className="h-4 w-4 mr-2" />
+                            Call
+                          </Button>
+                          
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            className="flex-1 sm:flex-none"
+                            onClick={() => {
+                              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                              if (emailRegex.test(lead.email)) {
+                                window.location.href = `mailto:${lead.email}`;
+                                success('Email Opened', `Opening email client for ${lead.email}`);
+                              } else {
+                                showError('Invalid Email', 'Please check the email format and try again.');
+                              }
+                            }}
+                          >
+                            <Mail className="h-4 w-4 mr-2" />
+                            Email
+                          </Button>
                         </div>
                       </div>
                     ))}

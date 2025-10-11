@@ -20,34 +20,34 @@ export const ServiceCard = ({ number, title, description, image, features, link 
       whileHover={{ y: -5, scale: 1.02 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
-      <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer h-full">
-        <div className="p-6 space-y-4 h-full flex flex-col">
+      <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer h-full w-full">
+        <div className="p-6 space-y-4 h-full flex flex-col w-full">
           {/* Header */}
-          <div className="flex items-start justify-between">
-            <div className="space-y-2">
+          <div className="flex items-start justify-between w-full">
+            <div className="space-y-2 w-full min-w-0">
               <div className="text-gray-400 text-xs font-mono">//</div>
               <div className="text-gray-400 text-sm font-mono">{number}</div>
-              <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 group-hover:text-gray-700 transition-colors leading-tight">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 group-hover:text-gray-700 transition-colors leading-tight break-words">
                 {title}
               </h3>
             </div>
           </div>
           
           {/* Description */}
-          <p className="text-gray-600 text-xs sm:text-sm leading-relaxed flex-grow">
+          <p className="text-gray-600 text-xs sm:text-sm leading-relaxed flex-grow break-words">
             {description}
           </p>
           
           {/* Features - Compact List */}
-          <div className="space-y-2">
+          <div className="space-y-2 w-full">
             {features.slice(0, 3).map((feature, index) => (
-              <div key={index} className="flex items-start gap-2">
+              <div key={index} className="flex items-start gap-2 w-full">
                 <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span className="text-gray-600 text-xs leading-relaxed">{feature}</span>
+                <span className="text-gray-600 text-xs leading-relaxed break-words flex-1">{feature}</span>
               </div>
             ))}
             {features.length > 3 && (
-              <div className="text-xs text-gray-500 font-medium">
+              <div className="text-xs text-gray-500 font-medium break-words">
                 +{features.length - 3} more services
               </div>
             )}

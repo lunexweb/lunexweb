@@ -107,102 +107,102 @@ export const ContactSection = () => {
   ];
 
   return (
-    <section className="py-16 bg-card">
-      <div className="container mx-auto px-4">
+    <section className="py-16 bg-card overflow-x-hidden">
+      <div className="container mx-auto px-4 max-w-full">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-            <p className="text-lg text-muted-foreground">
+            <h2 className="text-3xl font-bold mb-4 break-words">Ready to Get Started?</h2>
+            <p className="text-lg text-muted-foreground break-words">
               Contact us today and let's build something amazing together.
             </p>
           </div>
           
-          <Card className="max-w-2xl mx-auto">
-            <CardContent className="p-8">
+          <Card className="max-w-2xl mx-auto w-full">
+            <CardContent className="p-4 sm:p-8">
               <div className="text-center mb-6">
                 <h3 className="text-xl font-light mb-2 text-gray-900">Get Your Free Strategy Session</h3>
                 <p className="text-gray-600 text-sm">Professional web development consultation</p>
               </div>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
+              <form onSubmit={handleSubmit} className="space-y-6 w-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                  <div className="w-full min-w-0">
                     <Input
                       type="text"
                       placeholder="Your Name *"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       required
-                      className="w-full"
+                      className="w-full min-w-0"
                     />
                   </div>
-                  <div>
+                  <div className="w-full min-w-0">
                     <Input
                       type="email"
                       placeholder="Your Email *"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       required
-                      className="w-full"
+                      className="w-full min-w-0"
                     />
                   </div>
                 </div>
                 
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                  <div className="w-full min-w-0">
                     <Input
                       type="tel"
                       placeholder="Phone Number *"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       required
-                      className="w-full"
+                      className="w-full min-w-0"
                     />
                   </div>
-                  <div>
+                  <div className="w-full min-w-0">
                     <Input
                       type="text"
                       placeholder="Company Name"
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="w-full"
+                      className="w-full min-w-0"
                     />
                   </div>
                 </div>
 
-                <div>
+                <div className="w-full min-w-0">
                   <Input
                     type="text"
                     placeholder="Location (City, Province/State) *"
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                     required
-                    className="w-full"
+                    className="w-full min-w-0"
                   />
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                  <div className="w-full min-w-0">
                     <Select value={formData.service} onValueChange={(value) => setFormData({ ...formData, service: value })}>
-                      <SelectTrigger className="w-full">
+                      <SelectTrigger className="w-full min-w-0">
                         <SelectValue placeholder="Service Needed *" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="max-w-full">
                         {services.map((service) => (
-                          <SelectItem key={service} value={service}>
+                          <SelectItem key={service} value={service} className="break-words">
                             {service}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
-                  <div>
+                  <div className="w-full min-w-0">
                     <Select value={formData.budget} onValueChange={(value) => setFormData({ ...formData, budget: value })}>
-                      <SelectTrigger className="w-full">
+                      <SelectTrigger className="w-full min-w-0">
                         <SelectValue placeholder="Budget Range" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="max-w-full">
                         {budgetRanges.map((range) => (
-                          <SelectItem key={range} value={range}>
+                          <SelectItem key={range} value={range} className="break-words">
                             {range}
                           </SelectItem>
                         ))}
@@ -211,12 +211,12 @@ export const ContactSection = () => {
                   </div>
                 </div>
 
-                <div>
+                <div className="w-full min-w-0">
                   <Textarea
                     placeholder="Tell us about your project goals and requirements..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full min-h-[120px]"
+                    className="w-full min-h-[120px] min-w-0"
                   />
                 </div>
 
