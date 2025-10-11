@@ -107,7 +107,7 @@ const Services = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden no-snap">
+    <div className="min-h-screen bg-white scroll-smooth overflow-x-hidden no-snap">
       <Navigation />
       
       {/* Hero Section */}

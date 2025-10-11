@@ -66,11 +66,11 @@ const ScrollToTop = () => {
   useAnalytics(); // Initialize analytics tracking
 
   useEffect(() => {
-    // Instant scroll to top for premium feel
+    // Smooth scroll to top for better user experience
     window.scrollTo({ 
       top: 0, 
       left: 0, 
-      behavior: 'auto' 
+      behavior: 'smooth' 
     });
   }, [pathname]);
 

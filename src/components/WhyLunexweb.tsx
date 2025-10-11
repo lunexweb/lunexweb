@@ -1,6 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import { AnimatedSection, AnimatedText } from "./AnimatedSection";
 import homeImg3 from "@/assets/home-img-3.webp";
 
 export const WhyLunexweb = () => {
@@ -27,16 +25,16 @@ export const WhyLunexweb = () => {
     <section id="about" className="py-20 bg-card overflow-x-hidden" style={{ maxWidth: '100vw' }}>
       <div className="container mx-auto px-6">
         <div className="space-y-16">
-          <AnimatedSection>
+          <div>
             <div className="text-center space-y-6">
               <div className="text-sm text-muted-foreground tracking-widest uppercase">Why Choose Lunexweb</div>
-              <AnimatedText className="text-3xl md:text-4xl font-light max-w-4xl mx-auto leading-relaxed">
-                <h2>Premium Web Development Excellence with Unparalleled Client Service & Results-Driven Digital Solutions</h2>
-              </AnimatedText>
+              <h2 className="text-3xl md:text-4xl font-light max-w-4xl mx-auto leading-relaxed">
+                Premium Web Development Excellence with Unparalleled Client Service & Results-Driven Digital Solutions
+              </h2>
               <div className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 <p>We deliver exceptional web development services with unwavering commitment to client success, innovative technology solutions, and measurable business growth across South Africa.</p>
               </div>
-              <motion.div>
+              <div>
                 <Button
                   size="lg"
                   className="bg-foreground text-background hover:bg-foreground/90 text-lg px-8 py-6"
@@ -44,35 +42,27 @@ export const WhyLunexweb = () => {
                 >
                   Contact a Professional
                 </Button>
-              </motion.div>
+              </div>
             </div>
-          </AnimatedSection>
+          </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <div className="space-y-12">
               {benefits.map((benefit, index) => (
-                <motion.div 
+                <div 
                   key={index} 
                   className="space-y-4"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
-                  viewport={{ once: true }}
                 >
                   <h3 className="text-2xl font-light text-foreground">{benefit.title}</h3>
                   <p className="text-muted-foreground text-lg leading-relaxed">
                     {benefit.description}
                   </p>
-                </motion.div>
+                </div>
               ))}
             </div>
 
-            <motion.div 
+            <div 
               className="sticky top-24"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              viewport={{ once: true }}
             >
               <div className="relative overflow-hidden rounded-lg group">
                 <img 
@@ -82,7 +72,7 @@ export const WhyLunexweb = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

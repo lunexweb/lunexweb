@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Packages = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground scroll-smooth">
       <Navigation />
       
       {/* Page Header */}

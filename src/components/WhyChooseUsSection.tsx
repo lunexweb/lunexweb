@@ -1,7 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import { AnimatedSection, AnimatedText } from "./AnimatedSection";
 import { Shield, Zap, Target, Award, Users, TrendingUp } from "lucide-react";
 
 export const WhyChooseUsSection = () => {
@@ -48,17 +47,17 @@ export const WhyChooseUsSection = () => {
     <section id="why-choose-us" className="py-20 bg-slate-900 text-white overflow-x-hidden" style={{ maxWidth: '100vw' }}>
       <div className="container mx-auto px-6">
         <div className="space-y-16">
-          <AnimatedSection>
+          <div>
             <div className="text-center space-y-6">
               <div className="text-sm text-slate-400 tracking-widest uppercase">Why Choose Lunexweb</div>
-              <AnimatedText className="text-4xl md:text-5xl font-light text-white">
-                <h2>Premium Web Development Excellence & Strategic Digital Partnerships</h2>
-              </AnimatedText>
+              <h2 className="text-4xl md:text-5xl font-light text-white">
+                Premium Web Development Excellence & Strategic Digital Partnerships
+              </h2>
               <div className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
                 <p>Delivering exceptional web development services with proven results for law firms, consulting agencies, financial services, real estate companies, and luxury websites across South Africa.</p>
               </div>
             </div>
-          </AnimatedSection>
+          </div>
 
           {/* Values Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -88,7 +87,7 @@ export const WhyChooseUsSection = () => {
           </div>
 
           {/* Commitment Section */}
-          <AnimatedSection>
+          <div>
             <div className="max-w-4xl mx-auto text-center space-y-6 pt-8">
               <h3 className="text-xl sm:text-2xl font-light text-white leading-tight">Our Commitment to Web Development Excellence</h3>
               <div className="space-y-4">
@@ -101,7 +100,7 @@ export const WhyChooseUsSection = () => {
                 </p>
               </div>
             </div>
-          </AnimatedSection>
+          </div>
         </div>
       </div>
     </section>

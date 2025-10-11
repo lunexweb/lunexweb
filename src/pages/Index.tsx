@@ -16,7 +16,7 @@ import {
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground scroll-smooth overflow-x-hidden">
       <ScrollProgress />
       <Navigation />
       <main className="hide-scrollbar">

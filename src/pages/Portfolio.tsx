@@ -190,7 +190,7 @@ export default function Portfolio() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 scroll-smooth">
       <Navigation />
       {/* Hero Section */}
       <PortfolioHero featuredProject={featuredProjects[0]} />

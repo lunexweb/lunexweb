@@ -4,7 +4,13 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD
+<<<<<<< HEAD
 pnpm-debug.log*
+=======
+>>>>>>> a346cb26ffb03c56f6020b71c54159b7828ea4ef
+=======
+>>>>>>> c726beedb1b7f4b7884cb1895debe213a0b36534
 lerna-debug.log*
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
@@ -138,6 +144,8 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+<<<<<<< HEAD
+<<<<<<< HEAD
 
 # Editor directories and files
 .vscode/*
@@ -149,3 +157,7 @@ vite.config.ts.timestamp-*
 *.njsproj
 *.sln
 *.sw?
+=======
+>>>>>>> a346cb26ffb03c56f6020b71c54159b7828ea4ef
+=======
+>>>>>>> c726beedb1b7f4b7884cb1895debe213a0b36534

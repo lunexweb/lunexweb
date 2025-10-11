@@ -15,10 +15,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
   /* Prevent bounce on iOS */
   overscroll-behavior: none;
+  /* Ensure smooth scrolling works consistently */
+  scroll-behavior: smooth;
 }
 
-/* Prevent layout shifts */
+/* Ensure smooth scrolling for all scrollable elements and prevent layout shifts */
 * {
+  scroll-behavior: smooth;
   box-sizing: border-box;
 }
 
