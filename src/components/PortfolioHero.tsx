@@ -4,6 +4,7 @@ import { PortfolioProjectWithDetails } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { useNavigate } from 'react-router-dom'
+import { OptimizedVideo } from '@/components/OptimizedVideo'
 
 interface PortfolioHeroProps {
   featuredProject?: PortfolioProjectWithDetails
@@ -33,17 +34,21 @@ export const PortfolioHero = ({ featuredProject }: PortfolioHeroProps) => {
       }}
     >
       {/* Background Video */}
-      <video
+      <OptimizedVideo
+        src="https://res.cloudinary.com/dnnwvmh3n/video/upload/v1760022256/270448_small_vbfzvu.mp4"
         autoPlay
         muted
         loop
         playsInline
         preload="metadata"
-        className="absolute inset-0 w-full h-full z-0 object-cover"
-      >
-        <source src="https://res.cloudinary.com/dnnwvmh3n/video/upload/v1760022256/270448_small_vbfzvu.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+        priority={true}
+        quality={75}
+        className="absolute inset-0 w-full h-full z-0 object-contain"
+        style={{
+          transform: 'scale(1.2)',
+          transformOrigin: 'center center'
+        }}
+      />
       
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80 z-10" />

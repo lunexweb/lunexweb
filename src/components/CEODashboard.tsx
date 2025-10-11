@@ -389,7 +389,7 @@ const CEODashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center overflow-x-hidden">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center scroll-smooth overflow-x-hidden">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading dashboard...</p>
@@ -400,7 +400,7 @@ const CEODashboard = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center overflow-x-hidden">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center scroll-smooth overflow-x-hidden">
         <div className="text-center max-w-md mx-auto">
           <AlertTriangle className="h-12 w-12 text-red-500 mx-auto mb-4" />
           <h2 className="text-xl font-semibold text-gray-900 mb-2">Error Loading Dashboard</h2>
@@ -414,7 +414,7 @@ const CEODashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
+    <div className="min-h-screen bg-gray-50 scroll-smooth overflow-x-hidden">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
@@ -892,12 +892,12 @@ const CEODashboard = () => {
                                 {lead.priority}
                               </Badge>
                             </div>
-                          </div>
+                              </div>
                           <div className="flex items-center gap-2 text-sm text-gray-500">
-                            <Calendar className="h-4 w-4" />
-                            {formatDate(lead.created_at)}
-                          </div>
-                        </div>
+                                <Calendar className="h-4 w-4" />
+                                {formatDate(lead.created_at)}
+                              </div>
+                            </div>
 
                         {/* Contact Information */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4 w-full">
@@ -931,8 +931,8 @@ const CEODashboard = () => {
                               {lead.remote_work ? 
                                 (lead.remote_work === 'other' ? lead.remote_work_details : lead.remote_work) : 
                                 'Not specified'}
-                            </p>
-                          </div>
+                              </p>
+                            </div>
                           <div>
                             <span className="font-medium text-gray-700">Value:</span>
                             <p className="text-gray-600">{formatCurrency(lead.estimated_value)}</p>
@@ -940,29 +940,29 @@ const CEODashboard = () => {
                         </div>
 
                         {/* Message Preview */}
-                        {lead.message && (
+                            {lead.message && (
                           <div className="mb-4">
                             <span className="font-medium text-gray-700 text-sm">Message:</span>
                             <p className="text-gray-600 text-sm mt-1 p-2 bg-gray-50 rounded break-words">
                               {lead.message.length > 100 ? `${lead.message.substring(0, 100)}...` : lead.message}
                             </p>
-                          </div>
-                        )}
+                              </div>
+                            )}
 
                         {/* Action Buttons - Now inside the card */}
                         <div className="flex flex-col sm:flex-row gap-2 pt-3 border-t border-gray-200">
-                          <Dialog>
-                            <DialogTrigger asChild>
-                              <Button 
-                                size="sm" 
-                                variant="outline"
+                            <Dialog>
+                              <DialogTrigger asChild>
+                                <Button 
+                                  size="sm" 
+                                  variant="outline"
                                 className="flex-1 sm:flex-none"
-                                onClick={() => setSelectedLead(lead)}
-                              >
+                                  onClick={() => setSelectedLead(lead)}
+                                >
                                 <Eye className="h-4 w-4 mr-2" />
                                 View Details
-                              </Button>
-                            </DialogTrigger>
+                                </Button>
+                              </DialogTrigger>
                               <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto w-full max-w-[95vw] mx-auto p-4 sm:p-6">
                                 <DialogHeader>
                                   <DialogTitle className="flex items-center gap-2 text-lg sm:text-xl break-words">
@@ -1137,11 +1137,11 @@ const CEODashboard = () => {
                                           <div className="flex items-center gap-3">
                                             <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
                                               <TrendingUp className="h-4 w-4 text-blue-600" />
-                                            </div>
+                                        </div>
                                             <div className="flex-1 min-w-0">
                                               <p className="text-xs text-gray-500 uppercase tracking-wide">Source</p>
                                               <p className="text-gray-900 font-medium">{selectedLead.source}</p>
-                                            </div>
+                                        </div>
                                           </div>
                                           <div className="flex items-center gap-3">
                                             <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
@@ -1162,8 +1162,8 @@ const CEODashboard = () => {
                                               <p className="text-xs text-gray-500 uppercase tracking-wide">Last Updated</p>
                                               <p className="text-gray-900 font-medium">{formatDate(selectedLead.updated_at)}</p>
                                             </div>
-                                          </div>
-                                          {selectedLead.website_url && (
+                                        </div>
+                                        {selectedLead.website_url && (
                                             <div className="flex items-center gap-3">
                                               <div className="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center">
                                                 <Globe className="h-4 w-4 text-indigo-600" />
@@ -1176,11 +1176,11 @@ const CEODashboard = () => {
                                                   rel="noopener noreferrer" 
                                                   className="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors break-all"
                                                 >
-                                                  {selectedLead.website_url}
-                                                </a>
+                                              {selectedLead.website_url}
+                                            </a>
                                               </div>
-                                            </div>
-                                          )}
+                                          </div>
+                                        )}
                                         </div>
                                       </div>
                                     </div>

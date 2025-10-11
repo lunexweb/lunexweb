@@ -13,6 +13,7 @@ import { db } from "@/lib/supabase";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { OptimizedImage } from "@/components/OptimizedImage";
 
 interface LocationPageProps {
   province: string;
@@ -309,7 +310,7 @@ export const LocationPage = ({
   ];
 
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden">
+    <div className="min-h-screen bg-white scroll-smooth overflow-x-hidden">
       <Helmet>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
@@ -347,124 +348,211 @@ export const LocationPage = ({
         {/* Background Image - City specific */}
         <div className="absolute inset-0 z-0">
           {city.toLowerCase() === 'cape town' ? (
-            <img
+            <OptimizedImage
               src="https://res.cloudinary.com/dnnwvmh3n/image/upload/v1760143009/table-bay-harbour-3541607_1280_i0aska.jpg"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'johannesburg' ? (
-            <img
+            <OptimizedImage
               src="https://res.cloudinary.com/dnnwvmh3n/image/upload/v1760143661/johannesburg-4322256_1280_neqyrj.jpg"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'durban' ? (
-            <img
+            <OptimizedImage
               src="https://res.cloudinary.com/dnnwvmh3n/image/upload/v1760143774/durban-4374447_1280_zmrcvj.jpg"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'pretoria' ? (
-            <img
+            <OptimizedImage
               src="https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'sandton' ? (
-            <img
+            <OptimizedImage
               src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'port elizabeth' || city.toLowerCase() === 'port-elizabeth' ? (
-            <img
+            <OptimizedImage
               src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'bloemfontein' ? (
-            <img
+            <OptimizedImage
               src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'east london' || city.toLowerCase() === 'east-london' ? (
-            <img
+            <OptimizedImage
               src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'pietermaritzburg' ? (
-            <img
+            <OptimizedImage
               src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'nelspruit' ? (
-            <img
+            <OptimizedImage
               src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'polokwane' ? (
-            <img
+            <OptimizedImage
               src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'rustenburg' ? (
-            <img
+            <OptimizedImage
               src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'kimberley' ? (
-            <img
+            <OptimizedImage
               src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'stellenbosch' ? (
-            <img
+            <OptimizedImage
               src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'paarl' ? (
-            <img
+            <OptimizedImage
               src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'kempton park' || city.toLowerCase() === 'kempton-park' ? (
-            <img
+            <OptimizedImage
               src="https://res.cloudinary.com/dnnwvmh3n/image/upload/v1760144509/cape-town-5200293_1280_a5lc6d.jpg"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'benoni' ? (
-            <img
+            <OptimizedImage
               src="https://res.cloudinary.com/dnnwvmh3n/image/upload/v1760144509/cape-town-5200293_1280_a5lc6d.jpg"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'randburg' ? (
-            <img
+            <OptimizedImage
               src="https://res.cloudinary.com/dnnwvmh3n/image/upload/v1760144509/cape-town-5200293_1280_a5lc6d.jpg"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'centurion' ? (
-            <img
+            <OptimizedImage
               src="https://res.cloudinary.com/dnnwvmh3n/image/upload/v1760144509/cape-town-5200293_1280_a5lc6d.jpg"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : city.toLowerCase() === 'midrand' ? (
-            <img
+            <OptimizedImage
               src="https://res.cloudinary.com/dnnwvmh3n/image/upload/v1760144509/cape-town-5200293_1280_a5lc6d.jpg"
               alt={`${city}, ${province} - Premium Web Development`}
               className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
+            />
+          ) : province.toLowerCase() === 'gauteng' ? (
+            <OptimizedImage
+              src="https://res.cloudinary.com/dnnwvmh3n/image/upload/v1760217690/johannesburg-4322256_1280_1_lwxfrr.jpg"
+              alt={`${city}, ${province} - Premium Web Development`}
+              className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
+            />
+          ) : province.toLowerCase() === 'western cape' ? (
+            <OptimizedImage
+              src="https://res.cloudinary.com/dnnwvmh3n/image/upload/v1760217722/table-mountain-5101432_1280_pesrku.jpg"
+              alt={`${city}, ${province} - Premium Web Development`}
+              className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
+            />
+          ) : province.toLowerCase() === 'kwazulu-natal' ? (
+            <OptimizedImage
+              src="https://res.cloudinary.com/dnnwvmh3n/image/upload/v1760218019/durban-1557767_1280_x8eqcn.jpg"
+              alt={`${city}, ${province} - Premium Web Development`}
+              className="w-full h-full object-cover"
+              priority={true}
+              quality={85}
+              format="webp"
             />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"></div>

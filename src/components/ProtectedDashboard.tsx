@@ -47,7 +47,7 @@ export const ProtectedDashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center overflow-x-hidden">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center scroll-smooth overflow-x-hidden">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600">Loading dashboard...</p>
@@ -61,7 +61,7 @@ export const ProtectedDashboard: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 scroll-smooth overflow-x-hidden">
       {/* Dashboard Header */}
       <div className="bg-white/90 backdrop-blur-sm shadow-lg border-b border-slate-200/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

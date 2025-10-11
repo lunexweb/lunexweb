@@ -7,6 +7,9 @@ html {
   scroll-behavior: smooth;
   overflow-x: hidden;
   max-width: 100vw;
+  /* Image optimization */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 body {
@@ -39,6 +42,29 @@ p, h1, h2, h3, h4, h5, h6, span, div {
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
+}
+
+/* Image and media optimization */
+img, video {
+  max-width: 100%;
+  height: auto;
+  /* Improve image loading performance */
+  content-visibility: auto;
+  contain-intrinsic-size: 300px;
+}
+
+/* Optimize video loading */
+video {
+  /* Reduce video quality on slower connections */
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* Lazy loading optimization */
+img[loading="lazy"] {
+  /* Prevent layout shift during lazy loading */
+  min-height: 200px;
+  background-color: #f3f4f6;
 }
 
 /* Special handling for URLs and long strings */

@@ -122,7 +122,7 @@ export default function PortfolioProject() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center scroll-smooth overflow-x-hidden">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading project...</p>
@@ -133,7 +133,7 @@ export default function PortfolioProject() {
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center scroll-smooth overflow-x-hidden">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Project Not Found</h1>
           <Button onClick={() => navigate('/portfolio')}>
@@ -146,7 +146,7 @@ export default function PortfolioProject() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
+    <div className="min-h-screen bg-gray-50 scroll-smooth overflow-x-hidden">
       {/* Header with Back Button */}
       <div className="bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">

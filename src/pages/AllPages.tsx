@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { 
   Globe, 
   Building, 
@@ -12,10 +13,23 @@ import {
   MapPin, 
   BarChart3,
   Home,
-  Package
+  Package,
+  ArrowLeft
 } from "lucide-react";
 
 const AllPages = () => {
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    // Check if there's a previous page in browser history
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      // If no previous page, go to home
+      navigate('/');
+    }
+  };
+
   const mainPages = [
     { label: "Home", href: "/", icon: Home, description: "Main landing page" },
     { label: "Services", href: "/services", icon: Building, description: "Our web development services" },
@@ -63,16 +77,31 @@ const AllPages = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 scroll-smooth overflow-x-hidden">
       <div className="container mx-auto px-4 sm:px-6 w-full overflow-hidden">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 break-words">
-            All Website Pages
-          </h1>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto break-words">
-            Navigate to any page on the Lunexweb website. This overview shows all available pages and their purposes.
-          </p>
+        <div className="mb-12">
+          {/* Back Button */}
+          <div className="mb-6">
+            <Button
+              onClick={handleBackClick}
+              variant="outline"
+              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back to Previous Page
+            </Button>
+          </div>
+          
+          {/* Title and Description */}
+          <div className="text-center">
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 break-words">
+              All Website Pages
+            </h1>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto break-words">
+              Navigate to any page on the Lunexweb website. This overview shows all available pages and their purposes.
+            </p>
+          </div>
         </div>
 
         {/* Main Pages */}

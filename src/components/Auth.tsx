@@ -6,6 +6,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Eye, EyeOff, Lock, Mail, Home, Shield, Zap, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { OptimizedImage } from '@/components/OptimizedImage';
 
 interface AuthProps {
   onLogin: (user: { email: string; name: string }) => void;
@@ -69,67 +70,71 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 flex relative overflow-hidden">
+    <div className="min-h-screen bg-slate-900 flex relative scroll-smooth overflow-hidden">
       {/* Background Image Section */}
       <div className="hidden lg:flex lg:w-1/2 relative">
-        <div 
-          className="w-full h-full bg-cover bg-center bg-no-repeat relative"
-          style={{
-            backgroundImage: `url('https://res.cloudinary.com/dnnwvmh3n/image/upload/v1759895212/path-digital-tR0jvlsmCuQ-unsplash_fhujqe.jpg')`
-          }}
-        >
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-green-900/80 via-slate-900/70 to-slate-900/80"></div>
-          
-          {/* Content Overlay */}
-          <div className="relative z-10 flex flex-col justify-center items-start p-16 text-white">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <div className="flex items-center mb-6">
-                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mr-4">
-                  <Zap className="w-6 h-6 text-green-400" />
-                </div>
-                <h1 className="text-3xl font-bold">Lunexweb</h1>
+        <div className="w-full h-full relative overflow-hidden">
+          <OptimizedImage
+            src="https://res.cloudinary.com/dnnwvmh3n/image/upload/v1759895212/path-digital-tR0jvlsmCuQ-unsplash_fhujqe.jpg"
+            alt="Professional workspace background"
+            className="w-full h-full object-cover"
+            priority={true}
+            quality={80}
+            format="webp"
+          />
+        </div>
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-green-900/80 via-slate-900/70 to-slate-900/80"></div>
+        
+        {/* Content Overlay */}
+        <div className="relative z-10 flex flex-col justify-center items-start p-16 text-white">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className="flex items-center mb-6">
+              <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mr-4">
+                <Zap className="w-6 h-6 text-green-400" />
               </div>
-              
-              <h2 className="text-5xl font-bold mb-6 leading-tight">
-                Premium Web
-                <span className="block text-green-400">Development</span>
-              </h2>
-              
-              <p className="text-xl text-slate-300 mb-8 leading-relaxed max-w-md">
-                Access your exclusive dashboard and manage your digital empire with cutting-edge tools and insights.
-              </p>
-              
-              <div className="flex items-center space-x-6">
-                <div className="flex items-center">
-                  <Star className="w-5 h-5 text-green-400 mr-2" />
-                  <span className="text-slate-300">Secure Access</span>
-                </div>
-                <div className="flex items-center">
-                  <Shield className="w-5 h-5 text-green-400 mr-2" />
-                  <span className="text-slate-300">Enterprise Grade</span>
-                </div>
+              <h1 className="text-3xl font-bold">Lunexweb</h1>
+            </div>
+            
+            <h2 className="text-5xl font-bold mb-6 leading-tight">
+              Premium Web
+              <span className="block text-green-400">Development</span>
+            </h2>
+            
+            <p className="text-xl text-slate-300 mb-8 leading-relaxed max-w-md">
+              Access your exclusive dashboard and manage your digital empire with cutting-edge tools and insights.
+            </p>
+            
+            <div className="flex items-center space-x-6">
+              <div className="flex items-center">
+                <Star className="w-5 h-5 text-green-400 mr-2" />
+                <span className="text-slate-300">Secure Access</span>
               </div>
-            </motion.div>
-          </div>
+              <div className="flex items-center">
+                <Shield className="w-5 h-5 text-green-400 mr-2" />
+                <span className="text-slate-300">Enterprise Grade</span>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
 
       {/* Login Form Section */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8 relative">
-
         {/* Mobile Background */}
         <div className="lg:hidden absolute inset-0">
-          <div 
-            className="w-full h-full bg-cover bg-center bg-no-repeat opacity-20"
-            style={{
-              backgroundImage: `url('https://res.cloudinary.com/dnnwvmh3n/image/upload/v1759895212/path-digital-tR0jvlsmCuQ-unsplash_fhujqe.jpg')`
-            }}
-          ></div>
+          <OptimizedImage
+            src="https://res.cloudinary.com/dnnwvmh3n/image/upload/v1759895212/path-digital-tR0jvlsmCuQ-unsplash_fhujqe.jpg"
+            alt="Professional workspace background"
+            className="w-full h-full object-cover opacity-20"
+            priority={false}
+            quality={60}
+            format="webp"
+          />
           <div className="absolute inset-0 bg-slate-900/90"></div>
         </div>
 
@@ -161,10 +166,46 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
                 <p className="text-slate-600 text-lg">
                   Sign in to your dashboard
                 </p>
+                
+                {/* Staff Only Disclaimer */}
+                <div className="mt-4 bg-red-50 border-2 border-red-200 rounded-lg p-4 shadow-sm">
+                  <div className="flex items-center justify-center gap-2 text-red-800 mb-2">
+                    <Shield className="h-5 w-5" />
+                    <span className="font-bold text-sm uppercase tracking-wide">
+                      ⚠️ Staff Access Only
+                    </span>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-red-700 text-sm font-medium mb-1">
+                      Authorized Lunexweb Personnel Only
+                    </p>
+                    <p className="text-red-600 text-xs leading-relaxed">
+                      This dashboard is restricted to verified Lunexweb team members. 
+                      Unauthorized access is prohibited.
+                    </p>
+                  </div>
+                </div>
               </motion.div>
             </CardHeader>
             
             <CardContent className="px-8 pb-8">
+              {/* Clear Access Warning */}
+              <div className="mb-6 p-3 bg-amber-50 border-l-4 border-amber-400 rounded-r-lg">
+                <div className="flex items-start">
+                  <div className="flex-shrink-0">
+                    <Shield className="h-5 w-5 text-amber-600" />
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-sm font-medium text-amber-800">
+                      Restricted Access Area
+                    </p>
+                    <p className="text-xs text-amber-700 mt-1">
+                      Only Lunexweb staff with valid credentials may proceed.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               <motion.form
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -235,7 +276,6 @@ export const Auth: React.FC<AuthProps> = ({ onLogin }) => {
                   </Button>
                 </motion.div>
               </motion.form>
-
             </CardContent>
           </Card>
 
