@@ -21,7 +21,7 @@ export const WhyChooseUsSection = () => {
     {
       icon: Target,
       title: "Industry Specialized",
-      description: "Deep expertise in law firms, consulting, financial services, real estate, and luxury brands.",
+      description: "Deep expertise in law firms, consulting, financial services, real estate, and luxury websites.",
       color: "bg-purple-500"
     },
     {
@@ -55,7 +55,7 @@ export const WhyChooseUsSection = () => {
                 <h2>Premium Web Development Excellence & Strategic Digital Partnerships</h2>
               </AnimatedText>
               <div className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-                <p>Delivering exceptional web development services with proven results for law firms, consulting agencies, financial services, real estate companies, and luxury brands across South Africa.</p>
+                <p>Delivering exceptional web development services with proven results for law firms, consulting agencies, financial services, real estate companies, and luxury websites across South Africa.</p>
               </div>
             </div>
           </AnimatedSection>

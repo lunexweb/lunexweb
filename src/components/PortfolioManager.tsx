@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Plus, Edit, Trash2, Eye, EyeOff, ExternalLink, Search, Filter, Save, X } from 'lucide-react'
 import { PortfolioProject, PortfolioCategory, PortfolioStats } from '@/lib/supabase'
 import { supabase } from '@/lib/supabaseClient'
+import { AlertModal } from './AlertModal'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
@@ -23,6 +24,11 @@ export const PortfolioManager = () => {
   const [editingProject, setEditingProject] = useState<PortfolioProject | null>(null)
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [isSuccessAlertOpen, setIsSuccessAlertOpen] = useState(false)
+  const [isErrorAlertOpen, setIsErrorAlertOpen] = useState(false)
+  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false)
+  const [projectToDelete, setProjectToDelete] = useState<string | null>(null)
+  const [errorMessage, setErrorMessage] = useState('')
   
   // Form state
   const [formData, setFormData] = useState({
@@ -230,7 +236,7 @@ export const PortfolioManager = () => {
         project_url: formData.project_url || null,
         github_url: formData.github_url || null,
         case_study_url: formData.case_study_url || null,
-        category_id: formData.category_id || null,
+        category_id: formData.category_id === 'none' ? null : formData.category_id || null,
         is_published: formData.is_published,
         is_featured: formData.is_featured,
         completion_date: formData.completion_date || null,
@@ -263,10 +269,11 @@ export const PortfolioManager = () => {
       // Reload data to update stats
       await loadData()
       
-      alert('Portfolio project created successfully! It will now appear on your Portfolio page.')
+      setIsSuccessAlertOpen(true)
     } catch (error: any) {
       console.error('Error creating project:', error)
-      alert('Error creating project: ' + (error.message || 'Unknown error'))
+      setErrorMessage('Error creating project: ' + (error.message || 'Unknown error'))
+      setIsErrorAlertOpen(true)
     } finally {
       setSubmitting(false)
     }
@@ -274,19 +281,25 @@ export const PortfolioManager = () => {
 
 
   const handleDeleteProject = async (projectId: string) => {
-    if (window.confirm('Are you sure you want to delete this project?')) {
-      try {
-        const { error } = await supabase
-          .from('portfolio_projects')
-          .delete()
-          .eq('id', projectId)
+    setProjectToDelete(projectId)
+    setIsDeleteAlertOpen(true)
+  }
 
-        if (error) throw error
-        setProjects(projects.filter(p => p.id !== projectId))
-        await loadData() // Reload to update stats
-      } catch (error) {
-        console.error('Error deleting project:', error)
-      }
+  const confirmDeleteProject = async () => {
+    if (!projectToDelete) return
+
+    try {
+      const { error } = await supabase
+        .from('portfolio_projects')
+        .delete()
+        .eq('id', projectToDelete)
+
+      if (error) throw error
+      setProjects(projects.filter(p => p.id !== projectToDelete))
+      await loadData() // Reload to update stats
+      setProjectToDelete(null)
+    } catch (error) {
+      console.error('Error deleting project:', error)
     }
   }
 
@@ -442,7 +455,7 @@ export const PortfolioManager = () => {
                         <SelectValue placeholder="Select category" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">No Category</SelectItem>
+                        <SelectItem value="none">No Category</SelectItem>
                         {categories.map((category) => (
                           <SelectItem key={category.id} value={category.id}>
                             {category.name}
@@ -834,6 +847,40 @@ export const PortfolioManager = () => {
           </CardContent>
         </Card>
       )}
+
+      {/* Alert Modals */}
+      <AlertModal
+        isOpen={isSuccessAlertOpen}
+        onClose={() => setIsSuccessAlertOpen(false)}
+        title="Success"
+        message="Portfolio project created successfully! It will now appear on your Portfolio page."
+        type="success"
+        confirmText="OK"
+      />
+
+      <AlertModal
+        isOpen={isErrorAlertOpen}
+        onClose={() => setIsErrorAlertOpen(false)}
+        title="Error"
+        message={errorMessage}
+        type="error"
+        confirmText="OK"
+      />
+
+      <AlertModal
+        isOpen={isDeleteAlertOpen}
+        onClose={() => {
+          setIsDeleteAlertOpen(false);
+          setProjectToDelete(null);
+        }}
+        onConfirm={confirmDeleteProject}
+        title="Delete Project"
+        message="Are you sure you want to delete this project? This action cannot be undone."
+        type="error"
+        confirmText="Delete"
+        cancelText="Cancel"
+        showCancel={true}
+      />
     </div>
   )
 }

@@ -24,7 +24,7 @@ export default function Portfolio() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [showFilters, setShowFilters] = useState(false)
 
-  const projectsPerPage = 12
+  const projectsPerPage = 20
 
   useEffect(() => {
     loadInitialData()
@@ -60,7 +60,7 @@ export default function Portfolio() {
         .eq('is_featured', true)
         .eq('is_published', true)
         .order('created_at', { ascending: false })
-        .limit(6)
+        .limit(1)
       
       if (categoriesError) console.error('Categories error:', categoriesError)
       if (featuredError) console.error('Featured projects error:', featuredError)
@@ -79,7 +79,9 @@ export default function Portfolio() {
 
   const loadProjects = async () => {
     try {
-      const offset = (currentPage - 1) * projectsPerPage
+      // For first page, load all projects to show everything
+      // For subsequent pages, use pagination for "Load More"
+      const shouldLoadAll = currentPage === 1 && !selectedCategory && !searchQuery
       
       let query = supabase
         .from('portfolio_projects')
@@ -95,13 +97,17 @@ export default function Portfolio() {
         `)
         .eq('is_published', true)
         .order('created_at', { ascending: false })
-        .range(offset, offset + projectsPerPage - 1)
       
       if (selectedCategory) {
         const categoryId = categories.find(cat => cat.slug === selectedCategory)?.id
         if (categoryId) {
           query = query.eq('category_id', categoryId)
         }
+      }
+      
+      if (!shouldLoadAll) {
+        const offset = (currentPage - 1) * projectsPerPage
+        query = query.range(offset, offset + projectsPerPage - 1)
       }
       
       const { data: projectsData, error } = await query
@@ -121,7 +127,9 @@ export default function Portfolio() {
         setProjects(prev => [...prev, ...(projectsData || [])])
       }
       
-      setHasMore((projectsData || []).length === projectsPerPage)
+      // If we loaded all projects on first page, no more to load
+      // Otherwise, check if we got a full page
+      setHasMore(shouldLoadAll ? false : (projectsData || []).length === projectsPerPage)
     } catch (error) {
       console.error('Error loading projects:', error)
       // Set empty array to prevent crashes
@@ -311,7 +319,7 @@ export default function Portfolio() {
                 <>
                   <div className={`grid gap-6 ${
                     viewMode === 'grid' 
-                      ? 'grid-cols-1 md:grid-cols-2 xl:grid-cols-3' 
+                      ? 'grid-cols-1' 
                       : 'grid-cols-1'
                   }`}>
                     {filteredProjects.map((project, index) => (

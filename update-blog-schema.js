@@ -72,3 +72,5 @@ async function updateBlogSchema() {
 
 // Run the update
 updateBlogSchema();
+
+

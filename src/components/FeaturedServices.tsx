@@ -34,7 +34,7 @@ export const FeaturedServices = () => {
     {
       icon: Globe,
       title: "E-commerce Solutions",
-      description: "Complete online stores and digital platforms for luxury brands and financial services.",
+      description: "Complete online stores and digital platforms for luxury websites and financial services.",
       color: "from-green-500 to-green-600",
       bgColor: "bg-green-50",
       iconColor: "text-green-600",

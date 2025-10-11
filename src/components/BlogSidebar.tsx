@@ -202,7 +202,7 @@ export const BlogSidebar = ({
           <h3 className="font-bold text-gray-900 mb-3">About Lunexweb</h3>
           <p className="text-sm text-gray-600 mb-6 leading-relaxed">
             Premium web development agency specializing in law firms, consulting agencies, 
-            and luxury brands across South Africa.
+            and luxury websites across South Africa.
           </p>
           <Button 
             size="sm" 

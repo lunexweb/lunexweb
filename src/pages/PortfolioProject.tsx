@@ -147,19 +147,32 @@ export default function PortfolioProject() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Breadcrumb */}
+      {/* Header with Back Button */}
       <div className="bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <nav className="flex items-center space-x-2 text-sm">
-            <button
-              onClick={() => navigate('/portfolio')}
-              className="text-gray-500 hover:text-gray-700"
+          <div className="flex items-center justify-between">
+            {/* Back Button */}
+            <Button
+              variant="ghost"
+              onClick={() => navigate(-1)}
+              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100"
             >
-              Portfolio
-            </button>
-            <span className="text-gray-400">/</span>
-            <span className="text-gray-900 font-medium">{project.title}</span>
-          </nav>
+              <ArrowLeft className="w-4 h-4" />
+              <span>Back</span>
+            </Button>
+            
+            {/* Breadcrumb */}
+            <nav className="flex items-center space-x-2 text-sm">
+              <button
+                onClick={() => navigate('/portfolio')}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                Portfolio
+              </button>
+              <span className="text-gray-400">/</span>
+              <span className="text-gray-900 font-medium">{project.title}</span>
+            </nav>
+          </div>
         </div>
       </div>
 

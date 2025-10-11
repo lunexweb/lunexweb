@@ -75,10 +75,10 @@ export const ProtectedDashboard: React.FC = () => {
                   <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
                     Lunex Team Dashboard
                   </h1>
-                  <p className="text-xs sm:text-sm text-slate-500 flex items-center space-x-2">
+                  <div className="text-xs sm:text-sm text-slate-500 flex items-center space-x-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                     <span>Welcome back, {user.name}</span>
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>

@@ -144,7 +144,7 @@ export const ServiceSections = () => {
     {
       id: "service-5",
       number: "05",
-      title: "Luxury Brands",
+      title: "Luxury Websites",
       description: "Sophisticated digital experiences that embody exclusivity, drive premium sales, and create memorable brand interactions.",
       ctaText: "Learn more",
       expandableItems: [
@@ -191,7 +191,7 @@ export const ServiceSections = () => {
         <section
           key={service.id}
           id={service.id}
-          className="service-section bg-white min-h-screen"
+          className="service-section bg-white"
           style={{ 
             paddingTop: '80px'
           }}
@@ -256,10 +256,10 @@ export const ServiceSections = () => {
                         className="w-full h-full object-cover rounded-lg"
                       />
                     ) : service.id === "service-5" ? (
-                      // Luxury brands image for Luxury Brands
+                      // Luxury websites image for Luxury Websites
                       <img
                         src="https://res.cloudinary.com/dnnwvmh3n/image/upload/v1759838227/pexels-tinchflicks-29054615_napowl.jpg"
-                        alt="Luxury brands"
+                        alt="Luxury websites"
                         className="w-full h-full object-cover rounded-lg"
                       />
                     ) : service.id === "service-6" ? (

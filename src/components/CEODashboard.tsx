@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { type Lead, type DashboardStats } from '@/lib/supabase'
+import { type Lead, type DashboardStats, db } from '@/lib/supabase'
 import { supabase } from '@/lib/supabaseClient'
-import BlogManager from './BlogManager'
+import { BlogManager } from './BlogManager'
 import { PortfolioManager } from './PortfolioManager'
+import { ProjectManagement } from './ProjectManagement'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator, DropdownMenuLabel } from '@/components/ui/dropdown-menu'
 import { 
   Users, 
   TrendingUp, 
@@ -32,8 +35,14 @@ import {
   Activity,
   FileText,
   Briefcase,
-  Home,
-  LogOut
+  LogOut,
+  User,
+  Building,
+  MapPin,
+  Globe,
+  DollarSign as DollarIcon,
+  ChevronDown,
+  ExternalLink
 } from 'lucide-react'
 
 // Dashboard protection flag - prevents accidental modifications
@@ -99,6 +108,7 @@ const CEODashboard = () => {
   const [statusFilter, setStatusFilter] = useState<string>('all')
   const [priorityFilter, setPriorityFilter] = useState<string>('all')
   const [activeTab, setActiveTab] = useState('overview')
+  const [selectedLead, setSelectedLead] = useState<Lead | null>(null)
 
   useEffect(() => {
     loadDashboardData()
@@ -114,6 +124,8 @@ const CEODashboard = () => {
         throw new Error('Supabase client not initialized')
       }
 
+      console.log('Loading dashboard data...')
+
       // Load all data in parallel
       const [
         leadsData,
@@ -122,12 +134,15 @@ const CEODashboard = () => {
         portfolioStats,
         blogStats
       ] = await Promise.all([
-        loadLeads({ limit: 50 }),
+        db.getLeads({ limit: 50 }),
         loadLeadStats(),
         loadCommunicationsStats(),
         loadPortfolioStats(),
         loadBlogStats()
       ])
+
+      console.log('Leads loaded:', leadsData?.length || 0, 'leads')
+      console.log('Sample lead:', leadsData?.[0])
 
       setLeads(leadsData || [])
       setDashboardData({
@@ -145,25 +160,6 @@ const CEODashboard = () => {
     }
   }
 
-  const loadLeads = async (filters?: { limit?: number }) => {
-    try {
-      let query = supabase
-        .from('leads')
-        .select('*')
-        .order('created_at', { ascending: false })
-
-      if (filters?.limit) {
-        query = query.limit(filters.limit)
-      }
-
-      const { data, error } = await query
-      if (error) throw error
-      return data as Lead[]
-    } catch (err) {
-      console.error('Error loading leads:', err)
-      return []
-    }
-  }
 
   const loadLeadStats = async () => {
     try {
@@ -172,11 +168,7 @@ const CEODashboard = () => {
       const thisMonth = new Date().toISOString().substring(0, 7)
 
       // Get leads data
-      const { data: allLeads, error: leadsError } = await supabase
-        .from('leads')
-        .select('*')
-
-      if (leadsError) throw leadsError
+      const allLeads = await db.getLeads()
 
       // Calculate metrics
       const newLeadsToday = allLeads?.filter(lead => 
@@ -240,15 +232,12 @@ const CEODashboard = () => {
     try {
       const today = new Date().toISOString().split('T')[0]
       
-      const { data: communications, error } = await supabase
-        .from('communications')
-        .select('*')
-        .gte('created_at', today)
-
-      if (error) throw error
+      const communications = await db.getCommunications()
 
       return {
-        todaysCommunications: communications?.length || 0
+        todaysCommunications: communications?.filter(comm => 
+          comm.created_at?.startsWith(today)
+        ).length || 0
       }
     } catch (err) {
       console.error('Error loading communications stats:', err)
@@ -413,10 +402,161 @@ const CEODashboard = () => {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <Button variant="outline" size="sm">
-                <Home className="w-4 h-4 mr-2" />
-                Home
-              </Button>
+              {/* Navigation Dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm" className="min-w-[120px]">
+                    <Globe className="w-4 h-4 mr-2" />
+                    Navigate
+                    <ChevronDown className="w-4 h-4 ml-2" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-72 max-h-96 overflow-y-auto" align="end">
+                  <div className="px-2 py-1.5">
+                    <DropdownMenuLabel className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      Main Pages
+                    </DropdownMenuLabel>
+                  </div>
+                  <div className="grid grid-cols-2 gap-1 px-2 py-1">
+                    <DropdownMenuItem 
+                      onClick={() => window.open('/', '_blank')}
+                      className="flex items-center justify-start p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+                    >
+                      <ExternalLink className="w-3 h-3 mr-2 text-gray-400" />
+                      <span className="text-sm font-medium">Home</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      onClick={() => window.open('/services', '_blank')}
+                      className="flex items-center justify-start p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+                    >
+                      <ExternalLink className="w-3 h-3 mr-2 text-gray-400" />
+                      <span className="text-sm font-medium">Services</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      onClick={() => window.open('/portfolio', '_blank')}
+                      className="flex items-center justify-start p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+                    >
+                      <ExternalLink className="w-3 h-3 mr-2 text-gray-400" />
+                      <span className="text-sm font-medium">Portfolio</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      onClick={() => window.open('/blog', '_blank')}
+                      className="flex items-center justify-start p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+                    >
+                      <ExternalLink className="w-3 h-3 mr-2 text-gray-400" />
+                      <span className="text-sm font-medium">Blog</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      onClick={() => window.open('/packages', '_blank')}
+                      className="flex items-center justify-start p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+                    >
+                      <ExternalLink className="w-3 h-3 mr-2 text-gray-400" />
+                      <span className="text-sm font-medium">Packages</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      onClick={() => window.open('/about', '_blank')}
+                      className="flex items-center justify-start p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+                    >
+                      <ExternalLink className="w-3 h-3 mr-2 text-gray-400" />
+                      <span className="text-sm font-medium">About</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      onClick={() => window.open('/contact', '_blank')}
+                      className="flex items-center justify-start p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+                    >
+                      <ExternalLink className="w-3 h-3 mr-2 text-gray-400" />
+                      <span className="text-sm font-medium">Contact</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      onClick={() => window.open('/faq', '_blank')}
+                      className="flex items-center justify-start p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+                    >
+                      <ExternalLink className="w-3 h-3 mr-2 text-gray-400" />
+                      <span className="text-sm font-medium">FAQ</span>
+                    </DropdownMenuItem>
+                  </div>
+                  
+                  <DropdownMenuSeparator className="my-2" />
+                  
+                  <div className="px-2 py-1.5">
+                    <DropdownMenuLabel className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      Location Pages
+                    </DropdownMenuLabel>
+                  </div>
+                  <div className="grid grid-cols-1 gap-1 px-2 py-1">
+                    <DropdownMenuItem 
+                      onClick={() => window.open('/cape-town', '_blank')}
+                      className="flex items-center justify-between p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+                    >
+                      <div className="flex items-center">
+                        <ExternalLink className="w-3 h-3 mr-2 text-gray-400" />
+                        <span className="text-sm font-medium">Cape Town</span>
+                      </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      onClick={() => window.open('/johannesburg', '_blank')}
+                      className="flex items-center justify-between p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+                    >
+                      <div className="flex items-center">
+                        <ExternalLink className="w-3 h-3 mr-2 text-gray-400" />
+                        <span className="text-sm font-medium">Johannesburg</span>
+                      </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      onClick={() => window.open('/durban', '_blank')}
+                      className="flex items-center justify-between p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+                    >
+                      <div className="flex items-center">
+                        <ExternalLink className="w-3 h-3 mr-2 text-gray-400" />
+                        <span className="text-sm font-medium">Durban</span>
+                      </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      onClick={() => window.open('/pretoria', '_blank')}
+                      className="flex items-center justify-between p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+                    >
+                      <div className="flex items-center">
+                        <ExternalLink className="w-3 h-3 mr-2 text-gray-400" />
+                        <span className="text-sm font-medium">Pretoria</span>
+                      </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      onClick={() => window.open('/sandton', '_blank')}
+                      className="flex items-center justify-between p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+                    >
+                      <div className="flex items-center">
+                        <ExternalLink className="w-3 h-3 mr-2 text-gray-400" />
+                        <span className="text-sm font-medium">Sandton</span>
+                      </div>
+                    </DropdownMenuItem>
+                  </div>
+                  
+                  <DropdownMenuSeparator className="my-2" />
+                  
+                  <div className="px-2 py-1.5">
+                    <DropdownMenuLabel className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      System Pages
+                    </DropdownMenuLabel>
+                  </div>
+                  <div className="px-2 py-1">
+                    <DropdownMenuItem 
+                      onClick={() => window.open('/test-supabase', '_blank')}
+                      className="flex items-center justify-start p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+                    >
+                      <ExternalLink className="w-3 h-3 mr-2 text-gray-400" />
+                      <span className="text-sm font-medium">Test Supabase</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      onClick={() => window.open('/simple-test', '_blank')}
+                      className="flex items-center justify-start p-2 rounded-md hover:bg-gray-100 cursor-pointer"
+                    >
+                      <ExternalLink className="w-3 h-3 mr-2 text-gray-400" />
+                      <span className="text-sm font-medium">Simple Test</span>
+                    </DropdownMenuItem>
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              
               <Button variant="outline" size="sm" onClick={loadDashboardData}>
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Refresh
@@ -437,11 +577,12 @@ const CEODashboard = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Navigation Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="leads">Leads</TabsTrigger>
             <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
             <TabsTrigger value="blog">Blog</TabsTrigger>
+            <TabsTrigger value="projects">Projects</TabsTrigger>
           </TabsList>
 
           {/* Overview Tab */}
@@ -735,6 +876,10 @@ const CEODashboard = () => {
                               <p><strong>Company:</strong> {lead.company || 'Not specified'}</p>
                               <p><strong>Service:</strong> {lead.service_type}</p>
                               <p><strong>Budget:</strong> {lead.budget_range || 'Not specified'}</p>
+                              <p><strong>Remote Work:</strong> {lead.remote_work ? 
+                                (lead.remote_work === 'other' ? lead.remote_work_details : lead.remote_work) : 
+                                'Not specified'}
+                              </p>
                               <p><strong>Value:</strong> {formatCurrency(lead.estimated_value)}</p>
                             </div>
                             {lead.message && (
@@ -744,10 +889,168 @@ const CEODashboard = () => {
                             )}
                           </div>
                           <div className="flex gap-2 ml-4">
-                            <Button size="sm" variant="outline">
-                              <Eye className="h-4 w-4 mr-1" />
-                              View
-                            </Button>
+                            <Dialog>
+                              <DialogTrigger asChild>
+                                <Button 
+                                  size="sm" 
+                                  variant="outline"
+                                  onClick={() => setSelectedLead(lead)}
+                                >
+                                  <Eye className="h-4 w-4 mr-1" />
+                                  View
+                                </Button>
+                              </DialogTrigger>
+                              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                                <DialogHeader>
+                                  <DialogTitle className="flex items-center gap-2">
+                                    <User className="h-5 w-5" />
+                                    Lead Details
+                                  </DialogTitle>
+                                </DialogHeader>
+                                {selectedLead && (
+                                  <div className="space-y-6">
+                                    {/* Header */}
+                                    <div className="flex items-start justify-between">
+                                      <div>
+                                        <h2 className="text-2xl font-bold text-gray-900">{selectedLead.name}</h2>
+                                        <div className="flex items-center gap-4 mt-2">
+                                          <Badge className={getStatusColor(selectedLead.status)}>
+                                            {selectedLead.status.replace('_', ' ')}
+                                          </Badge>
+                                          <Badge className={getPriorityColor(selectedLead.priority)}>
+                                            {selectedLead.priority}
+                                          </Badge>
+                                          <span className="text-sm text-gray-500">
+                                            Score: {selectedLead.lead_score}/100
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    {/* Contact Information */}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                      <div className="space-y-3">
+                                        <div className="flex items-center gap-3">
+                                          <Mail className="h-4 w-4 text-gray-400" />
+                                          <div>
+                                            <p className="text-sm font-medium text-gray-500">Email</p>
+                                            <a href={`mailto:${selectedLead.email}`} className="text-blue-600 hover:underline">
+                                              {selectedLead.email}
+                                            </a>
+                                          </div>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                          <Phone className="h-4 w-4 text-gray-400" />
+                                          <div>
+                                            <p className="text-sm font-medium text-gray-500">Phone</p>
+                                            <a href={`tel:${selectedLead.phone}`} className="text-blue-600 hover:underline">
+                                              {selectedLead.phone || 'Not provided'}
+                                            </a>
+                                          </div>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                          <Building className="h-4 w-4 text-gray-400" />
+                                          <div>
+                                            <p className="text-sm font-medium text-gray-500">Company</p>
+                                            <p className="text-gray-900">{selectedLead.company || 'Not provided'}</p>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div className="space-y-3">
+                                        <div className="flex items-center gap-3">
+                                          <Target className="h-4 w-4 text-gray-400" />
+                                          <div>
+                                            <p className="text-sm font-medium text-gray-500">Service Type</p>
+                                            <p className="text-gray-900">{selectedLead.service_type}</p>
+                                          </div>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                          <DollarIcon className="h-4 w-4 text-gray-400" />
+                                          <div>
+                                            <p className="text-sm font-medium text-gray-500">Budget Range</p>
+                                            <p className="text-gray-900">{selectedLead.budget_range || 'Not specified'}</p>
+                                          </div>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                          <MapPin className="h-4 w-4 text-gray-400" />
+                                          <div>
+                                            <p className="text-sm font-medium text-gray-500">Location</p>
+                                            <p className="text-gray-900">{selectedLead.location || 'Not specified'}</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    {/* Remote Work Preference */}
+                                    {selectedLead.remote_work && (
+                                      <div className="border-t pt-4">
+                                        <h3 className="text-lg font-semibold text-gray-900 mb-3">Remote Work Preference</h3>
+                                        <div className="flex items-center gap-3">
+                                          <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                                          <span className="text-gray-900">
+                                            {selectedLead.remote_work === 'other' ? selectedLead.remote_work_details : selectedLead.remote_work}
+                                          </span>
+                                        </div>
+                                      </div>
+                                    )}
+
+                                    {/* Message */}
+                                    {selectedLead.message && (
+                                      <div className="border-t pt-4">
+                                        <h3 className="text-lg font-semibold text-gray-900 mb-3">Message</h3>
+                                        <div className="bg-gray-50 p-4 rounded-lg">
+                                          <p className="text-gray-700 whitespace-pre-wrap">{selectedLead.message}</p>
+                                        </div>
+                                      </div>
+                                    )}
+
+                                    {/* Metadata */}
+                                    <div className="border-t pt-4">
+                                      <h3 className="text-lg font-semibold text-gray-900 mb-3">Lead Information</h3>
+                                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                        <div>
+                                          <p className="text-gray-500">Source</p>
+                                          <p className="text-gray-900">{selectedLead.source}</p>
+                                        </div>
+                                        <div>
+                                          <p className="text-gray-500">Created</p>
+                                          <p className="text-gray-900">{formatDate(selectedLead.created_at)}</p>
+                                        </div>
+                                        <div>
+                                          <p className="text-gray-500">Last Updated</p>
+                                          <p className="text-gray-900">{formatDate(selectedLead.updated_at)}</p>
+                                        </div>
+                                        {selectedLead.website_url && (
+                                          <div>
+                                            <p className="text-gray-500">Website</p>
+                                            <a href={selectedLead.website_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                                              {selectedLead.website_url}
+                                            </a>
+                                          </div>
+                                        )}
+                                      </div>
+                                    </div>
+
+                                    {/* Action Buttons */}
+                                    <div className="border-t pt-4 flex gap-3">
+                                      <Button className="flex-1">
+                                        <Phone className="h-4 w-4 mr-2" />
+                                        Call Lead
+                                      </Button>
+                                      <Button variant="outline" className="flex-1">
+                                        <Mail className="h-4 w-4 mr-2" />
+                                        Send Email
+                                      </Button>
+                                      <Button variant="outline" className="flex-1">
+                                        <MessageSquare className="h-4 w-4 mr-2" />
+                                        Add Note
+                                      </Button>
+                                    </div>
+                                  </div>
+                                )}
+                              </DialogContent>
+                            </Dialog>
                           </div>
                         </div>
                       </div>
@@ -900,6 +1203,11 @@ const CEODashboard = () => {
                  </CardContent>
                </Card>
              </div>
+           </TabsContent>
+
+           {/* Projects Tab */}
+           <TabsContent value="projects">
+             <ProjectManagement />
            </TabsContent>
         </Tabs>
       </div>

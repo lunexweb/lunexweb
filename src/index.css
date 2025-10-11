@@ -210,3 +210,24 @@ All colors MUST be HSL.
     background-position: center center;
   }
 }
+
+/* Snap container styles - made less aggressive */
+.snap-container {
+  scroll-snap-type: y proximity;
+  overflow-y: auto;
+  height: auto;
+}
+
+.snap-start {
+  scroll-snap-align: start;
+  min-height: 100vh;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

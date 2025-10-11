@@ -82,13 +82,13 @@ const Services = () => {
     },
     {
       id: "service-5",
-      title: "Luxury Brands",
+      title: "Luxury Websites",
       subtitle: "Creating Exclusive Digital Experiences That Reflect Premium Positioning",
       icon: Crown,
       color: "from-slate-900 to-slate-800",
       accentColor: "bg-slate-100",
       textColor: "text-slate-900",
-      why: "Luxury brands operate in a world where every detail matters. Your website must reflect the same level of sophistication, quality, and attention to detail that your products or services represent. Our web development agency creates exclusive digital experiences for premium brands.",
+      why: "Luxury websites operate in a world where every detail matters. Your website must reflect the same level of sophistication, quality, and attention to detail that your products or services represent. Our web development agency creates exclusive digital experiences for premium brands.",
       what: "Sophisticated brand storytelling platforms, exclusive member portals with VIP access, high-end e-commerce platforms, immersive product showcases, personalization features, and luxury CRM integration. We develop luxury e-commerce websites, Shopify websites, Wix websites, WooCommerce stores, Magento platforms, and custom online stores for premium brands in Hyde Park, Sandton City, Melrose Arch, and Umhlanga.",
       how: "We conduct comprehensive brand analysis to understand your luxury positioning and target clients. Our web developers create sophisticated, visually stunning layouts that reflect the quality and exclusivity of your brand with premium e-commerce functionality and personalized user experiences."
     },
@@ -142,7 +142,7 @@ const Services = () => {
           </h1>
               <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
                 Discover our comprehensive web development services that transform businesses across 
-                law firms, consulting agencies, financial services, real estate, and luxury brands. 
+                law firms, consulting agencies, financial services, real estate, and luxury websites. 
                 We are professional web developers specializing in custom solutions.
               </p>
             </motion.div>
@@ -340,7 +340,7 @@ const Services = () => {
                   </div>
                 )}
 
-                {/* Media Section for Luxury Brands */}
+                {/* Media Section for Luxury Websites */}
                 {section.id === "service-5" && (
                   <div className="mt-16 max-w-4xl mx-auto">
                     <div className="bg-white rounded-3xl p-6 shadow-lg border border-slate-100">

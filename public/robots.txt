@@ -12,3 +12,44 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Sitemap location
+Sitemap: https://lunexweb.com/sitemap.xml
+
+# Crawl delay for better server performance
+Crawl-delay: 1
+
+# Disallow admin and private areas
+Disallow: /dashboard/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+
+# Allow all location pages for local SEO
+Allow: /johannesburg/
+Allow: /cape-town/
+Allow: /durban/
+Allow: /pretoria/
+Allow: /sandton/
+Allow: /stellenbosch/
+Allow: /paarl/
+Allow: /pietermaritzburg/
+Allow: /port-elizabeth/
+Allow: /bloemfontein/
+Allow: /nelspruit/
+Allow: /polokwane/
+Allow: /rustenburg/
+Allow: /kimberley/
+Allow: /east-london/
+Allow: /western-cape/
+Allow: /gauteng/
+Allow: /kwa-zulu-natal/
+
+# Allow all service and content pages
+Allow: /services/
+Allow: /portfolio/
+Allow: /blog/
+Allow: /about/
+Allow: /contact/
+Allow: /packages/
+Allow: /faq/

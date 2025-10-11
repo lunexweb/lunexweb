@@ -3,18 +3,27 @@ import { ArrowRight, Star, Award, Users, TrendingUp } from 'lucide-react'
 import { PortfolioProjectWithDetails } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { useNavigate } from 'react-router-dom'
 
 interface PortfolioHeroProps {
   featuredProject?: PortfolioProjectWithDetails
 }
 
 export const PortfolioHero = ({ featuredProject }: PortfolioHeroProps) => {
+  const navigate = useNavigate()
+  
   const stats = [
     { label: 'Premium Quality', value: 'Always', icon: Star },
     { label: 'Client Focus', value: '100%', icon: Users },
     { label: 'Innovation', value: 'Constant', icon: TrendingUp },
     { label: 'Excellence', value: 'Guaranteed', icon: Award }
   ]
+
+  const handleViewProject = () => {
+    if (featuredProject) {
+      navigate(`/portfolio/${featuredProject.slug}`)
+    }
+  }
 
   return (
     <section 
@@ -72,6 +81,7 @@ export const PortfolioHero = ({ featuredProject }: PortfolioHeroProps) => {
               <Button 
                 size="lg" 
                 className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg font-semibold"
+                onClick={() => navigate('/contact')}
               >
                 Start Your Project
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -80,6 +90,7 @@ export const PortfolioHero = ({ featuredProject }: PortfolioHeroProps) => {
                 variant="outline" 
                 size="lg"
                 className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-4 text-lg font-semibold bg-white/10 backdrop-blur-sm"
+                onClick={() => navigate('/portfolio')}
               >
                 View Case Studies
               </Button>
@@ -215,6 +226,7 @@ export const PortfolioHero = ({ featuredProject }: PortfolioHeroProps) => {
                     <Button 
                       size="lg"
                       className="bg-green-600 hover:bg-green-700 text-white"
+                      onClick={handleViewProject}
                     >
                       View Project Details
                       <ArrowRight className="ml-2 h-4 w-4" />
@@ -223,7 +235,7 @@ export const PortfolioHero = ({ featuredProject }: PortfolioHeroProps) => {
                       <Button 
                         variant="outline"
                         size="lg"
-                        className="border-white/30 text-white hover:bg-white hover:text-slate-900"
+                        className="border-white/30 text-white hover:bg-white hover:text-slate-900 bg-transparent"
                         onClick={() => window.open(featuredProject.project_url, '_blank')}
                       >
                         Live Demo

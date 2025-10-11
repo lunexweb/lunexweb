@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import { LiveChat } from "@/components/LiveChat";
 import { SimpleContactButton } from "@/components/SimpleContactButton";
 import { ExitIntentPopup } from "@/components/ExitIntentPopup";
@@ -45,8 +46,19 @@ import EastLondon from "./pages/locations/EastLondon";
 import WesternCape from "./pages/locations/WesternCape";
 import Gauteng from "./pages/locations/Gauteng";
 import KwaZuluNatal from "./pages/locations/KwaZuluNatal";
+import KemptonPark from "./pages/locations/KemptonPark";
+import Benoni from "./pages/locations/Benoni";
+import Randburg from "./pages/locations/Randburg";
+import Centurion from "./pages/locations/Centurion";
+import Midrand from "./pages/locations/Midrand";
 
 const queryClient = new QueryClient();
+
+// React Router future flags
+const future = {
+  v7_startTransition: true,
+  v7_relativeSplatPath: true,
+};
 
 // ScrollToTop component to scroll to top on route change
 const ScrollToTop = () => {
@@ -85,15 +97,16 @@ const pageTransition = {
 
 const App = () => {
   return (
-    <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
+    <HelmetProvider>
+      <ErrorBoundary>
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
           <Toaster />
           <Sonner />
-          <BrowserRouter>
+          <BrowserRouter future={future}>
             <ScrollToTop />
             <AnimatePresence mode="wait" initial={false}>
-          <Routes>
+              <Routes>
             <Route path="/" element={
               <motion.div
                 initial="initial"
@@ -404,6 +417,61 @@ const App = () => {
                 <EastLondon />
               </motion.div>
             } />
+            <Route path="/kempton-park" element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <KemptonPark />
+              </motion.div>
+            } />
+            <Route path="/benoni" element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <Benoni />
+              </motion.div>
+            } />
+            <Route path="/randburg" element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <Randburg />
+              </motion.div>
+            } />
+            <Route path="/centurion" element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <Centurion />
+              </motion.div>
+            } />
+            <Route path="/midrand" element={
+              <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <Midrand />
+              </motion.div>
+            } />
             
             {/* Province Routes */}
             <Route path="/western-cape" element={
@@ -452,7 +520,7 @@ const App = () => {
                 <NotFound />
               </motion.div>
             } />
-          </Routes>
+              </Routes>
             </AnimatePresence>
               <LiveChat />
               <SimpleContactButton />
@@ -462,7 +530,8 @@ const App = () => {
           </TooltipProvider>
         </QueryClientProvider>
       </ErrorBoundary>
-    );
-  };
+    </HelmetProvider>
+  );
+};
 
 export default App;

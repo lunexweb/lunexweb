@@ -1,34 +1,8 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { TrendingUp, Users, Phone, Mail, MessageCircle, MousePointer } from "lucide-react";
+import { TrendingUp, Users, Phone, Mail, MessageCircle, MousePointer, Loader2 } from "lucide-react";
+import { AnalyticsService, AnalyticsData } from "@/lib/analyticsService";
 
-interface AnalyticsData {
-  totalPageViews: number;
-  totalLeads: number;
-  conversionRate: number;
-  topLocations: Array<{
-    location: string;
-    visits: number;
-    leads: number;
-  }>;
-  topServices: Array<{
-    service: string;
-    interest: number;
-    conversions: number;
-  }>;
-  contactMethods: {
-    phone: number;
-    email: number;
-    whatsapp: number;
-    form: number;
-  };
-  recentActivity: Array<{
-    type: string;
-    location: string;
-    service: string;
-    timestamp: string;
-  }>;
-}
 
 export const AnalyticsDashboard = () => {
   const [analyticsData, setAnalyticsData] = useState<AnalyticsData>({
@@ -40,44 +14,73 @@ export const AnalyticsDashboard = () => {
     contactMethods: { phone: 0, email: 0, whatsapp: 0, form: 0 },
     recentActivity: []
   });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // This would typically fetch from your analytics API
-    // For now, we'll simulate some data
-    const mockData: AnalyticsData = {
-      totalPageViews: 2847,
-      totalLeads: 156,
-      conversionRate: 5.48,
-      topLocations: [
-        { location: "Cape Town", visits: 892, leads: 45 },
-        { location: "Johannesburg", visits: 756, leads: 38 },
-        { location: "Durban", visits: 623, leads: 28 },
-        { location: "Pretoria", visits: 445, leads: 22 },
-        { location: "Sandton", visits: 387, leads: 18 }
-      ],
-      topServices: [
-        { service: "Law Firm Websites", interest: 234, conversions: 45 },
-        { service: "Consulting Agency", interest: 189, conversions: 38 },
-        { service: "Luxury Brands", interest: 156, conversions: 28 },
-        { service: "Real Estate", interest: 134, conversions: 22 },
-        { service: "Financial Services", interest: 98, conversions: 18 }
-      ],
-      contactMethods: {
-        phone: 67,
-        email: 34,
-        whatsapp: 89,
-        form: 156
-      },
-      recentActivity: [
-        { type: "Lead", location: "Cape Town", service: "Law Firm", timestamp: "2 minutes ago" },
-        { type: "WhatsApp", location: "Johannesburg", service: "Consulting", timestamp: "5 minutes ago" },
-        { type: "Phone", location: "Durban", service: "Real Estate", timestamp: "8 minutes ago" },
-        { type: "Lead", location: "Pretoria", service: "Financial", timestamp: "12 minutes ago" },
-        { type: "WhatsApp", location: "Sandton", service: "Luxury", timestamp: "15 minutes ago" }
-      ]
+    const loadAnalyticsData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        console.log('Loading real analytics data...');
+        const data = await AnalyticsService.getAllAnalyticsData();
+        setAnalyticsData(data);
+        
+        console.log('Analytics data loaded:', data);
+      } catch (err) {
+        console.error('Error loading analytics data:', err);
+        setError('Failed to load analytics data');
+        
+        // Fallback to empty data structure
+        setAnalyticsData({
+          totalPageViews: 0,
+          totalLeads: 0,
+          conversionRate: 0,
+          topLocations: [],
+          topServices: [],
+          contactMethods: { phone: 0, email: 0, whatsapp: 0, form: 0 },
+          recentActivity: []
+        });
+      } finally {
+        setLoading(false);
+      }
     };
-    setAnalyticsData(mockData);
+
+    loadAnalyticsData();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="p-4 sm:p-6 space-y-6">
+        <div className="flex items-center justify-center h-64">
+          <div className="flex items-center space-x-2">
+            <Loader2 className="w-6 h-6 animate-spin" />
+            <span>Loading analytics data...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-4 sm:p-6 space-y-6">
+        <div className="flex items-center justify-center h-64">
+          <div className="text-center">
+            <div className="text-red-600 text-lg font-medium mb-2">Error Loading Analytics</div>
+            <div className="text-gray-600">{error}</div>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-4 sm:p-6 space-y-6">
@@ -247,6 +250,5 @@ export const AnalyticsDashboard = () => {
     </div>
   );
 };
-
 
 

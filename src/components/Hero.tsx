@@ -1,10 +1,49 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Shield, Award, Users, Clock, TrendingUp } from "lucide-react";
+import { ArrowRight, Shield, Award, Users, Clock, TrendingUp, Loader2 } from "lucide-react";
+import { BusinessStatsService, BusinessStats } from "@/lib/businessStatsService";
 
 export const Hero = () => {
-  const stats = [
+  const [businessStats, setBusinessStats] = useState<BusinessStats | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadStats = async () => {
+      try {
+        const stats = await BusinessStatsService.getAllBusinessStats();
+        setBusinessStats(stats);
+      } catch (error) {
+        console.error('Error loading business stats:', error);
+        // Fallback to default stats
+        setBusinessStats({
+          yearsInBusiness: 5,
+          totalClients: 150,
+          clientGrowthRate: 100,
+          focusArea: 'Premium Web Development',
+          totalProjects: 0,
+          completedProjects: 0,
+          totalRevenue: 0,
+          averageProjectValue: 0,
+          currentMonthRevenue: 0,
+          previousMonthRevenue: 0,
+          monthlyGrowthRate: 0
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadStats();
+  }, []);
+
+  const stats = businessStats ? [
+    { icon: Clock, value: `${businessStats.yearsInBusiness}+`, label: "Years of Strategic Excellence" },
+    { icon: Users, value: `${businessStats.totalClients}+`, label: "Premium Brands Served" },
+    { icon: Award, value: `${businessStats.clientGrowthRate}%`, label: "Client Growth Achieved" },
+    { icon: Shield, value: businessStats.focusArea, label: "Digital Strategy Focus" }
+  ] : [
     { icon: Clock, value: "5+", label: "Years of Strategic Excellence" },
     { icon: Users, value: "150+", label: "Premium Brands Served" },
     { icon: Award, value: "100%", label: "Client Growth Achieved" },
@@ -55,7 +94,7 @@ export const Hero = () => {
             
             <p className="text-[clamp(1.125rem,2.5vw,1.5rem)] text-white/90 max-w-4xl mx-auto leading-relaxed font-light px-4">
               Professional websites that convert visitors into paying clients. 
-              Premium web development for law firms, consulting agencies & luxury brands across South Africa.
+              Premium web development for law firms, consulting agencies & luxury websites across South Africa.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center pt-6 sm:pt-8">
@@ -89,24 +128,43 @@ export const Hero = () => {
 
           {/* Stats Section */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 max-w-5xl mx-auto px-4">
-            {stats.map((stat, index) => (
-              <div
-                key={index}
-                className="text-center space-y-2 sm:space-y-3"
-              >
-                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 mx-auto bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center">
-                  <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white" />
-                </div>
-                <div>
-                  <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-white">
-                    {stat.value}
+            {loading ? (
+              // Loading skeleton
+              Array.from({ length: 4 }).map((_, index) => (
+                <div key={index} className="text-center space-y-2 sm:space-y-3">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 mx-auto bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center">
+                    <Loader2 className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white animate-spin" />
                   </div>
-                  <div className="text-xs sm:text-sm text-white/80 font-medium leading-tight px-1">
-                    {stat.label}
+                  <div>
+                    <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-white">
+                      --
+                    </div>
+                    <div className="text-xs sm:text-sm text-white/80 font-medium leading-tight px-1">
+                      Loading...
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              stats.map((stat, index) => (
+                <div
+                  key={index}
+                  className="text-center space-y-2 sm:space-y-3"
+                >
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 mx-auto bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center">
+                    <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white" />
+                  </div>
+                  <div>
+                    <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-white">
+                      {stat.value}
+                    </div>
+                    <div className="text-xs sm:text-sm text-white/80 font-medium leading-tight px-1">
+                      {stat.label}
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>

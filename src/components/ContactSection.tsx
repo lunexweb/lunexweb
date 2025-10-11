@@ -4,8 +4,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { MessageCircle, Zap, Headphones } from "lucide-react";
+import { db } from "@/lib/supabase";
 
 export const ContactSection = () => {
   const { toast } = useToast();
@@ -14,18 +17,60 @@ export const ContactSection = () => {
     email: "",
     phone: "",
     company: "",
+    location: "",
     service: "",
     budget: "",
-    message: ""
+    message: "",
+    remoteWork: "",
+    remoteWorkDetails: ""
   });
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "🎉 Thank you! We'll contact you as soon as possible",
-      description: "Our team will analyze your requirements and send you a detailed proposal for your professional website project.",
-    });
-    setFormData({ name: "", email: "", phone: "", company: "", service: "", budget: "", message: "" });
+    
+    try {
+      const leadData = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        company: formData.company,
+        location: formData.location,
+        service_type: formData.service,
+        budget_range: formData.budget,
+        message: formData.message,
+        remote_work: formData.remoteWork,
+        remote_work_details: formData.remoteWorkDetails,
+        lead_score: 50, // Default score
+        status: 'new' as const,
+        source: 'website_contact_form',
+        priority: 'medium' as const,
+        estimated_value: null,
+        notes: null,
+        timeline: null,
+        website_url: null,
+        utm_source: null,
+        utm_medium: null,
+        utm_campaign: null,
+        assigned_to: null,
+        last_contacted_at: null
+      };
+
+      await db.createLead(leadData);
+      
+      toast({
+        title: "🎉 Thank you! We'll contact you as soon as possible",
+        description: "Our team will analyze your requirements and send you a detailed proposal for your professional website project.",
+      });
+      
+      setFormData({ name: "", email: "", phone: "", company: "", location: "", service: "", budget: "", message: "", remoteWork: "", remoteWorkDetails: "" });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Error",
+        description: "There was a problem submitting your form. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   const handleWhatsAppClick = () => {
@@ -124,6 +169,17 @@ export const ContactSection = () => {
                   </div>
                 </div>
 
+                <div>
+                  <Input
+                    type="text"
+                    placeholder="Location (City, Province/State) *"
+                    value={formData.location}
+                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                    required
+                    className="w-full"
+                  />
+                </div>
+
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <Select value={formData.service} onValueChange={(value) => setFormData({ ...formData, service: value })}>
@@ -164,6 +220,54 @@ export const ContactSection = () => {
                   />
                 </div>
 
+                {/* Remote Work Question */}
+                <div className="space-y-4">
+                  <Label className="text-base font-medium text-gray-900">
+                    Are you interested in working remotely?
+                  </Label>
+                  <RadioGroup 
+                    value={formData.remoteWork} 
+                    onValueChange={(value) => setFormData({ ...formData, remoteWork: value, remoteWorkDetails: "" })}
+                    className="flex flex-col space-y-3"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <RadioGroupItem value="yes" id="remote-yes" />
+                      <Label htmlFor="remote-yes" className="text-sm font-normal cursor-pointer">
+                        Yes, I prefer remote work
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <RadioGroupItem value="no" id="remote-no" />
+                      <Label htmlFor="remote-no" className="text-sm font-normal cursor-pointer">
+                        No, I prefer in-person meetings
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <RadioGroupItem value="other" id="remote-other" />
+                      <Label htmlFor="remote-other" className="text-sm font-normal cursor-pointer">
+                        Other (please specify)
+                      </Label>
+                    </div>
+                  </RadioGroup>
+                  
+                  {/* Conditional text input for "Other" */}
+                  {formData.remoteWork === "other" && (
+                    <div className="mt-3">
+                      <Input
+                        type="text"
+                        placeholder="Please specify your preference..."
+                        value={formData.remoteWorkDetails}
+                        onChange={(e) => setFormData({ ...formData, remoteWorkDetails: e.target.value })}
+                        className="w-full"
+                        maxLength={100}
+                      />
+                      <p className="text-xs text-gray-500 mt-1">
+                        {formData.remoteWorkDetails.length}/100 characters
+                      </p>
+                    </div>
+                  )}
+                </div>
+
                 <div className="space-y-4">
                   <Button
                     type="submit"
@@ -174,7 +278,7 @@ export const ContactSection = () => {
                     onMouseLeave={(e) => e.target.style.backgroundColor = '#22C55E'}
                   >
                     <Zap className="w-5 h-5 mr-2" />
-                    Get My Free Strategy Session
+                    Send to a professional
                   </Button>
                   
                   <div className="text-center">

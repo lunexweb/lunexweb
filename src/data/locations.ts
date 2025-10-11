@@ -190,6 +190,111 @@ export const locationData: Record<string, LocationData> = {
       growthRate: "95%"
     }
   },
+  "kempton-park": {
+    province: "Gauteng",
+    city: "Kempton Park",
+    population: "1.4 million",
+    description: "Kempton Park is a major business hub near OR Tambo International Airport with thriving logistics, manufacturing, and service industries. Local businesses need professional websites to attract both local and international clients.",
+    majorIndustries: ["Logistics & Transport", "Manufacturing", "Aviation", "Technology", "Retail", "Services"],
+    localCompetitors: ["Airport contractors", "Local agencies", "Freelancers"],
+    testimonials: [
+      {
+        name: "Maria Santos",
+        company: "Kempton Park Logistics",
+        quote: "Our international client base grew 400% after Lunexweb redesigned our website. The professionalism and results exceeded our expectations.",
+        rating: 5
+      }
+    ],
+    stats: {
+      businesses: "25,000+",
+      avgRevenue: "+380%",
+      growthRate: "88%"
+    }
+  },
+  "benoni": {
+    province: "Gauteng",
+    city: "Benoni",
+    population: "1.2 million",
+    description: "Benoni is a major industrial and residential center with diverse manufacturing and service sectors. Local businesses need modern websites to compete in the growing digital economy.",
+    majorIndustries: ["Manufacturing", "Mining", "Retail", "Healthcare", "Education", "Services"],
+    localCompetitors: ["Industrial contractors", "Local developers", "Freelancers"],
+    testimonials: [
+      {
+        name: "John van der Berg",
+        company: "Benoni Manufacturing Solutions",
+        quote: "Our B2B leads tripled after working with Lunexweb. The website quality and professionalism are outstanding.",
+        rating: 5
+      }
+    ],
+    stats: {
+      businesses: "18,000+",
+      avgRevenue: "+320%",
+      growthRate: "82%"
+    }
+  },
+  "randburg": {
+    province: "Gauteng",
+    city: "Randburg",
+    population: "890,000",
+    description: "Randburg is a major business district with thriving corporate, retail, and service sectors. Local businesses need professional websites that reflect their competitive market position.",
+    majorIndustries: ["Corporate Services", "Retail", "Technology", "Real Estate", "Healthcare", "Consulting"],
+    localCompetitors: ["Corporate agencies", "Local developers", "Freelancers"],
+    testimonials: [
+      {
+        name: "Sarah Johnson",
+        company: "Randburg Corporate Services",
+        quote: "Lunexweb transformed our online presence. We now generate qualified leads daily instead of weekly.",
+        rating: 5
+      }
+    ],
+    stats: {
+      businesses: "22,000+",
+      avgRevenue: "+360%",
+      growthRate: "85%"
+    }
+  },
+  "centurion": {
+    province: "Gauteng",
+    city: "Centurion",
+    population: "580,000",
+    description: "Centurion is a major tech hub and business center with growing corporate headquarters and technology companies. Local businesses need sophisticated websites to attract high-value clients.",
+    majorIndustries: ["Technology", "Corporate Services", "Research", "Manufacturing", "Consulting", "Healthcare"],
+    localCompetitors: ["Tech agencies", "Corporate contractors", "Freelancers"],
+    testimonials: [
+      {
+        name: "Dr. Michael Brown",
+        company: "Centurion Tech Solutions",
+        quote: "Our client acquisition increased 450% after Lunexweb redesigned our website. The quality and professionalism are unmatched.",
+        rating: 5
+      }
+    ],
+    stats: {
+      businesses: "15,000+",
+      avgRevenue: "+420%",
+      growthRate: "92%"
+    }
+  },
+  "midrand": {
+    province: "Gauteng",
+    city: "Midrand",
+    population: "420,000",
+    description: "Midrand is a rapidly growing business district between Johannesburg and Pretoria with emerging corporate and residential developments. Local businesses need modern websites to capitalize on the area's growth.",
+    majorIndustries: ["Corporate Services", "Real Estate", "Technology", "Manufacturing", "Retail", "Services"],
+    localCompetitors: ["Growing agencies", "Local developers", "Freelancers"],
+    testimonials: [
+      {
+        name: "Lisa van Wyk",
+        company: "Midrand Business Solutions",
+        quote: "Our business grew significantly after Lunexweb improved our website. The professionalism and results are remarkable.",
+        rating: 5
+      }
+    ],
+    stats: {
+      businesses: "12,000+",
+      avgRevenue: "+350%",
+      growthRate: "87%"
+    }
+  },
 
   // KwaZulu-Natal
   "durban": {

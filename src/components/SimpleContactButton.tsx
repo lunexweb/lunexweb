@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Phone, Mail, Plus } from "lucide-react";
+import { Phone, Mail, Plus, Github } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const SimpleContactButton = () => {
@@ -11,6 +11,10 @@ export const SimpleContactButton = () => {
 
   const handleEmailClick = () => {
     window.open('mailto:info@lunexweb.com');
+  };
+
+  const handleGithubClick = () => {
+    window.open('https://github.com/lunexweb', '_blank');
   };
 
   const toggleExpanded = () => {
@@ -34,6 +38,20 @@ export const SimpleContactButton = () => {
               exit={{ opacity: 0, y: 10, scale: 0.8 }}
               className="flex flex-col space-y-2"
             >
+              {/* GitHub */}
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <button
+                  onClick={handleGithubClick}
+                  className="w-12 h-12 rounded-full border-2 border-gray-300 hover:border-gray-400 text-gray-600 hover:text-gray-700 transition-all duration-200 flex items-center justify-center"
+                  title="View GitHub Profile"
+                >
+                  <Github className="w-5 h-5" />
+                </button>
+              </motion.div>
+
               {/* Email */}
               <motion.div
                 whileHover={{ scale: 1.1 }}
