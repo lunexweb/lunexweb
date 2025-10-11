@@ -197,15 +197,15 @@ export const ServiceSections = () => {
           }}
         >
           {/* Section Number Indicator */}
-          <div className="absolute top-8 left-8 z-30">
-            <div className="text-2xl font-bold text-slate-300 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-lg shadow-sm">
+          <div className="absolute top-4 sm:top-8 left-4 sm:left-8 z-30">
+            <div className="text-lg sm:text-2xl font-bold text-slate-300 bg-white/80 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-lg shadow-sm">
               {service.number}
             </div>
           </div>
           
           {/* Content */}
           <div className="container mx-auto px-4 sm:px-6 lg:px-12 relative z-20 w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center min-h-[calc(100vh-80px)]">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-16 items-center min-h-[calc(100vh-80px)] py-8 sm:py-12">
               
               {/* Left Column - Section Number and Graphic */}
               <motion.div
@@ -217,15 +217,15 @@ export const ServiceSections = () => {
                   ease: "easeOut"
                 }}
                 viewport={{ once: true, margin: "-50px" }}
-                className="flex flex-col items-start space-y-8"
+                className="flex flex-col items-center lg:items-start space-y-6 sm:space-y-8"
               >
                 {/* Section Number */}
-                <div className="text-sm text-slate-500 font-mono">
+                <div className="text-sm text-slate-500 font-mono text-center lg:text-left w-full">
                   // {service.number}
                 </div>
                 
                 {/* Graphic - Hammer for Law Firms, Geometric for others */}
-                <div className="w-full max-w-md mx-auto lg:mx-0">
+                <div className="w-full max-w-sm sm:max-w-md mx-auto lg:mx-0">
                   <div className="relative w-full h-64 bg-slate-50 rounded-lg flex items-center justify-center overflow-hidden">
                     {service.id === "service-1" ? (
                       // Hammer image for Law Firms
@@ -289,7 +289,7 @@ export const ServiceSections = () => {
                   </div>
                   
                   {/* Website Types */}
-                  <div className="text-sm text-slate-500 space-y-2 mt-4">
+                  <div className="text-sm text-slate-500 space-y-2 mt-4 text-center lg:text-left">
                     {service.id === "service-1" && (
                       <>
                         <p className="leading-relaxed">• Attorneys websites • Law Firms websites • Legal practice websites</p>
@@ -341,20 +341,20 @@ export const ServiceSections = () => {
                   ease: "easeOut"
                 }}
                 viewport={{ once: true, margin: "-50px" }}
-                className="flex flex-col justify-center space-y-8"
+                className="flex flex-col justify-center space-y-6 sm:space-y-8 text-center lg:text-left"
               >
                 {/* Main Title */}
-                <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 leading-tight">
                   {service.title}
                 </h2>
                 
                 {/* Description */}
-                <p className="text-lg lg:text-xl text-slate-600 leading-relaxed max-w-lg">
+                <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-lg mx-auto lg:mx-0">
                   {service.description}
                 </p>
                 
                 {/* CTA Button */}
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center justify-center lg:justify-start space-x-4">
                   <Button
                     size="lg"
                     className="text-white px-8 py-3 text-base font-medium rounded-lg"
@@ -375,7 +375,7 @@ export const ServiceSections = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
                   viewport={{ once: true }}
-                  className="space-y-1 mt-4"
+                  className="space-y-1 mt-4 text-center lg:text-left"
                 >
                   {service.expandableItems.map((item, itemIndex) => (
                     <ExpandableItem
