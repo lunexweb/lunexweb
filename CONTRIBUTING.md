@@ -4,199 +4,179 @@ Thank you for your interest in contributing to Lunexweb! We welcome contribution
 
 ## 🤝 How to Contribute
 
-### Reporting Issues
+### Reporting Bugs
 
-If you find a bug or have a feature request:
+If you find a bug, please create an issue with the following information:
 
-1. Check if the issue already exists in [Issues](https://github.com/lunexweb/lunexweb/issues)
-2. Create a new issue with:
-   - Clear title and description
-   - Steps to reproduce (for bugs)
-   - Expected vs actual behavior
-   - Screenshots if applicable
+- **Clear description** of the bug
+- **Steps to reproduce** the issue
+- **Expected behavior** vs actual behavior
+- **Screenshots** (if applicable)
+- **Environment details** (browser, OS, Node.js version)
 
-### Making Changes
+### Suggesting Features
+
+We welcome feature suggestions! Please create an issue with:
+
+- **Clear description** of the feature
+- **Use case** and why it would be valuable
+- **Proposed implementation** (if you have ideas)
+
+### Code Contributions
 
 1. **Fork** the repository
-2. **Clone** your fork locally:
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/lunexweb.git
-   cd lunexweb
-   ```
-
-3. **Create a branch** for your feature:
+2. **Create a feature branch** from `main`:
    ```bash
    git checkout -b feature/your-feature-name
    ```
-
-4. **Install dependencies**:
+3. **Make your changes** following our coding standards
+4. **Test your changes** thoroughly
+5. **Commit** with a clear message:
    ```bash
-   npm install
+   git commit -m "Add: your feature description"
    ```
-
-5. **Make your changes** following our coding standards
-
-6. **Test your changes**:
-   ```bash
-   npm run dev
-   npm run lint
-   ```
-
-7. **Commit your changes**:
-   ```bash
-   git commit -m "feat: add your feature description"
-   ```
-
-8. **Push to your fork**:
+6. **Push** to your fork:
    ```bash
    git push origin feature/your-feature-name
    ```
-
-9. **Create a Pull Request** with a clear description
+7. **Create a Pull Request**
 
 ## 📋 Coding Standards
 
 ### TypeScript/React
-- Use TypeScript for all new code
-- Follow React best practices and hooks
-- Use functional components over class components
-- Implement proper error boundaries
+- Use **TypeScript** for all new code
+- Follow **React best practices** and hooks patterns
+- Use **functional components** with hooks
+- Implement **proper error handling**
+- Add **JSDoc comments** for complex functions
 
 ### Styling
-- Use Tailwind CSS utility classes
-- Follow mobile-first responsive design
-- Maintain consistent spacing and typography
-- Use shadcn/ui components when possible
+- Use **Tailwind CSS** for styling
+- Follow **mobile-first** responsive design
+- Maintain **consistent spacing** and typography
+- Use **semantic HTML** elements
 
-### Code Quality
-- Write meaningful variable and function names
-- Add comments for complex logic
-- Follow ESLint configuration
-- Write tests for new features
+### Code Style
+- Use **2 spaces** for indentation
+- Use **semicolons** consistently
+- Use **camelCase** for variables and functions
+- Use **PascalCase** for components
+- Use **kebab-case** for file names
 
 ### Git Commit Messages
-Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
-
-```
-type(scope): description
-
-feat: add new feature
-fix: bug fix
-docs: documentation changes
-style: formatting changes
-refactor: code refactoring
-test: add or update tests
-chore: maintenance tasks
-```
-
-## 🏗️ Project Structure
-
-```
-src/
-├── components/          # Reusable UI components
-│   ├── ui/             # shadcn/ui components
-│   └── ...             # Custom components
-├── pages/              # Route components
-├── hooks/              # Custom React hooks
-├── lib/                # Utilities and configurations
-├── data/               # Static data and constants
-└── assets/             # Images and static assets
-```
+Follow the conventional commit format:
+- `feat:` new features
+- `fix:` bug fixes
+- `docs:` documentation changes
+- `style:` formatting changes
+- `refactor:` code refactoring
+- `test:` adding tests
+- `chore:` maintenance tasks
 
 ## 🧪 Testing
 
-Before submitting your PR:
+Before submitting your PR, please ensure:
 
-1. **Run the development server**: `npm run dev`
-2. **Check for linting errors**: `npm run lint`
-3. **Test on multiple devices/browsers**
-4. **Verify accessibility** with screen readers
-5. **Check performance** with Lighthouse
+- [ ] Code compiles without errors
+- [ ] No TypeScript errors
+- [ ] ESLint passes without warnings
+- [ ] Responsive design works on mobile and desktop
+- [ ] All existing functionality still works
 
-## 📝 Pull Request Guidelines
+## 📝 Documentation
 
-### PR Title
-Use a clear, descriptive title that summarizes your changes.
+- Update **README.md** if adding new features
+- Add **JSDoc comments** for new functions
+- Update **component documentation** if needed
+- Include **screenshots** for UI changes
 
-### PR Description
-Include:
-- **What** you changed
-- **Why** you made the change
-- **How** to test the changes
-- Screenshots/GIFs for UI changes
-- Any breaking changes
+## 🚀 Development Setup
 
-### PR Checklist
-- [ ] Code follows project style guidelines
-- [ ] Self-review completed
-- [ ] Comments added for complex code
-- [ ] Documentation updated if needed
+```bash
+# Clone your fork
+git clone https://github.com/your-username/lunexweb.git
+cd lunexweb
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Run linting
+npm run lint
+
+# Build for production
+npm run build
+```
+
+## 🎯 Project Structure
+
+```
+src/
+├── components/     # Reusable UI components
+├── pages/         # Page components
+├── lib/           # Utilities and services
+├── hooks/         # Custom React hooks
+├── assets/        # Images and static files
+└── types/         # TypeScript type definitions
+```
+
+## 📋 Pull Request Guidelines
+
+### Before Submitting
+- [ ] Your code follows the coding standards
+- [ ] You've tested your changes
+- [ ] Documentation is updated
 - [ ] No console errors or warnings
-- [ ] Responsive design tested
-- [ ] Accessibility tested
 
-## 🐛 Bug Reports
+### PR Description Template
+```markdown
+## Description
+Brief description of changes
 
-When reporting bugs, please include:
+## Type of Change
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Breaking change
+- [ ] Documentation update
 
-1. **Environment**:
-   - OS and version
-   - Browser and version
-   - Node.js version
+## Testing
+- [ ] Tested on desktop
+- [ ] Tested on mobile
+- [ ] No console errors
 
-2. **Steps to reproduce**:
-   - Clear, numbered steps
-   - Expected behavior
-   - Actual behavior
+## Screenshots (if applicable)
+Add screenshots here
+```
 
-3. **Additional context**:
-   - Screenshots
-   - Error messages
-   - Console logs
-
-## 💡 Feature Requests
-
-For feature requests, please:
-
-1. **Check existing issues** first
-2. **Describe the feature** clearly
-3. **Explain the use case** and benefits
-4. **Provide mockups** if applicable
-5. **Consider implementation** complexity
-
-## 📚 Resources
-
-- [React Documentation](https://react.dev/)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
-- [Tailwind CSS Docs](https://tailwindcss.com/docs)
-- [shadcn/ui Components](https://ui.shadcn.com/)
-- [Supabase Documentation](https://supabase.com/docs)
-
-## 🏷️ Labels
-
-We use labels to categorize issues and PRs:
+## 🏷️ Issue Labels
 
 - `bug` - Something isn't working
-- `feature` - New feature or request
-- `documentation` - Improvements to documentation
+- `enhancement` - New feature or request
+- `documentation` - Improvements or additions to documentation
 - `good first issue` - Good for newcomers
 - `help wanted` - Extra attention is needed
-- `priority: high` - High priority items
+- `question` - Further information is requested
+
+## 💬 Community Guidelines
+
+- Be respectful and inclusive
+- Help others learn and grow
+- Provide constructive feedback
+- Follow the [Code of Conduct](CODE_OF_CONDUCT.md)
 
 ## 📞 Getting Help
 
-If you need help:
-
-1. Check our [documentation](docs/)
-2. Search existing [issues](https://github.com/lunexweb/lunexweb/issues)
-3. Join our discussions
-4. Contact us at info@lunexweb.com
+- **Discussions**: Use GitHub Discussions for questions
+- **Issues**: Use Issues for bugs and feature requests
+- **Email**: info@lunexweb.com for urgent matters
 
 ## 🎉 Recognition
 
-Contributors will be recognized in:
+Contributors will be recognized in our:
 - README.md contributors section
 - Release notes
-- Project documentation
+- Social media acknowledgments
 
 Thank you for contributing to Lunexweb! 🚀

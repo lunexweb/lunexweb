@@ -7,110 +7,91 @@ We actively maintain and provide security updates for the following versions:
 | Version | Supported          |
 | ------- | ------------------ |
 | 1.0.x   | :white_check_mark: |
-| < 1.0   | :x:                |
 
 ## Reporting a Vulnerability
 
 We take security seriously. If you discover a security vulnerability, please follow these steps:
 
-### 1. **Do NOT** create a public issue
-- Security vulnerabilities should be reported privately
-- Public disclosure can put users at risk
+### 1. **DO NOT** create a public issue
+Security vulnerabilities should not be disclosed publicly until they have been addressed.
 
-### 2. **Report via Email**
-Send an email to: **security@lunexweb.com**
+### 2. Email us directly
+Send details to: **security@lunexweb.com**
 
-Include the following information:
-- Description of the vulnerability
-- Steps to reproduce the issue
-- Potential impact assessment
-- Any proof-of-concept code (if applicable)
-- Your contact information
+### 3. Include the following information:
+- **Description** of the vulnerability
+- **Steps to reproduce** the issue
+- **Potential impact** of the vulnerability
+- **Suggested fix** (if you have one)
+- **Your contact information** (optional)
 
-### 3. **What to Expect**
-- **Acknowledgment**: We'll acknowledge receipt within 24 hours
-- **Assessment**: We'll assess the vulnerability within 72 hours
-- **Updates**: We'll provide regular updates on our progress
-- **Resolution**: We'll work to resolve critical issues within 7 days
+### 4. What to expect:
+- **Acknowledgment** within 48 hours
+- **Regular updates** on our progress
+- **Credit** in our security advisories (if desired)
 
-### 4. **Responsible Disclosure**
-We follow responsible disclosure practices:
-- We won't disclose the vulnerability until it's fixed
-- We'll credit you in our security advisory (if desired)
-- We may ask for your assistance in testing the fix
+## Security Best Practices
+
+### For Contributors:
+- **Never commit** sensitive data (API keys, passwords, tokens)
+- **Use environment variables** for configuration
+- **Validate all inputs** on both client and server side
+- **Follow OWASP guidelines** for web security
+- **Keep dependencies** up to date
+
+### For Users:
+- **Keep your software** up to date
+- **Use strong passwords** and enable 2FA where available
+- **Be cautious** with file uploads and downloads
+- **Report suspicious activity** immediately
 
 ## Security Measures
 
-### Code Security
-- Regular dependency updates
-- Automated security scanning
-- Code review process
-- Secure coding practices
+Our application implements several security measures:
 
-### Infrastructure Security
-- HTTPS everywhere
-- Secure headers implementation
-- Regular security audits
-- Environment variable protection
+### Frontend Security:
+- **Content Security Policy (CSP)** headers
+- **Input validation** and sanitization
+- **XSS protection** through React's built-in mechanisms
+- **Secure authentication** flows
 
-### Data Protection
-- GDPR compliance
-- Data encryption in transit and at rest
-- Minimal data collection
-- User consent management
+### Backend Security:
+- **Supabase Row Level Security (RLS)** policies
+- **Environment variable** protection
+- **Database connection** encryption
+- **API rate limiting**
 
-## Security Features
+### Infrastructure Security:
+- **HTTPS enforcement** on all domains
+- **Secure headers** configuration
+- **Regular dependency** updates
+- **Automated security** scanning
 
-### Authentication & Authorization
-- Supabase Auth integration
-- Role-based access control
-- Session management
-- Password security policies
+## Known Vulnerabilities
 
-### Data Validation
-- Input sanitization
-- SQL injection prevention
-- XSS protection
-- CSRF protection
+Currently, there are no known security vulnerabilities. All reported issues are listed in our [GitHub Security Advisories](https://github.com/lunexweb/lunexweb/security/advisories).
 
-### Monitoring & Logging
-- Security event logging
-- Anomaly detection
-- Performance monitoring
-- Error tracking
+## Security Updates
 
-## Best Practices for Contributors
+Security updates are released as soon as possible after vulnerabilities are discovered and patched. We recommend:
 
-### Code Security
-1. **Never commit secrets** - Use environment variables
-2. **Validate all inputs** - Sanitize user data
-3. **Use HTTPS** - Always use secure connections
-4. **Keep dependencies updated** - Regular security updates
+- **Subscribing** to security notifications
+- **Updating immediately** when security patches are released
+- **Monitoring** our security advisories
 
-### Git Security
-1. **Use SSH keys** - Avoid password authentication
-2. **Sign commits** - Verify commit authenticity
-3. **Review changes** - Always review code before merging
-4. **Use branch protection** - Protect main branch
+## Contact
 
-### Environment Security
-1. **Secure local development** - Use local environment variables
-2. **Test security features** - Verify security implementations
-3. **Follow OWASP guidelines** - Adhere to security standards
+For security-related questions or concerns:
 
-## Contact Information
+- **Email**: security@lunexweb.com
+- **Website**: [lunexweb.com/security](https://lunexweb.com/security)
+- **Response Time**: Within 48 hours for security issues
 
-- **Security Email**: security@lunexweb.com
-- **General Contact**: info@lunexweb.com
-- **Website**: https://lunexweb.com
+## Acknowledgments
 
-## Security Resources
-
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
-- [OWASP Web Security Testing Guide](https://owasp.org/www-project-web-security-testing-guide/)
-- [Supabase Security](https://supabase.com/docs/guides/platform/security)
-- [React Security Best Practices](https://react.dev/learn/security)
+We thank the security researchers and community members who help keep our project secure by responsibly disclosing vulnerabilities.
 
 ---
 
-**Thank you for helping keep Lunexweb secure!**
+**Last Updated**: January 2025  
+**Next Review**: March 2025
