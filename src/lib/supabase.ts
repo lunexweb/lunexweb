@@ -235,15 +235,23 @@ export const db = {
   async createLead(lead: Omit<Lead, 'id' | 'created_at' | 'updated_at'>) {
     console.log('Creating lead:', lead)
     
-    const { data, error } = await supabase
-      .from('leads')
-      .insert([lead])
-      .select()
-      .single()
-    
-    console.log('Lead creation result:', { data, error })
-    if (error) throw error
-    return data
+    try {
+      const { data, error } = await supabase
+        .from('leads')
+        .insert([lead])
+        .select()
+        .single()
+      
+      console.log('Lead creation result:', { data, error })
+      if (error) {
+        console.error('Error creating lead:', error)
+        throw new Error(`Failed to create lead: ${error.message}`)
+      }
+      return data
+    } catch (error) {
+      console.error('Lead creation failed:', error)
+      throw error
+    }
   },
 
   async updateLead(id: string, updates: Partial<Lead>) {

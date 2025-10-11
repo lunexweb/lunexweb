@@ -60,7 +60,7 @@ export const trackPageView = async (pageTitle: string, pageLocation: string) => 
     const location = getLocationFromUrl();
     const sessionId = getSessionId();
 
-    await supabase.from('page_views').insert({
+    const { error } = await supabase.from('page_views').insert({
       page_title: pageTitle,
       page_url: pageLocation,
       page_type: pageType,
@@ -69,8 +69,14 @@ export const trackPageView = async (pageTitle: string, pageLocation: string) => 
       user_agent: navigator.userAgent,
       session_id: sessionId
     });
+
+    if (error) {
+      console.error('Error tracking page view:', error);
+      // Don't throw - analytics failures shouldn't break the app
+    }
   } catch (error) {
     console.error('Error tracking page view:', error);
+    // Don't throw - analytics failures shouldn't break the app
   }
 };
 
