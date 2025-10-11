@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
@@ -137,6 +138,10 @@ const CEODashboard = () => {
   const [priorityFilter, setPriorityFilter] = useState<string>('all')
   const [activeTab, setActiveTab] = useState('overview')
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null)
+  const [showNoteModal, setShowNoteModal] = useState(false)
+  const [noteText, setNoteText] = useState('')
+  const [showFullMessageModal, setShowFullMessageModal] = useState(false)
+  const [fullMessage, setFullMessage] = useState('')
 
   useEffect(() => {
     loadDashboardData()
@@ -1093,45 +1098,100 @@ const CEODashboard = () => {
 
                                     {/* Message */}
                                     {selectedLead.message && (
-                                      <div className="border-t pt-4 w-full">
-                                        <h3 className="text-lg font-semibold text-gray-900 mb-3 break-words">Message</h3>
-                                        <div className="bg-gray-50 p-4 rounded-lg w-full overflow-hidden">
-                                          <div className="w-full overflow-auto max-h-40 message-content">
-                                            <p className="text-gray-700">{selectedLead.message}</p>
+                                      <div className="bg-gray-50 rounded-lg p-4">
+                                        <h3 className="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                                          <MessageSquare className="h-4 w-4" />
+                                          Client Message
+                                        </h3>
+                                        <div className="bg-white border border-gray-200 rounded-lg p-4">
+                                          <div className="max-h-32 overflow-y-auto">
+                                            <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-wrap">
+                                              {selectedLead.message.length > 200 
+                                                ? `${selectedLead.message.substring(0, 200)}...` 
+                                                : selectedLead.message}
+                                            </p>
                                           </div>
+                                          {selectedLead.message.length > 200 && (
+                                            <button 
+                                              className="text-blue-600 hover:text-blue-800 text-xs mt-2 font-medium transition-colors"
+                                              onClick={() => {
+                                                setFullMessage(selectedLead.message);
+                                                setShowFullMessageModal(true);
+                                              }}
+                                            >
+                                              View full message
+                                            </button>
+                                          )}
                                         </div>
                                       </div>
                                     )}
 
-                                    {/* Metadata */}
-                                    <div className="border-t pt-4 w-full">
-                                      <h3 className="text-lg font-semibold text-gray-900 mb-3 break-words">Lead Information</h3>
-                                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm w-full">
-                                        <div className="w-full min-w-0">
-                                          <p className="text-gray-500 break-words">Source</p>
-                                          <p className="text-gray-900 break-words">{selectedLead.source}</p>
-                                        </div>
-                                        <div className="w-full min-w-0">
-                                          <p className="text-gray-500 break-words">Created</p>
-                                          <p className="text-gray-900 break-words">{formatDate(selectedLead.created_at)}</p>
-                                        </div>
-                                        <div className="w-full min-w-0">
-                                          <p className="text-gray-500 break-words">Last Updated</p>
-                                          <p className="text-gray-900 break-words">{formatDate(selectedLead.updated_at)}</p>
-                                        </div>
-                                        {selectedLead.website_url && (
-                                          <div className="w-full min-w-0">
-                                            <p className="text-gray-500 break-words">Website</p>
-                                            <a href={selectedLead.website_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline break-all overflow-wrap-anywhere">
-                                              {selectedLead.website_url}
-                                            </a>
+                                    {/* Lead Information */}
+                                    <div className="bg-gray-50 rounded-lg p-4">
+                                      <h3 className="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                                        <Calendar className="h-4 w-4" />
+                                        Lead Information
+                                      </h3>
+                                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div className="space-y-3">
+                                          <div className="flex items-center gap-3">
+                                            <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                              <TrendingUp className="h-4 w-4 text-blue-600" />
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                              <p className="text-xs text-gray-500 uppercase tracking-wide">Source</p>
+                                              <p className="text-gray-900 font-medium">{selectedLead.source}</p>
+                                            </div>
                                           </div>
-                                        )}
+                                          <div className="flex items-center gap-3">
+                                            <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                              <Calendar className="h-4 w-4 text-green-600" />
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                              <p className="text-xs text-gray-500 uppercase tracking-wide">Created</p>
+                                              <p className="text-gray-900 font-medium">{formatDate(selectedLead.created_at)}</p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div className="space-y-3">
+                                          <div className="flex items-center gap-3">
+                                            <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                              <Clock className="h-4 w-4 text-purple-600" />
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                              <p className="text-xs text-gray-500 uppercase tracking-wide">Last Updated</p>
+                                              <p className="text-gray-900 font-medium">{formatDate(selectedLead.updated_at)}</p>
+                                            </div>
+                                          </div>
+                                          {selectedLead.website_url && (
+                                            <div className="flex items-center gap-3">
+                                              <div className="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center">
+                                                <Globe className="h-4 w-4 text-indigo-600" />
+                                              </div>
+                                              <div className="flex-1 min-w-0">
+                                                <p className="text-xs text-gray-500 uppercase tracking-wide">Website</p>
+                                                <a 
+                                                  href={selectedLead.website_url} 
+                                                  target="_blank" 
+                                                  rel="noopener noreferrer" 
+                                                  className="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors break-all"
+                                                >
+                                                  {selectedLead.website_url}
+                                                </a>
+                                              </div>
+                                            </div>
+                                          )}
+                                        </div>
                                       </div>
                                     </div>
 
                                     {/* Action Buttons */}
-                                    <div className="border-t pt-4 flex gap-3">
+                                    <div className="bg-gray-50 rounded-lg p-4">
+                                      <h3 className="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                                        <Settings className="h-4 w-4" />
+                                        Quick Actions
+                                      </h3>
+                                      <div className="flex flex-col sm:flex-row gap-3">
                                       <Button 
                                         className="flex-1 bg-black hover:bg-gray-800 text-white"
                                         onClick={(e) => {
@@ -1184,18 +1244,16 @@ const CEODashboard = () => {
                                           e.preventDefault();
                                           e.stopPropagation();
                                           console.log('Add Note button clicked');
-                                          // For now, just show an alert. In a real app, this would open a note modal
-                                          const note = prompt('Add a note for this lead:');
-                                          if (note && note.trim()) {
-                                            console.log(`Note added for ${selectedLead.name}: ${note}`);
-                                            success('Note Added', 'Your note has been saved successfully!');
-                                          }
+                                          // Open note modal instead of prompt
+                                          setNoteText('');
+                                          setShowNoteModal(true);
                                         }}
                                         type="button"
                                       >
                                         <MessageSquare className="h-4 w-4 mr-2" />
                                         Add Note
                                       </Button>
+                                      </div>
                                     </div>
                                   </div>
                                 )}
@@ -1401,6 +1459,88 @@ const CEODashboard = () => {
            </TabsContent>
         </Tabs>
       </div>
+
+      {/* Note Modal */}
+      <Dialog open={showNoteModal} onOpenChange={setShowNoteModal}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <MessageSquare className="h-5 w-5" />
+              Add Note
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <label className="text-sm font-medium text-gray-700">
+                Note for {selectedLead?.name}
+              </label>
+              <Textarea
+                placeholder="Enter your note here..."
+                value={noteText}
+                onChange={(e) => setNoteText(e.target.value)}
+                className="mt-1"
+                rows={4}
+              />
+            </div>
+            <div className="flex gap-2 justify-end">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setShowNoteModal(false);
+                  setNoteText('');
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={() => {
+                  if (noteText.trim()) {
+                    console.log(`Note added for ${selectedLead?.name}: ${noteText}`);
+                    showSuccess('Note Added', 'Your note has been saved successfully!');
+                    setShowNoteModal(false);
+                    setNoteText('');
+                  } else {
+                    showWarning('Empty Note', 'Please enter a note before saving.');
+                  }
+                }}
+                disabled={!noteText.trim()}
+              >
+                Save Note
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Full Message Modal */}
+      <Dialog open={showFullMessageModal} onOpenChange={setShowFullMessageModal}>
+        <DialogContent className="max-w-2xl max-h-[80vh]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <MessageSquare className="h-5 w-5" />
+              Full Message from {selectedLead?.name}
+            </DialogTitle>
+          </DialogHeader>
+          <div className="mt-4">
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 max-h-96 overflow-y-auto">
+              <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-wrap">
+                {fullMessage}
+              </p>
+            </div>
+            <div className="flex justify-end mt-4">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setShowFullMessageModal(false);
+                  setFullMessage('');
+                }}
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
     </div>
   )
